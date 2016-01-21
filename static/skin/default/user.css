@@ -1,0 +1,84 @@
+html{
+    background:#F5F5F5;
+}
+.header{
+    width: 86%;
+    padding: 0.5em 7%;
+    background: #F5F5F5;
+}
+.header a{
+    font-size:1.3em;
+}
+.main{
+    width: 100%;
+    height: 15em;
+    padding-top: 4em;
+    background: #607D8B;
+}
+.login{
+    width:48%;
+    margin:0px auto;
+    box-shadow: 0 0 3px #888;
+    background: #FFF;
+}
+.loginbox{
+    width:90%;
+    padding:0 5%;
+    background: #777;
+    float:left;
+}
+.login-title{
+    width:90%;
+    padding: 1.3em 5%;
+}
+.login-input{
+    width:100%;
+    height: 3em;
+    line-height: 3em;
+    float:left;
+}
+.login-input label{
+    color:#FFF;
+    font-size:0.8em;
+}
+.login-input input[type="text"]{
+    width: 40%;
+    height: 3em;
+    line-height: 3em;
+    background: none;
+    border:0px;
+    color:#333;
+    float:left;
+     border-bottom: 1px solid #ddd;
+}
+
+.captcha-img{
+    float:left;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+#remember_me{
+
+}
+
+#login-submit{
+    width:40%;
+    height:35px;
+    line-height:35px;
+    text-align:center;
+    color:#FFF;
+    border:0px;
+    border-radius:3px;
+    box-shadow:1px 1px 2px #3B4E56;
+    background:#455A64;
+    float:left;
+}
+
+.login-copy{
+    width: 48%;
+    margin: 0 auto;
+    color:#aaa;
+    font-size: 1.2em;
+    padding: 1em 5%;
+}

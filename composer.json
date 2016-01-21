@@ -1,0 +1,31 @@
+{
+    "name": "half-life",
+    "description": "Just one personal web page",
+    "type": "php program",
+    "require": {
+        "nikic/fast-route": "^0.7.0",
+        "symfony/http-foundation": "^2.7",
+        "twig/twig": "^1.22",
+        "phpmailer/phpmailer": "^5.2",
+        "illuminate/database": "^5.2",
+        "monolog/monolog": "^1.17"
+    },
+    "autoload":{
+        "psr-4":{
+            "lOngmon\\Hau\\core\\":"var/",
+            "lOngmon\\Hau\\app\\":"app/",
+            "lOngmon\\Hau\\usr\\":"usr/"
+        },
+        "files":[
+            "var/Constants.php"
+        ]
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "longmon hau",
+            "email": "longmon.hau@gmail.com"
+        }
+    ],
+    "minimum-stability": "beta"
+}

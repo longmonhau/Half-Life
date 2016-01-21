@@ -1,0 +1,114 @@
+html{
+	background: #F8F8F8;
+}
+.contact-main{
+	width:700px;
+	margin: 0 auto;
+	margin-top: 5em;
+	clear: both;
+}
+.contact-logo{
+	width: 100%;
+	font-size: 1.4em;
+	height: 2.5em;
+	font-weight: bold;
+}
+.contact-box{
+	width: 660px;
+	padding: 15px 20px;
+	box-shadow: 0 0 6px #777;
+	float: left;
+	border-radius: 4px;
+	background: #FFF;
+}
+.contact-header{
+	width: 630px;
+	padding-left: 30px;
+	font-size: 1.1em;
+	font-weight: bold;
+	background: url(/static/skin/simple/images/ic_mail_black_24dp_1x.png) left no-repeat;
+}
+.contact-me-desc-words{
+	width: 660px;
+	float: left;
+	font-size: 0.9em;
+	color: #444;
+	margin-top: 1.3em;
+}
+.contact-me-avatar{
+	width: 45px;
+	float: left;
+}
+.contact-me-desc-word-span{
+	float: left;
+	width: 615px;
+}
+
+.contact-me-qq-email{
+	width: 600px;
+	float: left;
+	padding-left: 45px;
+	margin-top: 1.5em;
+}
+
+.contact-me-input{
+	width: 100%;
+	margin-bottom: 1em;
+}
+.contact-me-input-text{
+	width: 240px;
+	margin-right: 30px;
+	padding: 0 10px;
+	background: #FFF;
+	height: 2.3em;
+	line-height: 2.3em;
+	border-radius: 2px;
+	border:0px;
+	box-shadow: 0 0 3px #777;
+	font-size: 1.1em;
+}
+.contact-me-textarea{
+	width: 535px;
+	padding: 10px;
+	box-shadow: 0 0 3px #777;
+	height: 5em;
+	background: #FFF;
+	border:0px;
+	border-radius: 3px;
+	resize:none;
+	font-size: 1.2em;
+}
+.mail-icon-span{
+	width: 100%;
+	display: block;
+	height: 3em;
+	padding-top: 1em;
+	
+}
+.mail-icon-span-1{
+	margin-left: 1.5em;
+}
+.contact-msg-submit{
+	padding: 7px 15px;
+	background: #009C95;
+	border-radius: 3px;
+	box-shadow: 1px 1px 3px #999;
+	color: #FFF;
+	position: relative;
+	float: right;
+}
+.contact-msg-submit:hover{
+	color: #FFF;
+}
+.contact-msg-submit:active{
+	top:2px;
+}
+
+.contact-bottom{
+	width: 100%;
+	padding: 20px 0px;
+	float: left;
+	text-align: center;
+	margin-top: 3em;
+	color: #999;
+}

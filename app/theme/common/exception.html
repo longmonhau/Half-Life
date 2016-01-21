@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Exception caught!</title>
+	<style type="text/css">
+	*{
+		padding:0px;
+		margin:0px;
+	}
+	.main{
+		width: 100%;
+		float: left;
+	}
+	.header{
+		width: 96%;
+		float: left;
+		background: #0083D6;
+		box-shadow: 0 1px 3px #666;
+		padding: 0.5em 2%;
+		font-size: 2em;
+		color: #FFF;
+	}
+	.foot-meta{
+		width: 96%;
+		margin-top: 0.5em;
+		font-size: 1.3em;
+		color: #666;
+		padding: 0em 2%;
+		float: left;
+	}
+	</style>
+</head>
+<body>
+	<div class="main">
+		<div class="header">
+			{{message}}
+		</div>
+		<div class="foot-meta">
+			{{file_line}}
+		</div>
+	</div>
+</body>
+</html>
