@@ -25,6 +25,7 @@ class Dependency
 		self::$service = array(
 			"request"     => "lOngmon\Hau\core\http\Request",
 			"response"   => "lOngmon\Hau\core\http\Response",
+			"session"      => "lOngmon\Hau\core\http\Session",
 			"twig"           => "lOngmon\Hau\core\\template\TwigTemplate"
 		);
 

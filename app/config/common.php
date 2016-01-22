@@ -12,7 +12,7 @@ return [
 
 	"TEMPLATE-CACHE-DIR" => APP_PATH."/theme/compiled~",
 
-	"TEMPLATE-THEME" => "simple",
+	"TEMPLATE-THEME" => "blue",
 
 	"TEMPLATE-CACHE" => false,
 

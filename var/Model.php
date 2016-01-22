@@ -9,6 +9,8 @@ class Model extends Eloquent
 {
 	private static $database = [];
 
+	private static $modelHouse = [];
+
 	public static function initCache()
 	{
 		if( is_file(APP_PATH.'/config/database.php') )
@@ -28,10 +30,30 @@ class Model extends Eloquent
 		} else
 		{
 			Log::Error(" Config file \"".APP_PATH."/config/database.php\" dose not exist!");
+			throw new \Exception("Database configure file dose not exist", 1);
 		}
 	}
 
 	public function __Construct()
 	{		
+	}
+
+	public static function make( $name )
+	{
+		if( isset(self::$modelHouse[$name]) )
+		{
+			return self::$modelHouse[$name];
+		}
+
+		$model_namespace = "lOngmon\Hau\usr\model";
+		$modelName = $model_namespace.'\\'.$name.'Model';
+		
+		if( class_exists( $modelName ) )
+		{
+			return self::$modelHouse[$name] = new $modelName;
+		} else
+		{
+			return new static();
+		}
 	}
 }

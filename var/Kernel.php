@@ -24,15 +24,17 @@ class Kernel
 
         		set_exception_handler( array(__CLASS__, 'panic') );
 
-        		$redis = tRedis::newInstance();
+        		tRedis::newInstance();
 
-        		Route::initCacheRoute( $redis );
+        		Route::initCacheRoute();
 
         		Config::init();
 
         		Dependency::initCache();
 
         		Model::initCache();
+
+        		Factory::make( "session" )->start();
 
 		$self = new static();
 		$self->route = Route::newInstance();

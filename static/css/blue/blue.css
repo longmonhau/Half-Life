@@ -1,0 +1,223 @@
+html{
+	background: url(/static/css/blue/img/htmlbg.$5752.png) repeat;
+}
+.index-header{
+	width: 94%;
+	padding: 2em 3%;
+	background: #347F82;
+	box-shadow: 0 1px 2px #888;
+}
+.index-header-top{
+	width:1100px;
+	margin: 0 auto;
+}
+.index-header-top-logo{
+	width:100%;
+	float: left;
+}
+
+.index-header-top-logo a{
+	font-size: 3.2em;
+	color: #FFF;
+}
+.index-header-desc{
+	width: 100%;
+	padding: 0.3em 0;
+	color: #DDD;
+	float: left;
+}
+.index-main{
+	width: 1100px;
+	margin:  0 auto;
+	margin-top: 3em;
+}
+.index-main-left{
+	width: 68%;
+	float: left;
+}
+.index-main-right{
+	width:27%;
+	float: right;
+}
+
+.index-main-post{
+	width: 100%;
+}
+.index-main-post-list{
+	width: 90%;
+	padding: 2em 5%;
+	float: left;
+	background: #FFF;
+	border-radius: 3px;
+	box-shadow: 0 0 3px #DEDEDE;
+	margin-bottom: 2.5em;
+}
+.index-main-post-list-title{
+	width: 100%;
+	text-align: center;
+}
+.index-main-post-list-title a{
+	font-size: 1.8em;
+	color: #347F82;
+}
+
+.index-main-post-list-meta{
+	width: 100%;
+	text-align: center;
+	margin-top: 1em;
+	height: 2em;
+	line-height: 2em;
+	float: left;
+}
+.index-main-post-meta-div{
+	margin: 0 auto;
+	width: 12em;
+}
+.index-main-post-list-meta img{
+	float: left;
+}
+.index-main-post-list-meta span{
+	height: 2em;
+	line-height: 2em;
+	width: 10em;
+	display: block;
+	float: left;
+	color: #999;
+}
+
+.index-main-post-list-summary{
+	width: 100%;
+	float: left;
+	margin-top: 1em;
+	font-size: 1.15em;
+	line-height: 2em;
+	color: #555;
+}
+
+.index-main-post-list-summary img{
+	float: left;
+	max-width: 100%;
+	margin-bottom: 0.6em;
+}
+.index-main-post-list-read-more{
+	width: 100%;
+	float: left;
+	padding: 1.5em 0;
+	border-bottom: 1px solid #DEDEDE;
+	padding-bottom: 2em;
+}
+.index-main-post-list-read-more a{
+	padding: 0.5em 1.5em;
+	background: #FF7788;
+	border-radius: 3px;
+	color: #FFF;
+	font-size: 1.05em;
+}
+.index-main-post-list-read-more a:hover{
+	color: #FFF;
+}
+.index-main-post-list-tags{
+	width: 100%;
+	float: left;
+	padding-top:1.4em;
+}
+
+.index-main-post-list-tags a{
+	float: left;
+	color: #FFF;
+	margin-right: 1em;
+	padding: 0.4em 1em;
+	background: #347F82;
+	border-radius: 3px;
+}
+
+.index-main-postmore{
+	width: 100%;
+	float: left;
+}
+
+.index-main-copy{
+	width: 100%;
+	float: left;
+	padding-bottom: 2.2em;
+	color: #AAA;
+}
+
+.index-main-right-div{
+	width: 80%;
+	float: left;
+	padding: 2em 10%;
+	background: #FFF;
+	border-radius: 3px;
+	box-shadow: 0 0 2px #CDCDCD;
+	margin-bottom: 2em;
+}
+.index-main-right-div-title{
+	width: 100%;
+	float: left;
+	border-bottom: 1px solid #EDEFED;
+	margin-bottom: 1em;
+}
+.index-main-right-div-title a{
+	padding-bottom: 10px;
+	font-weight: bold;
+	font-size: 1em;
+	width: 40%;
+	border-bottom: 1px solid #FF7788;
+	float: left;
+	color: #454545;
+}
+
+.index-search-input{
+	width: 80%;
+	padding: 0 15%;
+	padding-right: 5%;
+	height: 2.1em;
+	line-height: 2.1em;
+	border-radius: 3px;
+	background: #FFF url(/static/css/blue/img/ic_search_grey_24dp_1x.png) 6px 5px no-repeat;
+	box-shadow: 1px 1px 1px #AAA inset;
+	border:0px;
+	border-bottom: 1px solid #DDD;
+	border-right: 1px solid #DDD;
+}
+
+.index-main-right-div-ul{
+	width: 100%;
+	float: left;
+}
+
+.index-main-right-div-ul ul li{
+	width: 90%;
+	padding: 0 5%;
+	font-size: 0.9em;
+	height: 2.5em;
+	line-height: 2.5em;
+	float: left;
+	border-radius: 2px;
+	box-shadow: 0px 0px 2px #DEDEDE inset;
+	background: #F7F7F7;
+}
+.index-main-right-div-ul ul li a{
+	float: left;
+	width: 100%;
+}
+.index-main-right-div-ul ul li span{
+	float: right;
+	color: #AAA;
+}
+
+.index-main-cloud-a a{
+	padding: 0.3em 1em;
+	border-radius: 2px;
+	background: #2FE2BF;
+	margin-right: 0.4em;
+	margin-bottom: 0.4em;
+	float: left;
+	color: #444;
+	font-size: 0.9em;
+}
+.index-main-right-div-ul-page ul li a{
+	width: 100%;
+	float: left;
+}

@@ -2,7 +2,7 @@
 
 use lOngmon\Hau\core\Model;
 
-class User extends Model
+class UserModel extends Model
 {
 	protected $table = "users";
 

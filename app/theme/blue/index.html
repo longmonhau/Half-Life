@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{%block title%}{{site.name}}{%endblock%}</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/hl.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/blue/blue.css">
+</head>
+<body>
+	<div class="index-header">
+		<div class="index-header-top">
+			<div class="index-header-top-logo"><a href="">{{site.name|default("longmon Hau")}}</a></div>
+			<div class="index-header-desc">{{site.desc|default("此刻，我多想拥抱你，可惜时光之里山南水北，可惜你我中间人来人往")}}</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="index-main">
+		<div class="index-main-left">
+			<div class="index-main-post">
+				{%for post in posts %}
+				<div class="index-main-post-list">
+					<div class="index-main-post-list-title"><a href="">人生苦短,弥足珍贵,不执着,不强求.随缘是福,平淡是福</a></div>
+					<div class="index-main-post-list-meta">
+						<div class="index-main-post-meta-div">
+							<img src="http://www.gravatar.com/avatar/{{"1307995200@qq.com"|md5}}" class="small-avatar"/>
+							<span>2015年12月04日</span>
+						</div>
+					</div>
+					<div class="index-main-post-list-summary">
+						<img src="/static/images/tt.jpg" />
+						上天是公平的.他不想给你意外的惊喜,也许是因为他不想从你身边带走什么.他不想给你想要的,可能他是想给你更多的.
+						也许是在经历过生死考量,聚散离合之后才真正明白:生命没有所谓的唯一,没有所谓的命中注定.
+						人生无常,聚散无常,得失无常.我们所拥有的当下是逝者不能奢求的明天,是未来的我们回不去的昨天.
+						人生苦短,弥足珍贵,不执着,不强求.随缘是福,平淡是福.
+					</div>
+					<div class="index-main-post-list-read-more">
+						<a href="">阅读全文</a>
+					</div>
+					<div class="index-main-post-list-tags">
+						<a href="">PHP</a>
+						<a href="">MYSQL</a>
+						<a href="">SCALA</a>
+					</div>
+				</div>
+				{%endfor%}
+			</div>
+			<div class="index-main-postmore"></div>
+			<div class="index-main-copy">
+				Copyright(c) 2015 zxfc.in Powered by Half-Life
+			</div>
+		</div>
+		<div class="index-main-right">
+			<div class="index-main-right-div">
+				<div class="index-main-right-div-title">
+					<a href="javascript:;">搜索一下</a>
+				</div>
+				<input name="search_input" value=""  class="index-search-input" placeholder="search ... "/>
+			</div>
+
+			<div class="index-main-right-div">
+				<div class="index-main-right-div-title">
+					<a href="javascript:;">文章分类</a>
+				</div>
+				<div class="index-main-right-div-ul">
+					<ul>
+						<li><a href="javascript:;">PHP<span>(24)</span></a></li>
+						<li><a href="javascript:;">MySQL<span>(24)</span></a></li>
+						<li><a href="javascript:;">Scala<span>(24)</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="index-main-right-div">
+				<div class="index-main-right-div-title">
+					<a href="javascript:;">标签云</a>
+				</div>
+				<div class="index-main-right-div-ul index-main-cloud-a">
+					<a href="">HPH</a>
+					<a href="">MVVM</a>
+					<a href="">NOSQL</a>
+					<a href="">NOSQL</a>
+					<a href="">NOSQL</a>
+				</div>
+			</div>
+
+			<div class="index-main-right-div">
+				<div class="index-main-right-div-title">
+					<a href="javascript:;">页面</a>
+				</div>
+				<div class="index-main-right-div-ul index-main-right-div-ul-page">
+					<ul>
+						<li><a href="/admin/entrance.html">登陆</a></li>
+						<li><a href="javascript:;">私信</a></li>
+						<li><a href="javascript:;">源码&nbsp;(Github.com)</a></li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>
