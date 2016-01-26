@@ -1,6 +1,6 @@
 <?php
 
-$dsn = 'mysql:host=127.0.0.1;dbname=Half_Life;';
+$dsn = 'mysql:host=127.0.0.1;dbname=halflife;';
 
 $pdo = new PDO( $dsn , "longmon", "123456" );
 
@@ -45,8 +45,11 @@ foreach ($create_table as $table => $sql) {
 }
 
 $now = date("Y-m-d H:i:s");
-$insert = 'insert into users(`name`,`sname`,`email`,`role`,`passwd`,`created_at`, `updated_at`, `last_login_at`, `last_login_ip`) values("longmon","lOngmon Hau","1307995200@qq.com",1, "'.password_hash("123456", PASSWORD_DEFAULT).'", now(),now(),now(),'.ip2long("127.0.0.1").');';
+$insert = 'insert ignore into users(`name`,`sname`,`email`,`role`,`passwd`,`created_at`, `updated_at`, `last_login_at`, `last_login_ip`) values("longmon","lOngmon Hau","1307995200@qq.com",1, "'.password_hash("kiss", PASSWORD_DEFAULT).'", now(),now(),now(),'.ip2long("127.0.0.1").');';
 
 $in = $pdo->query( $insert );
 
-var_dump($in);
+if( !is_dir("app/log") )
+{
+	mkdir("app/log",0777,true);
+}

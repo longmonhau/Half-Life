@@ -13,18 +13,28 @@ class Control
 		$this->response = Factory::make("response");
 	}
 
-	public function assign( $key, $val)
+	protected function assign( $key, $val)
 	{
 		$this->tpl_vars[$key] = $val;
 	}
 
-	public function display( $html )
+	protected function display( $html )
 	{
 		return $this->response->toHtml( $html, $this->tpl_vars );
 	}
 
+	protected function renderJson( $arr )
+	{
+		return $this->response->toJson( $arr );
+	}
+
+	protected function renderString( $str )
+	{
+		return $this->response->toString( $str );
+	}
+
 	public function notFound()
 	{
-		$this->render("error.html");
+		$this->display("error.html");
 	}
 }

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/hl.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/blue/u.css">
+</head>
+<body>
+	<div class="log-main">
+		<div class="lmain-box">
+			<input type="text" name="lmain_name" class="log-name" value="" />
+			<input type="password" name="lmain_passwd" class="log-passwd" value="" />
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$(".log-passwd").keypress(function(evt){
+			if( evt.keyCode == 13 )
+			{
+				var log = {};
+				log.name = $(".log-name").val();
+				log.passwd = $(".log-passwd").val();
+				if( log.name == '' )
+				{
+					alert("Username can not be blank!");
+					return;
+				}
+				if( log.passwd == '' )
+				{
+					alert("Password can not be blank!");
+					return;
+				}
+				$.ajax({
+					url:"/admin/login.submit",
+					data:log,
+					type:"post",
+					dataType:"json",
+					error:function(error, errstr)
+					{
+						alert(errstr);
+					},
+					success:function(ret)
+					{
+						
+						if( ret.code == 200 )
+						{
+							location.href=ret.go_url;
+							return;
+						} else {
+							alert(ret.errmsg);
+						}
+					}
+				});
+			}
+		});
+	});
+</script>
+</html>

@@ -3,7 +3,7 @@
 return [
 	"URL-SUFFIX" => [".html",".htm",".xhtml"],
 	
-	"LOG-PATH"    => APP_PATH.'/Log/'.date("Y-m-d"),
+	"LOG-PATH"    => APP_PATH.'/log/'.date("Y-m-d"),
 
 	//========== template setting ===========
 	"TEMPLATE-ENGINE" => "twig",

@@ -21,8 +21,12 @@ class Response
 		$this->response->send();
 	}
 
-	public function toJson( array $arr )
+	public function toJson( $arr )
 	{
+		if( !(is_array( $arr ) || is_object( $arr ) ) )
+		{
+			$arr = ["_content"=>$arr];
+		}
 		$this->response->headers->set("Content-Type","application/json");
 		$this->response->setContent( json_encode( $arr, JSON_UNESCAPED_UNICODE ) );
 		$this->response->send();

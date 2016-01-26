@@ -2,19 +2,17 @@
 
 use Symfony\Component\HttpFoundation\Session\Session as SymfonySession;
 
-class Session
+class Session extends SymfonySession
 {
-	private $session = NULL;
+	private static $instance = NULL;
 
 	public static function newInstance()
 	{
-		$self = new static();
-		$self->session = new SymfonySession();
-		return $self;
-	}
-
-	public function start()
-	{
-		$this->session->start();
+		if( self::$instance != NULL )
+		{
+			return self::$instance;
+		}
+		self::$instance = new static();
+		return self::$instance;
 	}
 }

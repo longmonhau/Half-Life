@@ -19,22 +19,22 @@ class Kernel
 	{
 		if ( version_compare( PHP_VERSION, 5.5, "<" ) ) 
 		{
-            			exit( "PHP required 5.5+" );
-        		}
+    			exit( "PHP required 5.5+" );
+		}
 
-        		set_exception_handler( array(__CLASS__, 'panic') );
+		set_exception_handler( array(__CLASS__, 'panic') );
 
-        		tRedis::newInstance();
+		tRedis::newInstance();
 
-        		Route::initCacheRoute();
+		Route::initCacheRoute();
 
-        		Config::init();
+		Config::init();
 
-        		Dependency::initCache();
+		Dependency::initCache();
 
-        		Model::initCache();
+		Model::initCache();
 
-        		Factory::make( "session" )->start();
+		Factory::make( "session" )->start();
 
 		$self = new static();
 		$self->route = Route::newInstance();
@@ -55,11 +55,11 @@ class Kernel
 
 	private function execute( $route )
 	{
+		$ctrl = new $route["controller"];
+
 		if( method_exists( $route["controller"], $route["action"]) )
 		{
 			if( isset( $route['midware'] ) ) $this->midWare( $route['midware'] );
-
-			$ctrl = new $route["controller"];
 
 			if( isset($route['param']) )
 			{
@@ -70,7 +70,7 @@ class Kernel
 			}
 		} else 
 		{
-			return call_user_func( [$route['controller'], "notFound"]);
+			return call_user_func( [$ctrl, "notFound"]);
 		}
 	}
 

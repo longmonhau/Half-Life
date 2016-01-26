@@ -31,7 +31,7 @@ class Route
 		$self->fastRoute = \FastRoute\SimpleDispatcher(function( \FastRoute\RouteCollector $R){
 			foreach (self::$route_array as $name=>$route) 
 			{
-				$R->addRoute($route[0], $route[1], $route[2]);
+				$R->addRoute($route[0], strtolower($route[1]), $route[2]);
 			}
 		});
 		return $self;
@@ -64,7 +64,7 @@ class Route
 		}
 	}
 
-	private function _dispatch( $callback, array $param = [] )
+	private function _dispatch( $callback, array $param = array() )
 	{
 		$route_result = [];
 		if( is_array($callback) ){
@@ -83,5 +83,16 @@ class Route
 		}
 		$route_array['param'] = $param;
 		return $route_result;
+	}
+
+	public static function getRouteUri( $name )
+	{
+		if( isset(self::$route_array[$name] ) )
+		{
+			return self::$route_array[$name];
+		} else
+		{
+			return null;
+		}
 	}
 }

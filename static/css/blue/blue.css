@@ -173,13 +173,11 @@ html{
 	padding: 0 15%;
 	padding-right: 5%;
 	height: 2.1em;
-	line-height: 2.1em;
+	line-height: 2.2em;
 	border-radius: 3px;
 	background: #FFF url(/static/css/blue/img/ic_search_grey_24dp_1x.png) 6px 5px no-repeat;
-	box-shadow: 1px 1px 1px #AAA inset;
+	box-shadow: 1px 1px 1px #AAA;
 	border:0px;
-	border-bottom: 1px solid #DDD;
-	border-right: 1px solid #DDD;
 }
 
 .index-main-right-div-ul{
@@ -219,5 +217,15 @@ html{
 }
 .index-main-right-div-ul-page ul li a{
 	width: 100%;
+	float: left;
+}
+
+.index-main-right-div-nopadding{
+	width: 100%;
+}
+
+.index-right-slibar-pic{
+	width: 100%;
+	border-radius: 10px;
 	float: left;
 }

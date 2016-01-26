@@ -1,0 +1,29 @@
+.log-main{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background: url(/static/css/blue/img/FDD58F58AA91F035831D617A27AA9836_898_598.JPEG) bottom no-repeat;
+	background-size: 100%;
+}
+.lmain-box{
+	width: 250px;
+	margin:0px auto;
+	position: fixed;
+	top:50%;
+	left: 50%;
+	margin-left: -125px;
+}
+
+.lmain-box input{
+	width: 230px;
+	padding: 0 10px;
+	height: 2em;
+	line-height: 2em;
+	font-size: 1.2em;
+	border:0px;
+	border-bottom: 1px solid #aaa;
+	background: none;
+	margin-bottom: 1em;
+	text-align: center;
+	color: #888;
+}

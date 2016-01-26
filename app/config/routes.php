@@ -3,7 +3,11 @@
 return [
 	"index" => ["GET","/", ["Index","index"]],
 
-	"blog" => ['GET',"/blog/{slug}",["Blog","view"]],
+	['GET',"/blog/{slug}",["Blog","view"]],
 
-	"sign" => ["GET","/admin/entrance", ["User", "signin"]]
+	"sign" => ["GET","/admin/entrance", ["admin\User", "sign"]],
+
+	'login'=> ['POST','/admin/login.submit',["admin\User","login"]],
+
+	"dashBoard" => ['GET',"/Admin/dashBoard",["admin\DashBoard","index",["auth"]]]
 ];

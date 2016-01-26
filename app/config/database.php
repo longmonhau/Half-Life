@@ -2,7 +2,7 @@
 return  [
     'driver'    	=> 'mysql',
     'host'      	=> 'localhost',
-    'database'  	=> 'Half_Life',
+    'database'  	=> 'halflife',
     'username'  	=> 'longmon',
     'password'  	=> '123456',
     'charset'   	=> 'utf8',
