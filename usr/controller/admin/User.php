@@ -42,6 +42,8 @@ class User extends Control
     		}
 
     		tSession::login( $userObj, $request->server->get("HTTP_USER_AGENT") );
+            $this->updateLoginInfo( $userObj, $request->server->get("REMOTE_ADDR"));
+
     		$goRoute = Route::getRouteUri("dashBoard");
     		return $this->renderJson(['code'=>200,'errmsg'=>'ok', 'go_url'=> $goRoute[1] ]);
 
@@ -50,4 +52,11 @@ class User extends Control
     	}
 		
 	}
+
+    private function updateLoginInfo( $userModel, $remote_ip )
+    {
+        $userModel->last_login_at = date("Y-m-d H:i:s");
+        $userModel->last_login_ip = ip2long( $remote_ip );
+        $userModel->save();
+    }
 }

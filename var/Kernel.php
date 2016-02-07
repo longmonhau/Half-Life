@@ -63,7 +63,7 @@ class Kernel
 
 			if( isset($route['param']) )
 			{
-				return call_user_func( [$ctrl, $route["action"] ], $route['param'] );
+				return call_user_func_array( [$ctrl, $route["action"] ], $route['param'] );
 			} else
 			{
 				return call_user_func( [$ctrl, $route["action"] ]);
@@ -78,7 +78,7 @@ class Kernel
 	{
 		foreach ($midwares as $name) 
 		{
-			if( $midware = Dependency::getMidWare( $name ) )
+			if( $midware = Dependency::MidWare( $name ) )
 			{
 				return $midware->run();
 			} else

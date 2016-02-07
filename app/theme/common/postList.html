@@ -1,0 +1,142 @@
+{%extends "dashBoard.html"%}
+{%block title%}
+Posts List
+{%endblock%}
+
+{%block bashheader%}
+<div class="bashheader-title">Post List | {{_login_cookie_key}} </div>
+{%endblock%}
+
+{%block bashmain%}
+<div class="bash-main-div-left">
+	<div class="bmdl-post-list-table">
+		<div class="bmdl-post-list-table-title">
+			<input type="checkbox" name="post-list-selected-all" value="1" id="post-list-selected-all" />
+			<label for="post-list-selected-all">All</label>
+			<a href="javascript:;">Delete selected</a>
+			<a href="javascript:;">Show all</a>
+		</div>
+		<div class="bmdl-post-list-table-row">
+			<div class="bmdl-post-list-table-row-div">
+				{%for p in postList%}
+				<div class="bmdl-post-list-div">
+					<input type="checkbox" name="bmdl-list-post-selected" value="{{p.id}}" class="bmdl-post-list-div-checkbox"/>
+					<a target="_blank" href="/Blog/{{p.url}}.html" class="bmdl-post-list-div-read">
+					{{p.title}}
+					</a>
+					<a href="javascript:;" pid="{{p.id}}" class="bmdl-post-list-div-ac">Del</a>
+					<a href="/Admin/Post/Edit.html?pid={{p.id}}" class="bmdl-post-list-div-ac">Edit</a>
+				</div>
+				{%endfor%}
+			</div>
+			<div class="bmdl-post-list-nav">
+				<div class="bmdl-post-list-nav-div">
+					{%for p in pageNav%}
+					<a href="javascript:;">{{p}}</a>
+					{%endfor%}
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="bash-main-div-right">
+	<div class="bmdr-div">
+		<div class="bmdr-div-header">Category</div>
+		<div class="bmdr-div-box bmdr-div-box-category-list">
+			{%for cate in Category%}
+			<li><a href="javascript:;" cateid="{{cate.categoryId}}">{{cate.title}}<span>({{cate.postNum}})</span></a></li>
+			{%endfor%}
+		</div>
+	</div>
+	<div class="bmdr-div">
+		<div class="bmdr-div-header">Tags</div>
+		<div class="bmdr-div-box admin-tags-cloud ">
+			{%for tag in tags%}
+			<a href="/Tags/{{tag}}">{{tag}}</a>
+			{%endfor%}
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+{%endblock%}
+{%block bashscript%}
+<script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+	var currentPage = 1;
+	$(function(){
+		$(".bmdl-post-list-nav-div a").eq(0).addClass("current-nav-div");
+		$(".bmdl-post-list-nav-div a").click(function(){
+			var p = {};
+			p.page = $(this).text();
+			if(p.page == currentPage )
+			{
+				return;
+			}
+			currentPage = p.page;
+			$(this).addClass("current-nav-div").siblings().removeClass("current-nav-div");
+			$.post("/Admin/Post/more", p, function(ret){
+				if( ret.code == 200 )
+				{
+					var pList = ret.postList;
+					var PLHtml = '';
+					var plen = pList.length;
+					for( var i = 0; i<plen; i++ )
+					{
+						p = pList[i];
+						PLHtml += '<div class="bmdl-post-list-div">'
+								+'<input type="checkbox" name="bmdl-list-post-selected" value="'+p.id+'" class="bmdl-post-list-div-checkbox"/>'
+								+'<a target="_blank" href="/Blog/'+p.url+'.html" class="bmdl-post-list-div-read">'
+								+p.title
+								+'</a><a href="javascript:;" pid="'+p.id+'" class="bmdl-post-list-div-ac">Del</a>'
+								+'<a href="/Admin/Post/Edit.html?pid='+p.id+'" class="bmdl-post-list-div-ac">Edit</a></div>';
+					}
+					$(".bmdl-post-list-table-row-div").html(PLHtml);
+				}
+			},"json");
+		});
+
+		$(".bmdl-post-list-table-row-div").on("click",".bmdl-post-list-div-ac",function(){
+			var _this = $(this);
+			var pid = $(this).attr("pid");
+			$.ajax({
+				url:"/Admin/Post/Del",
+				data:{"postId":pid},
+				type:"post",
+				dataType:"json",
+				error:function(error,errStr)
+				{
+					alert(errStr);
+				},
+				success:function( resp )
+				{
+					console.log(resp);
+					if( resp.code == 200 )
+					{
+						_this.parent().remove();
+						loadCategory();
+					}
+				}
+			});
+		});
+
+	});
+
+	function loadCategory()
+	{
+		$.post("/AjaxLoadCategory",function(resp){
+			if( resp.code == 200 )
+			{
+				var categories = resp.categories;
+				var CateListHtml = '';
+				for( var k in categories )
+				{
+					var category = categories[x1k];
+					CateListHtml += '<li><a href="javascript:;" cateid="'+category+'">'+category.title+'<span>('+category.postNum+')</span></a></li>';
+				}
+				$(".bmdr-div-box-category-list").html(CateListHtml);
+			}
+		},"json");
+	}
+</script>
+{%endblock%}

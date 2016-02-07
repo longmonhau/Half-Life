@@ -23,8 +23,12 @@ class Control
 		return $this->response->toHtml( $html, $this->tpl_vars );
 	}
 
-	protected function renderJson( $arr )
+	protected function renderJson( $arr, $val = NULL )
 	{
+		if( $val )
+		{
+			$arr = ["code"=>$arr, "errmsg"=>$val];
+		}
 		return $this->response->toJson( $arr );
 	}
 

@@ -15,4 +15,9 @@ class UserModel extends Model
     {
         return $this->where("name", $name)->first();
     }
+
+    public function getAdmin()
+    {
+    	return $this->find(1);
+    }
 }

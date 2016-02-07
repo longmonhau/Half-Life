@@ -1,6 +1,7 @@
 <?php namespace lOngmon\Hau\core\http;
 
 use lOngmon\Hau\core\component\tRedis;
+use lOngmon\Hau\core\Factory;
 
 class Route
 {
@@ -81,7 +82,7 @@ class Route
 				$route_result['action'] = "_40x";
 			}
 		}
-		$route_array['param'] = $param;
+		$route_result['param'] = $param;
 		return $route_result;
 	}
 
@@ -94,5 +95,16 @@ class Route
 		{
 			return null;
 		}
+	}
+
+	public static function redirect( $name )
+	{
+		if( isset( self::$route_array[$name] ) )
+		{
+			$route = self::$route_array[$name];	
+			$name = $route[1];
+		}
+		header("HTTP 1.1/ 301");
+		header("location: ". $name );
 	}
 }

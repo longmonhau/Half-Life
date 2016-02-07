@@ -32,6 +32,7 @@ class TwigTemplate implements TemplateInterface
 		$this->twig = new \Twig_Environment( $loader, $option );
 		$this->twig->addFilter($this->summary());
 		$this->twig->addFilter($this->md5());
+		$this->twig->addFilter($this->explode());
 	}
 
 	public function display( $html )
@@ -65,6 +66,14 @@ class TwigTemplate implements TemplateInterface
 	{
 		$filter = new \Twig_SimpleFilter("md5", function( $content ){
 			return md5( $content );
+		});
+		return $filter;
+	}
+
+	private function explode()
+	{
+		$filter = new \Twig_SimpleFilter("explode", function( $str, $delim ){
+			return explode($delim, $str);
 		});
 		return $filter;
 	}

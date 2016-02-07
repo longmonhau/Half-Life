@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{%block title%}DashBoard{%endblock%} | Half-Life</title>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" type="text/css" href="/static/css/hl.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/bash.css">
+</head>
+<body>
+	<div class="bash-header">
+		<div class="bash-header-logo">
+			Half-Life
+		</div>
+		<div class="bash-header-nav">
+			{%block bashheader%}
+				概览
+			{%endblock%}
+		</div>
+	</div>
+	<div class="bash-main">
+		<div class="bash-main-slide">
+			<div class="bms-user">
+				<div class="bms-user-avatar-div">
+					<img src="/static/images/mm_.jpeg" class="medium-avatar bms-user-avatar">
+				</div>
+				<div class="mbs-user-name">
+					<span class="mbs-user-name-name">longmon</span>
+					<span class="mbs-user-name-job">A PHPer</span>
+				</div>
+			</div>
+			<div class="bash-main-slide-nav">
+				<div class="bash-main-side-nav-div">
+					<a href="/Admin/dashBoard.html">概览</a>
+				</div>
+				<div class="bash-main-side-nav-div dash-main-current-nav">
+					<a href="/Admin/Post/List.html">文章</a>
+				</div>
+				<div class="bash-main-side-nav-collape">
+					<a href="/Admin/Post/Edit.html">New</a>
+					<a href="/Admin/Post/Draft.html">Draft</a>
+					<a href="/Admin/Category.html">Category</a>
+				</div>
+				<div class="bash-main-side-nav-div">
+					<a href="javascript:;">附件</a>
+				</div>
+				<div class="bash-main-side-nav-div">
+					<a href="javascript:;">Charts</a>
+				</div>
+				<div class="bash-main-side-nav-div">
+					<a href="javascript:;">设置</a>
+				</div>
+			</div>
+		</div>
+		<div class="bash-main-div">
+			{%block bashmain%}
+			<div class="bash-main-div-left">
+				<div class="bash-main-div-chart">
+					<div class="bash-main-div-chart-div visitor-statistics-photograph">
+						New Visitors
+						<span>120k</span>
+					</div>
+					<div class="bash-main-div-chart-sperat"></div>
+					<div class="bash-main-div-chart-div post-statistics-photograph">
+						Posts
+						<span>{{totalPostNum}}</span>
+					</div>
+					<div class="bash-main-div-chart-sperat"></div>
+					<div class="bash-main-div-chart-div category-statistics-photograph">
+						Category
+						<span>{{totalCategoryNum}}</span>
+					</div>
+					<div class="bash-main-div-chart-sperat"></div>
+					<div class="bash-main-div-chart-div comment-statistics-photograph">
+					Comments<span>{{totalCommentNum}}</span>
+					</div>
+				</div>
+				<div class="bash-main-div-todo">
+					<div class="bash-main-div-todo-table-title">Pending tasks</div>
+					<div class="bash-main-div-todo-table-row">
+						{%for draft in draftList%}
+						<li><span>{{draft.title}}</span><a href="javascript:;" pid="{{draft.id}}">DEL</a><a href="/Admin/Post/Edit.html?pid={{draft.id}}">Edit</a></li>
+						{%else%}
+							<li>No pending task!</li>
+						{%endfor%}
+					</div>
+				</div>
+			</div>
+			<div class="bash-main-div-right">
+				<div class="bmdr-div-list">
+					<div class="bmdr-div-list-title">
+						<a href="" style="float:left;font-weight:bold;">Feeds ({{feedCount}})</a>
+						&nbsp;
+						<a href="">Reflesh</a>
+					</div>
+					{%for feed in feeds %}
+					<div class="bmdr-div-list-ul">
+						<div class="bmdr-div-list-avatar">
+							<img src="http://www.gravatar.com/avatar/{{feed.gravatar}}" class="big-avatar" />
+						</div>
+						<div class="bmdr-div-list-msg">
+							<div class="bmdr-div-list-msg-title">
+								<a href="javascript:;">{{feed.name}}</a>
+								<span>{{feed.humanLookTime}}</span>
+							</div>
+							<div class="bmdr-div-list-msg-summary">
+								{{feed.content}}
+							</div>
+						</div>
+					</div> 
+					{%else%}
+					<div class="bmdr-div-list-ul">No feed yet!</div>
+					{%endfor%}
+				</div>
+			</div>
+			{%endblock%}
+		</div>
+	</div>
+</body>
+{%block bashscript%}{%endblock%}
+</html>

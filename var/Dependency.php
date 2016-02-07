@@ -23,10 +23,10 @@ class Dependency
 	private static function serviceRegistry()
 	{
 		self::$service = array(
-			"request"     => "lOngmon\Hau\core\http\Request",
-			"response"   => "lOngmon\Hau\core\http\Response",
-			"session"      => "lOngmon\Hau\core\http\Session",
-			"twig"           => "lOngmon\Hau\core\\template\TwigTemplate"
+			"request" 	=> "lOngmon\Hau\core\http\Request",
+			"response"	=> "lOngmon\Hau\core\http\Response",
+			"session"   => "lOngmon\Hau\core\http\Session",
+			"twig"      => "lOngmon\Hau\core\\template\TwigTemplate"
 		);
 
 		foreach ( self::$service as $name => $service ) 
@@ -38,7 +38,8 @@ class Dependency
 	private static function midWareRegistry()
 	{
 		self::$midware = array(
-
+			"auth" 				=> "lOngmon\Hau\usr\midware\auth",
+			"CommentTimeLimit" 	=> "lOngmon\Hau\usr\midware\CommentTimeLimit"
 		);
 
 		foreach (self::$midware as $name => $midware) 
@@ -59,7 +60,7 @@ class Dependency
 		return $service;
 	}
 
-	public static function getMidWare( $name )
+	public static function MidWare( $name )
 	{
 		if( !$midware = tRedis::hget( "midWareCache", $name ) )
 		{
@@ -68,6 +69,12 @@ class Dependency
 				$midware = self::$midware[$name];
 			}
 		}
-		return $midware;
+		if( $midware )
+		{
+			return new $midware;
+		} else
+		{
+			return null;
+		}
 	}
 }

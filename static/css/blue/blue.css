@@ -50,7 +50,7 @@ html{
 	background: #FFF;
 	border-radius: 3px;
 	box-shadow: 0 0 3px #DEDEDE;
-	margin-bottom: 2.5em;
+	margin-bottom: 1.5em;
 }
 .index-main-post-list-title{
 	width: 100%;
@@ -99,6 +99,9 @@ html{
 	max-width: 100%;
 	margin-bottom: 0.6em;
 }
+.index-main-post-list-summary p{
+	font-size: 1em;
+}
 .index-main-post-list-read-more{
 	width: 100%;
 	float: left;
@@ -129,6 +132,144 @@ html{
 	padding: 0.4em 1em;
 	background: #347F82;
 	border-radius: 3px;
+}
+.index-main-post-comment{
+	width: 90%;
+	padding: 2em 5%;
+	float: left;
+	background: #FFF;
+	border-radius: 3px;
+	box-shadow: 0 0 3px #DEDEDE;
+	margin-bottom: 2.5em;
+}
+.index-main-post-comment-title{
+	width: 100%;
+	font-size: 2.5em;
+	color: #343434;
+	border-bottom: 1px dashed #DEDEDE;
+	color: #EDEDED;
+}
+.index-main-post-comment-title span{
+	font-size: .8em;
+	color: #DEDEDE;
+}
+
+.impc-div-list-content-meta{
+	width: 100%;
+	float: left;
+}
+.impc-div-list-content-meta a{
+	font-weight: bold;
+	margin-right: 0.7em;
+	color: #0083D6;
+}
+.impc-div-list-content-meta span{
+	color: #888;
+}
+.impc-div-list-content-words{
+	width: 100%;
+	padding: .8em 0;
+	float: left;
+	border-bottom: 1px dashed #DEDEDE;
+}
+.impc-div-list-content-reply{
+	width: 100%;
+	float: left;
+}
+.impc-div-list-content-reply li{
+	height: 2.2em;
+	width: 100%;
+	float: left;
+}
+.impc-div{
+	width: 100%;
+	float: left;
+}
+.impc-div-list{
+	width: 100%;
+	float: left;
+	margin-top: 1em;
+}
+.impc-div-list-avatar{
+	float: left;
+	width: 12%;
+}
+.impc-div-list-content{
+	width: 88%;
+	float: right;
+}
+.impc-reply-form{
+	width: 88%;
+	margin-top: 1em;
+	float: right;
+}
+.impc-reply-form-input{
+	width: 100%;
+	float: left;
+}
+.impc-reply-form-input-div{
+	width: 45%;
+	height: 28px;
+	padding: 1px 0px;
+	box-shadow: 1px 1px 1px #999 inset;
+	border-radius: 3px;
+	background: #FFF;
+	border-right: 1px solid #DEDEDE;
+	border-bottom: 1px solid #DEDEDE;
+	float: left;
+}
+.impc-reply-form-input-div span{
+	width: 39%;
+	height: 28px;
+	margin-top: 1px;
+	margin-left: 1px;
+	background:#EFEFEF;
+	border-radius: 3px;
+	float: left;
+	text-align: center;
+	line-height: 29px;
+}
+.impc-reply-form-input-div input{
+	width: 50%;
+	padding: 0 5%;
+	height: 28px;
+	line-height: 29px;
+	border:0px;
+	background: #FFF;
+	float: right;
+}
+.impc-reply-form-text{
+	width: 100%;
+	float: left;
+	margin-top: 1em;
+}
+.impc-reply-form-text textarea{
+	width: 96%;
+	float: left;
+	padding: .7em 2%;
+	border:0px;
+	border-radius: 3px;
+	box-shadow: 1px 1px 1px #999 inset;
+	resize:none;
+	border-right: 1px solid #DEDEDE;
+	border-bottom: 1px solid #DEDEDE;
+}
+.impc-reply-form-button{
+	width: 100%;
+	float: left;
+	margin-top: 1em;
+}
+.impc-reply-form-button a{
+	float: right;
+	padding: 8px 20px;
+	background: #0083D6;
+	box-shadow: 1px 1px 1px #999;
+	border-radius: 2px;
+	color: #FFF;
+	position: relative;
+}
+.impc-reply-form-button a:active{
+	top:2px;
 }
 
 .index-main-postmore{
@@ -208,11 +349,11 @@ html{
 .index-main-cloud-a a{
 	padding: 0.3em 1em;
 	border-radius: 2px;
-	background: #2FE2BF;
+	background: #0083D6;
 	margin-right: 0.4em;
 	margin-bottom: 0.4em;
 	float: left;
-	color: #444;
+	color: #FFF;
 	font-size: 0.9em;
 }
 .index-main-right-div-ul-page ul li a{
