@@ -89,18 +89,18 @@ html{
 	width: 100%;
 	float: left;
 	margin-top: 1em;
-	font-size: 1.15em;
 	line-height: 2em;
 	color: #555;
 }
-
+.index-main-post-list-summary *{
+	font-size: 18px;
+}
 .index-main-post-list-summary img{
-	float: left;
 	max-width: 100%;
-	margin-bottom: 0.6em;
+	margin: 0.5em 0;
 }
 .index-main-post-list-summary p{
-	font-size: 1em;
+	font-size: 1.1em;
 }
 .index-main-post-list-read-more{
 	width: 100%;

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>私信 | {{Site.site_name}}</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/hl.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/blue/u.css">
+</head>
+<body>
+<div class="msg-header">
+	<div class="msg-header-title">
+		私信
+	</div>
+</div>
+	<div class="msg-body">
+		<div class="msg-body-left">
+			<div class="msg-box-input">
+				<span>您的名字:</span>
+				<input type="text" name="msg-body-name" value="" id="msg-post-name" />
+			</div>
+			<div class="msg-box-input">
+				<span>邮箱地址:</span>
+				<input type="text" name="msg-body-email" value="" id="msg-post-email" />
+			</div>
+			<div class="msg-box-textarea">
+				<textarea placeholder="这里输入私信内容 ... " id="msg-post-text" ></textarea>
+			</div>
+			<div class="msg-box-div">
+				<a href="javascript:;" id="message-post-ok">发送私信</a>
+				<span id="msg-submit-ok-tip"></span>
+			</div>
+		</div>
+		<div class="msg-body-right">
+			<div class="msg-body-right-title">欢迎使用邮件与我取得联系</div>
+			<div class="msg-box-li">
+				<a href="mailto:307763929@qq.com"><img src="/static/images/p5um8r78ikg0gc214a4i2rh272.png" /></a>
+			</div>
+			<div class="msg-box-li">
+				<img src="/static/images/014e76beb0494499ba17701f99a6a1d8.png" style="width:150px;height:150px;"/>
+			</div>
+			<div class="msg-box-li">
+				深圳野生PHPer，求包养！<a href="/longmon.Hau" target="_blank">简历</a>
+			</div>
+		</div>
+		
+		<div class="msg-copyright">Copyright@2015 Powered by Half-Life</div>
+	</div>
+</body>
+<script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+	var posting = false;
+	$(function(){
+		$("#message-post-ok").click(function(){
+			if( posting )
+			{
+				return;
+			}
+			var msg = {};
+			msg.name = $("#msg-post-name").val();
+			msg.email = $("#msg-post-email").val();
+			msg.text = $("#msg-post-text").val();
+			if( msg.name.length < 1 )
+			{
+				alert("请输入您的名字!");
+				$("#msg-post-name").focus();
+				return;
+			}
+			if( msg.email.length < 6 )
+			{
+				alert("请输入您的电子邮件用于接收回复邮件");
+				$("#msg-post-email").focus();
+				return;
+			}
+			var EmailExp = /^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,6})$/;
+			if( !EmailExp.test(msg.email) )
+			{
+				alert("您输入的邮箱地址不正确！请修正");
+				$("#msg-post-email").focus();
+				return;
+			}
+			if( msg.text.length < 10 )
+			{
+				alert("您输入的内容也太少了吧？");
+				$("#msg-post-text").focus();
+				return;
+			}
+			posting = true;
+			$.ajax({
+				url:"/Message/Submit",
+				data:msg,
+				type:"post",
+				dataType:"json",
+				error:function(error,errStr)
+				{
+					alert(errStr);
+				},
+				success:function( resp )
+				{
+					posting = false;
+					if( resp.code == 200 )
+					{
+						$("#msg-submit-ok-tip").text("发送成功!");
+						$("#msg-post-text").val("");
+						setTimeout(function(){
+							$("#msg-submit-ok-tip").text("");
+						},3000);
+					} else {
+						$("#msg-submit-ok-tip").text(resp.errmsg);
+						setTimeout(function(){
+							$("#msg-submit-ok-tip").text("");
+						},5000);
+					}
+				}
+			});
+		});
+	});
+</script>
+</html>

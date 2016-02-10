@@ -67,7 +67,7 @@
 					alert( errstr );
 				},success:function( ret )
 				{
-					console.log(ret);
+					//console.log(ret);
 					if( ret.code == 200 )
 					{
 						var category = $("#category-"+cate.cateid);
@@ -82,6 +82,7 @@
 						$("#cml-box-category-title").val('');
 						$("#cml-box-category-id").val('');
 						$("#cml-box-div-category-desc").val('');
+						$("#cml-box-category-id").prop("disabled", false);
 					} else {
 						alert(ret.errmsg);
 					}
@@ -93,6 +94,7 @@
 
 			$("#cml-box-category-title").val($(this).attr("catetitle"));
 			$("#cml-box-category-id").val($(this).attr("cateid"));
+			$("#cml-box-category-id").prop("disabled", true);
 			$("#cml-box-div-category-desc").val($(this).attr("catedesc"));
 		});
 

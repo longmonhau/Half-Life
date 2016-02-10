@@ -1,45 +1,41 @@
 {%extends "dashBoard.html"%}
 
-{%block title%}Editing{%endblock%}
+{%block title%}编辑{%endblock%}
 
-{%block bashheader%}Edit a new post | {{_login_cookie_key}}{%endblock%}
+{%block bashheader%}
+<div class="bashheader-title">编辑文章</div>
+{%endblock%}
 
 {%block bashmain%}
 <link rel="stylesheet" type="text/css" href="/static/editor.md/css/editormd.min.css">
 <div class="bash-main-div-left">
 	<div class="bmdl-edit-post-header">
-		<div class="bmdl-edit-post-tags">Title</div>
+		<div class="bmdl-edit-post-tags">标题:</div>
 		<input type="text" name="bmdl-edit-post-title" value="{{Post.title}}" class="bmdl-edit-post-title">
 		<input type="hidden" name="post-id" value="{{Post.id}}" id="post-id">
 	</div>
 	<div id="editormdbox">{{Post.markdown}}</div>
 	<div class="editormd-bottom">
 		<div class="editormd-bottom-url">
-			<div class="editormd-bottom-url-tag">Post url: https://zxfc.in/Blog/</div>
+			<div class="editormd-bottom-url-tag">伪静态: https://{{SiteInfo.site_domain|default("localhost")}}/Blog/</div>
 			<input type="text" name="editormd-bottom-url-input" value="{{Post.url}}" class="editormd-bottom-url-input">
 		</div>
 		<div class="editormd-bottom-buttons">
-			<a href="javascript:;" id="post-submit-ok">Post</a>
+			<a href="javascript:;" id="post-submit-ok">发布</a>
 			<div class="editormd-bottom-button-sep"></div>
-			<a href="javascript:;">Save</a>
+			<a href="javascript:;" id="post-save-ok">保存</a>
 		</div>
 	</div>
 </div>
 <div class="bash-main-div-right">
 	<div class="bmdr-box">
 		<div class="edit-post-posttime-box">
-			<span>Post at:</span>
-			<input type="text" name="postauthr" value="{{Post.cteated_at|default|date("Y-m-d H:i:d")}}" id="post-submit-at" />
+			<span>日期:</span>
+			<input type="text" name="postauthr" value="{{Post.created_at|default|date("Y-m-d H:i:d")}}" id="post-submit-at" />
 		</div>
 	</div>
-	<!--<div class="bmdr-box">
-		<div class="edit-post-posttime-box">
-			<span>Author:</span>
-			<input type="text" name="posttime" value="{% if Post.author %}{{Post.author}}{%else%}{{loginusername}}{%endif%}" id="post-author-submit"/>
-		</div>
-	</div>-->
 	<div class="bmdr-box">
-		<div class="bmdr-box-header">Category</div>
+		<div class="bmdr-box-header"><span>类别选择</span><a href="/Admin/Category.html">编辑</a></div>
 		<div class="bmdr-box-div">
 			{%for cate in Category%}
 			<li>
@@ -51,7 +47,7 @@
 		</div>
 	</div>
 	<div class="bmdr-box">
-		<div class="bmdr-box-header">Tags</div>
+		<div class="bmdr-box-header">标签</div>
 		<div class="bmdr-box-div">
 			<textarea class="bmdr-box-div-textarea">{{Post.tags}}</textarea>
 		</div>
@@ -66,7 +62,13 @@
 var editor;
 var posting = false;
 var md = $("#editormdbox").html();
+$("#editormdbox").html('');
 $(function(){
+	$(".bash-main-side-nav-div").removeClass("dash-main-current-nav");
+	$(".bash-main-side-nav-div").eq(1).addClass("dash-main-current-nav");
+	$(".bash-main-side-nav-collape").show();
+
+
 	editor = editormd("editormdbox",{
 		width:"100%",
 		height:"500px",
@@ -108,16 +110,16 @@ $(function(){
 	initCategorySelected();
 
 	$("#post-submit-ok").click(function(){
-		$(this).text("Posting .... ");
+		$(this).text("正在发布 ... ");
 		if( posting )
 		{
 			return;
 		}
 		var data = getPostData();
-		//console.log(data);
 		if( data.htmlContent == '' )
 		{
 			alert("post content can not be blank!");
+			$(this).text("发布");
 			return;
 		}
 		posting = true;
@@ -129,17 +131,46 @@ $(function(){
 			error:function(error,errstr)
 			{
 				alert(errstr);
-			},success:function(ret)
+			},
+			success:function(ret)
 			{
 				//console.log(ret);
 				if( ret.code == 200 )
 				{
-					if( confirm("Submit successfully! Go and check it?") )
-					{
-						location.href=ret.go_url;
-					}
+					location.href=ret.go_url;
 				} else{
 					alert( ret.errmsg );
+				}
+			}
+		});
+	});
+
+	$("#post-save-ok").click(function(){
+		$(this).text("正在保存 ... ");
+		var _this = $(this);
+		if( posting )
+		{
+			return;
+		}
+		posting = true;
+		var post = getPostData();
+		post.public = 0;
+		$.ajax({
+			url:"/Post/Submit",
+			data:post,
+			type:'post',
+			dataType:"json",
+			error:function(error,errstr){
+				alert(errstr);
+			},
+			success:function(resp){
+				if( resp.code == 200 )
+				{
+					posting = false;
+					_this.text("保存");
+				} else
+				{
+					alert(resp.errmsg);
 				}
 			}
 		});
@@ -149,7 +180,7 @@ $(function(){
 	{
 		var cateList = "{{Post.category}}";
 		cateList = cateList.split(",");
-		console.log( cateList );
+		//console.log( cateList );
 		for( var i in cateList )
 		{
 			$(".bmdr-box-checkbox-div input[value='"+cateList[i]+"']").prop("checked", true);
@@ -183,6 +214,7 @@ $(function(){
 		data.tags = $(".bmdr-box-div-textarea").val();
 		return data;
 	};
+
 });
 </script>
 {%endblock%}

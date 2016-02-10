@@ -5,6 +5,7 @@ use lOngmon\Hau\core\component\Mailer;
 use lOngmon\Hau\usr\traits\SiteInfo;
 use lOngmon\Hau\core\component\Log;
 use lOngmon\Hau\core\Kernel;
+use lOngmon\Hau\core\Model;
 Kernel::boot();
 
 class MailTo
@@ -26,7 +27,7 @@ class MailTo
 		$this->mail->addAddress( $data->receiver,"root");
 		$this->mail->addReplyTo($data->email,$data->name);
 		$this->mail->isHTML(TRUE);
-		$this->mail->Subject = "Your received a comment!";
+		$this->mail->Subject = "You received a comment!";
 		$this->mail->Body = '<div style="width:1000px;margin:0 auto;font-size:17px; border-bottom:1px dashed #999;margin-bottom:15px;">'
 							.'Title:<a style="text-decoration:none;" href="http://'.$this->siteinfo['site_domain'].'/Blog/'.$data->post->url.'.html">'.$data->post->title.'</a></div>'
 							.'<div style="width:1000px; margin:0 auto;"><div style="width:60px; float:left;">'
@@ -37,6 +38,27 @@ class MailTo
 		{
 			Log::error($this->mail->ErrorInfo);
 		}
+	}
+
+	public function messageEmail( $msgId )
+	{
+		$messageModel = Model::make("Message");
+		if( !$msg = $messageModel->getMessageById( $msgId ) )
+		{
+			return;
+		}
+		$this->mail->addAddress("1307995200@qq.com","root");
+		$this->mail->addReplyTo( $msg->email, $msg->name);
+		$this->mail->isHTML(TRUE);
+		$this->mail->Subject = "Received a message from ".$msg->name;
+		$this->mail->Body = '<div style="width:1000px;margin:0 auto;">'
+							.'<div style="width:100px; float:left;">'
+							.'<img src="" style="width:60px;height:60px;borderr-radius:100%;"/><br/>'
+							.$msg->name.'</div><div style="width:900px;float:left;">'.$msg->msgbody.'</div></div>';
+		if( !$this->mail->send() )
+		{
+			Log::error($this->mail->ErrorInfo);
+		}							
 	}
 }
 

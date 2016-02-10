@@ -1,0 +1,27 @@
+{%extends "dashBoard.html"%}
+
+{%block bashheader%}
+<div class="bashheader-title">Feeds flow</div>
+{%endblock%}
+
+{%block bashmain%}
+<div class="feeds-div">
+	<div class="feeds-div-box">
+		{%for feed in feeds%}
+		<div class="feeds-list">
+			<div class="feeds-list-avatar">
+				<!--<img src="http://www.gravatar.com/avatar/{{feed.name}}" class="big-avatar" />-->
+				<img src="/static/images/mm_.jpeg" class="big-avatar" />
+			</div>
+			<div class="feeds-list-content">
+				<span>({{feed.humanLookTime}})</span>
+				{{feed.content}}
+			</div>
+		</div>
+		{%endfor%}
+	</div>
+	<div class="feeds-div-slide">
+		...
+	</div>
+</div>
+{%endblock%}

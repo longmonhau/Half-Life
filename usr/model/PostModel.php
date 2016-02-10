@@ -8,7 +8,9 @@ class PostModel extends Model
 
 	public function getPostsByKeyword( $key )
 	{
-		//
+		$titleSelect = $this->where("title","like","%{$key}%")->where("public",1);
+		$posts = $this->where("tags","like","%{$key}%")->where("public",1)->union($titleSelect)->get();
+		return $posts;
 	}
 
 	public function getPostById( $id )
@@ -30,5 +32,11 @@ class PostModel extends Model
 			$Category = $CateModel->getCategoryById( $cid );
 			$Category->deletePost( $id );
 		}
+	}
+
+	public function getTagPosts( $tag )
+	{
+		$posts = $this->where("tags","like","%{$tag}%")->where("public",1)->get();
+		return $posts;
 	}
 }

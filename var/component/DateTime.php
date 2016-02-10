@@ -17,19 +17,19 @@ class DateTime
 
 		if( $timeL < 60 )
 		{
-			return $timeL."s";
+			return $timeL."秒前";
 		}
 		if( $timeL < 60*60 )
 		{
-			return floor($timeL/60)."m";
+			return floor($timeL/60)."分钟前";
 		}
 		if( $timeL < 60*60*24 )
 		{
-			return floor($timeL/60/60)."h";
+			return floor($timeL/60/60)."小时前";
 		}
 		if( $timeL < 60*60*24*30 )
 		{
-			return floor($timeL/60/60/24)."d";
+			return floor($timeL/60/60/24)."天前";
 		}
 	}
 }

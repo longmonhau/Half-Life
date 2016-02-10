@@ -29,7 +29,7 @@ class Post extends Control
 	public function lists()
 	{
 		$page = 1;
-		$pageNum = 1;
+		$pageNum = 10;
 		
 		$where = [];
 
@@ -60,7 +60,7 @@ class Post extends Control
 		}
 
 		$skip = ($page-1)*$pageNum;
-		$select = ["id","title","url"];
+		$select = ["id","title","url","public"];
 		$PostList = $this->PostModel->select( $select )->skip($skip)->limit($pageNum)->orderby("created_at","DESC")->get();
 
 
@@ -76,11 +76,36 @@ class Post extends Control
 				$pageNav = range(1, $pageTotal);
 				$this->assign("pageNav", $pageNav);
 			}
-			$this->assign("_login_cookie_key",$this->session->get("_login_cookie_key"));
 			$this->assign("tags", SlideBar::getTags());
 			$this->assign("postList", $PostList);
 			$this->display("postList.html");
 		}
+	}
+
+	public function getPostByCategoryOnAjax()
+	{
+		if(isset($_SERVER["HTTP_X_REQUESTED_WITH"])
+    	   && strtolower($_SERVER["HTTP_X_REQUESTED_WITH"])=="xmlhttprequest")
+    	{
+    		$categoryId = $this->request->get("categoryId");
+    		$postListStr = $this->CateModel->select("postList","postNum")->where("categoryId",$categoryId)->first();
+    		$postList_array = explode(",", $postListStr->postList );
+
+    		$pageNum = 10;
+    		$PageNo = 1;
+    		if( $page = $this->request->get("page") )
+    		{
+    			$PageNo = $page;
+    		}
+    		$skip = ($PageNo-1)*$pageNum;
+
+    		$posts = $this->PostModel->skip($skip)->limit($pageNum)->orderby("created_at","DESC")->whereIn("id", $postList_array)->get();
+    		
+    		return $this->renderJson(['code'=>200,'postList'=>iterator_to_array($posts)]);
+
+    	}else{
+    		return $this->renderString("Access denied!");
+    	}
 	}
 
 	/**
@@ -97,7 +122,6 @@ class Post extends Control
 
 		$Category = $this->CateModel->get();
 		$this->assign("Category", $Category);
-		$this->assign("_login_cookie_key",$this->session->get("_login_cookie_key"));
 		$this->display("postEdit.html");
 	}
 
@@ -112,7 +136,7 @@ class Post extends Control
 
 		if( !$post['title'] = $this->request->get("title") )
 		{
-			$post['title'] = "Untitled";
+			$post['title'] = "无题";
 		}
 
 		if( !$post['url'] = $this->request->get("url") )
@@ -133,12 +157,12 @@ class Post extends Control
 		$post['markdown'] = $this->request->get("markdown");
 		$post['html'] = $this->request->get("htmlContent");
 
-		if( !$length = stripos($post['html'], '<!--more-->') )
+		if( !$length = stripos($post['html'], "&lt;!--more--&gt;") )
 		{
 			$length = 600;
 		}
 
-		$post['summary'] = substr(strip_tags($post['html']), 0, $length);
+		$post['summary'] = "<p>".substr(strip_tags($post['html']), 0, $length-3)."</p>";
 		if( preg_match('/<img\s*src=[\'"]+([^\'"]+)[\'"]+.*>/', $post['html'], $mat) )
 		{
 			$post['summary'] = "<img src='".$mat[1]."'/>".$post['summary'];
@@ -146,18 +170,26 @@ class Post extends Control
 
 		$post['tags'] = $this->request->get('tags');
 
+		$post['public'] = $this->request->get("public");
+		if( $post['public'] !== '0' )
+		{
+			$post['public'] = 1;
+		}
+
 		/**
 		 * edit an old post or public a new one!
 		 * @var [type]
 		 */
-		
+
 		/**
 		 * if post have already exist
 		 * @var [type]
 		 */
 		if( $postId && $thisPost = $this->PostModel->getPostById($postId) )
 		{
+			$oldCategory = $thisPost->category;
 			$thisPost->title = $post['title'];
+			$thisPost->public = $post['public'];
 			$thisPost->url = $post['url'];
 			$thisPost->summary = $post['summary'];
 			$thisPost->category = $post['category'];
@@ -165,9 +197,9 @@ class Post extends Control
 			$thisPost->html = $post['html'];
 			$thisPost->tags = $post['tags'];
 			$thisPost->created_at = $post['created_at'];
-
 			$thisPost->save();
-			$oldCateList = explode(',', $thisPost->category);
+
+			$oldCateList = explode(',', $oldCategory);
 			$cateList = explode(',', $post['category']);
 			$shouldDeleteCateList = array_diff($oldCateList, $cateList);
 			foreach ($shouldDeleteCateList as $ce) 
@@ -175,8 +207,9 @@ class Post extends Control
 				$cateModel = $this->CateModel->getCategoryById($ce);
 				$cateModel->deletePost($postId);
 			}
+
 			$newCateList = array_diff($cateList, $oldCateList);
-			foreach ($cateList as $cate) 
+			foreach ($newCateList as $cate) 
 			{
 				$cateModel = $this->CateModel->getCategoryById($cate);
 				$cateModel->addPost($postId);
@@ -220,5 +253,18 @@ class Post extends Control
 		$CommentModel->destroy( $postIdList );
 		
 		return $this->renderJson(['code'=>200,'errmsg'=>"ok"]);
+	}
+
+	public function ajaxLoadDraft()
+	{
+		if(isset($_SERVER["HTTP_X_REQUESTED_WITH"])
+    	   && strtolower($_SERVER["HTTP_X_REQUESTED_WITH"])=="xmlhttprequest")
+    	{
+    		$Drafts = $this->PostModel->where("public",0)->orderby("created_at","DESC")->get();
+    		return $this->renderJson(["code"=>200,"drafts"=>iterator_to_array( $Drafts )]);
+    	} else
+    	{
+    		return $this->renderJson(403,"access denied");
+    	}
 	}
 }

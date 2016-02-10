@@ -5,10 +5,12 @@ use lOngmon\Hau\core\Model;
 use lOngmon\Hau\usr\bundle\SlideBar;
 use lOngmon\Hau\core\Factory;
 use lOngmon\Hau\usr\traits\AdminInfo;
+use lOngmon\Hau\usr\traits\SiteInfo;
 
 class Blog extends Control
 {
 	use AdminInfo;
+	use SiteInfo;
 	public function view($url)
 	{
 		$PostModel = Model::make('Post');
@@ -17,6 +19,7 @@ class Blog extends Control
 		$this->assign("post", $Post);
 		$this->assign("category", SlideBar::getCategoryAll());
 		$this->assign("tags",SlideBar::getTags());
+		$this->assign("Site",$this->getSiteInfo());
 		$this->display("blogView.html");
 	}
 
@@ -63,6 +66,15 @@ class Blog extends Control
 			$Rep['receiver'] = $this->getAdminEmail();
 			$Rep["post"] = ["title"=>$post->title,"url"=>$post->url];
 			popen("php ".APP_PATH.'/task/MailTo.php -fcommentEmail -d'.base64_encode(json_encode($Rep))."&", "r");
+
+			/************** Insert Feed *******************/
+			$FeedModel = Model::make("Feed");
+			$feed = [];
+			$feed['name'] = $Rep['name'];
+			$feed['email'] = $Rep['email'];
+			$feed['gravatar'] = $Rep['gravatar'];
+			$feed['content'] = $Rep['name']."评论了您的文章: << <a target='_blank' style='color:#0083D6;' href='/Blog/".$post->url.".html#comment'>".$post->title.">><br/>\"".substr( $Rep['content'], 0, 180)."\"</a> ";
+			$FeedModel->insert( $feed );
 		}
 		return $this->renderJson(['code'=>200,'errmsg'=>"ok"]);
 	}

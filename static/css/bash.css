@@ -29,7 +29,12 @@ html{
 	background: #FFF;
 }
 .bashheader-title{
-	font-weight: bold;
+	font-size: 1.3em;
+	color: #0083D6;
+}
+.bashheader-title span{
+	font-size: 1em;
+	color: #0083D6;
 }
 .bash-main{
 	width: 100%;
@@ -112,6 +117,7 @@ html{
 	padding: 10px 15%;
 	float: left;
 	background: #222;
+	display: none;
 }
 
 .bash-main-side-nav-collape a{
@@ -248,6 +254,7 @@ html{
 	width: 19%;
 	float: left;
 }
+
 .bmdr-div-list-msg{
 	float: right;
 	width: 80%;
@@ -273,6 +280,10 @@ html{
 	color: #666;
 	line-height: 1.6em;
 }
+.bmdr-div-list-msg-summary span{
+	color: #999;
+	font-size: 14px;
+}
 
 .bmdl-post-list-table{
 	width: 100%;
@@ -282,17 +293,30 @@ html{
 .bmdl-post-list-table-title{
 	width: 94%;
 	padding: 1em 3%;
-	padding-bottom: 0.5em;
 	background: #3498db;
 	border-top-left-radius: 3px;
 	border-top-right-radius: 3px;
 	box-shadow: 0 0 1px #888;
 	color: #FFF;
 }
+.bmdl-post-list-table-title input{
+	float: left;
+	line-height: 1em;
+	margin-top: 2px;
+	margin-right: 0.5em;
+
+}
 .bmdl-post-list-table-title label,
 .bmdl-post-list-table-title a{
 	color: #FFF;
 	margin-right: 1em;
+	float: left;
+	line-height: 1em;
+}
+.bmdl-post-list-table-title span{
+	margin-right: 0.7em;
+	float: left;
+	line-height: 1em;
 }
 .bmdl-post-list-table-row{
 	width: 94%;
@@ -462,6 +486,8 @@ a.current-nav-div{
 	margin-left: 2px;
 	float: left;
 	color: #999;
+	white-space:nowrap; 
+	overflow: hidden;
 }
 .editormd-bottom-url-input{
 	width: 52%;
@@ -502,6 +528,14 @@ a.current-nav-div{
 	background: #FFF;
 	border-radius: 3px;
 	margin-bottom: 1.5em;
+}
+.bmdr-box-header span{
+	font-weight: bold;
+	color: #FFF;
+}
+.bmdr-box-header a{
+	color: #FFF;
+	float: right;
 }
 .bmdr-box-header{
 	width: 88%;
@@ -575,7 +609,7 @@ a.current-nav-div{
 	border:0px;
 	border-radius: 3px;
 	background: #FFF;
-	box-shadow: 1px 1px 1px #888 inset;
+	box-shadow: 1px 1px 1px #AAA inset;
 	border-right: 1px solid #DDD;
 	border-bottom: 1px solid #DDD;
 	resize:none;
@@ -715,4 +749,33 @@ a.current-nav-div{
 	float: right;
 	margin-left: 1em;
 	color: #3498db;
+}
+
+.feeds-div{
+	width: 100%;
+	float: left;
+}
+.feeds-div-box{
+	width: 70%;
+	float: left;
+}
+.feeds-div-slide{
+	width: 25%;
+	float: right;
+}
+.feeds-list{
+	width: 100%;
+	margin-bottom: 2em;
+	float: left;
+}
+.feeds-list-avatar{
+	width: 8%;
+	float: left;
+}
+.feeds-list-content{
+	width: 92%;
+	float: right;
+}
+.feeds-list-content span{
+	color: #999;
 }

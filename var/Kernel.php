@@ -9,6 +9,13 @@ use lOngmon\Hau\core\component\Log;
 use lOngmon\Hau\core\Factory;
 use lOngmon\Hau\core\Model;
 
+/*************************************************
+ *  系统核心类
+ *  
+ *  @package core
+ *  @author longmon Hau <longmon.hau@gmail.com>
+ * 
+ *************************************************/
 class Kernel
 {
 	private $request = null;

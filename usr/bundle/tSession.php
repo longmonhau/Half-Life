@@ -53,8 +53,6 @@ class tSession
 		//============== expire the old cookie ======================
 		setCookie( $user_login_key_old, '', time()-1,'/');
 
-		//$content = "\n\n".$session->get("_login_cookie_key")."\n".json_encode($_COOKIE);
-		//file_put_contents("/tmp/update", $content."\n",FILE_APPEND);
 	}
 
 	public static function verifyLoginStatus( $userAgent )
@@ -62,7 +60,6 @@ class tSession
 		$session = Factory::make( 'session' );
 		$user_login_key = $session->get("_login_cookie_key");
 		$user_login_val = $session->get("_logined_user").$userAgent;
-		file_put_contents("/tmp/verify", "\n".$session->get("_login_cookie_key")."\n".json_encode($_COOKIE)."\n\n",FILE_APPEND);
 		if( !isset( $_COOKIE[$user_login_key] ) )
 		{
 			return false;

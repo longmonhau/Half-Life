@@ -46,7 +46,6 @@ class User extends Control
 
     		$goRoute = Route::getRouteUri("dashBoard");
     		return $this->renderJson(['code'=>200,'errmsg'=>'ok', 'go_url'=> $goRoute[1] ]);
-
     	} else {
     		return $this->renderJson(["code"=>403, "errmsg"=>"Access forbindden"]);
     	}

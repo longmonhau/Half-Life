@@ -39,7 +39,7 @@ class Category extends Control
     		$desc = $this->request->get("desc");
     		
     		
-    		if( $thisCategoryModel = $this->CateModel->getCategoryById( $cateId ) )
+    		if( $thisCategoryModel = $this->CateModel->getCategoryByCid( $cateId ) )
     		{
     			$thisCategoryModel->title = $title;
     			$thisCategoryModel->desp = $desc;

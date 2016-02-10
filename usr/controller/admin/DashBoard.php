@@ -36,7 +36,7 @@ class DashBoard extends Control
 	private function getFeeds()
 	{
 		$FeedModel = Model::make("Feed");
-		$feeds = $FeedModel->getFeeds(8);
+		$feeds = $FeedModel->getFeeds(5);
 		$feedCount = $FeedModel->count();
 		$feeds = iterator_to_array( $feeds );
 		foreach ($feeds as $k=>$feed) 

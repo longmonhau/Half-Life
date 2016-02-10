@@ -9,6 +9,12 @@ return [
 
 	["POST","/Blog/postCommenct",["Blog","commentPost",['CommentTimeLimit']]],
 
+	['GET',"/Category/{category}", ["Index","categoryPost"]],
+
+	["GET","/Search/{key}", ["Index","searchPostBy"]],
+
+	["GET","/Tags/{tag}", ["Index","tagPost"]],
+
 	"sign" => ["GET","/admin/entrance", ["admin\User", "sign"]],
 
 	'login'=> ['POST','/admin/login.submit',["admin\User","login"]],
@@ -31,5 +37,17 @@ return [
 
 	"getCategoryByAjax" => ["POST","/AjaxLoadCategory",["admin\Category","loadCategoryAjax"]],
 
-	"adminPostSubmit" => ["POST","/Post/submit",["admin\Post","submit",["auth"]]]
+	"adminPostSubmit" => ["POST","/Post/submit",["admin\Post","submit",["auth"]]],
+
+	"getCategoryPost" => ["POST","/getCategoryPost",["admin\Post","getPostByCategoryOnAjax"]],
+
+	"Contactme" => ["GET","/Contact_me",["Message","index"]],
+
+	"msgSunmit" => ["POST","/Message/Submit",["Message","submit",["CommentTimeLimit"]]],
+
+	"ajaxFeedLoad" => ["GET","/Feed/AjaxLoad",["admin\Feed","ajaxLoadFeed",["auth"]]],
+
+	"ajaxLoadDraft" => ["GET","/Admin/Post/ajaxLoadDraft",["admin\Post","ajaxLoadDraft",["auth"]]],
+
+	"adminFeeds" => ["GET","/Admin/Feeds",["admin\Feed","index",["auth"]]]
 ];
