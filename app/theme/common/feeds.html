@@ -10,8 +10,8 @@
 		{%for feed in feeds%}
 		<div class="feeds-list">
 			<div class="feeds-list-avatar">
-				<!--<img src="http://www.gravatar.com/avatar/{{feed.name}}" class="big-avatar" />-->
-				<img src="/static/images/mm_.jpeg" class="big-avatar" />
+				<img src="http://www.gravatar.com/avatar/{{feed.name}}" class="big-avatar" />
+				<!--<img src="/static/images/mm_.jpeg" class="big-avatar" />-->
 			</div>
 			<div class="feeds-list-content">
 				<span>({{feed.humanLookTime}})</span>
@@ -24,4 +24,7 @@
 		...
 	</div>
 </div>
+{%endblock%}
+
+{%block bashscript%}
 {%endblock%}

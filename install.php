@@ -116,6 +116,7 @@ CREATE;
 $create_table['message'] = <<<CREATE
 create table if not exists message(
 	id int not null auto_increment,
+	resp int not null default 0,
 	name varchar(20) not null,
 	email varchar(100) not null,
 	gravatar char(32) not null,
@@ -123,7 +124,8 @@ create table if not exists message(
 	isread tinyint not null,
 	created_at timestamp,
 	updated_at timestamp,
-	primary key(`id`)
+	primary key(`id`),
+	index(`resp`)
 ) engine = innodb default charset=utf8;
 CREATE;
 

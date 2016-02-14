@@ -1,0 +1,128 @@
+{%extends "dashBoard.html"%}
+
+{%block title%}查看消息{%endblock%}
+
+{%block bashheader%}
+<div class="bashheader-title">消息详情</div>
+{%endblock%}
+
+{%block bashmain%}
+<div class="msg-div">
+	<div class="msg-div-list">
+		{%if no_msg_err%}
+		消息不存在或已被删除
+		{%else%}
+		<div class="msg-div-list-left">
+			<img src="http://www.gravatar.com/avatar/{{msg.gravatar}}" class="medium-avatar" />
+		</div>
+		<div class="msg-div-list-right">
+			<div class="msg-div-list-right-title">
+				<span style="font-weight:bold;color:#0083D6;">{{msg.name}}</span>
+				<a href="mailto:123">({{msg.email}})</a>
+				<span>{{msg.created_at}}</span>
+				<a href="javascript:;" class="del-msg-link" style="float: right;" mid="{{msg.id}}">删除</a>
+			</div>
+			<div class="msg-div-list-right-content">
+				{{msg.msgbody}}
+			</div>
+			{%for res in msgRes%}
+			<div class="msg-div-list-right-resp-list">
+				<div class="mdlr-resp-list-title">您在 {{res.created_at}} 的回复 :</div>
+				{{res.msgbody}}
+			</div>
+			{%endfor%}
+			<div class="msg-div-list-right-resp">
+				<textarea class="msg-resp-text" placeholer="这里输入回复内容 ..."></textarea>
+				<div class="msg-div-list-right-resp-buttons">
+					<a href="javascript:;" class="msg-div-list-right-resp-button-a" mid="{{msg.id}}">回复</a>
+				</div>
+			</div>
+		</div>
+		{%endif%}
+	</div>
+</div>
+{%endblock%}
+
+{%block bashscript%}
+<script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+	var resp_submit = false;
+	$(function(){
+		$(".msg-div-list-right-resp-button-a").click( function(){
+			if( resp_submit )
+			{
+				return;
+			}
+			$(this).text("提交中 ...");
+			var mid = $(this).attr("mid");
+			resp_ok( mid );
+			$(this).text("回复");
+		});
+		$(".del-msg-link").click(function(){
+			if( resp_submit )
+			{
+				return;
+			}
+			var mid = $(this).attr("mid");
+			if( confirm("你真的要删除这条消息吗？") )
+			{
+				msg_del(mid);
+			}
+		});
+	});
+
+	function msg_del( mid )
+	{
+		$.post("/Admin/Message/Del.html",{msgid:mid},function(resp){
+			console.error(resp);
+			if( resp.code == 200 )
+			{
+				alert("删除成功!");
+			}
+			resp_submit = false;
+		},"html");
+	}
+	function resp_ok( mid )
+	{
+		var respText = $(".msg-resp-text").val();
+		if( respText.length < 1 )
+		{
+			alert("请输入回复内容!");
+			$(".msg-resp-text").focus();
+			return;
+		}
+		$(".msg-resp-text").prop("disabled", true);
+		resp_submit = true;
+		$.ajax({
+			url:"/Admin/Message/Reply.html",
+			data:"content="+respText+"&mid="+mid,
+			type:'post',
+			dataType:"json",
+			error:function( error,errStr )
+			{
+				alert(errStr);
+			},
+			success:function( resp )
+			{
+				console.log(resp);
+				if( resp.code == 200 )
+				{
+					var append = '';
+					append = '<div class="msg-div-list-right-resp-list"><div class="mdlr-resp-list-title">您在 刚刚 的回复 :</div>'+respText+'</div>';
+					$(".msg-div-list-right-resp").before( append );
+					$(".msg-resp-text").val('');
+				} else if( resp.code == 503 )
+				{
+					alert(resp.errmsg);
+					location.href=resp.go_url;
+				} else
+				{
+					alert(resp.errmsg);
+				}
+				resp_submit = false;
+			}
+		});
+		$(".msg-resp-text").prop("disabled", false);
+	}
+</script>
+{%endblock%}

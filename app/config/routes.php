@@ -49,5 +49,11 @@ return [
 
 	"ajaxLoadDraft" => ["GET","/Admin/Post/ajaxLoadDraft",["admin\Post","ajaxLoadDraft",["auth"]]],
 
-	"adminFeeds" => ["GET","/Admin/Feeds",["admin\Feed","index",["auth"]]]
+	"adminFeeds" => ["GET","/Admin/Feeds",["admin\Feed","index",["auth"]]],
+
+	"adminMessageView" => ["GET","/Admin/Message/View/{mid:\d+}",["admin\Message","view",["auth"]]],
+
+	"AdminMessageReply" => ["POST","/Admin/Message/Reply", ["admin\Message","reply",["auth"]]],
+
+	"Admin/Message/Del" => ["POST","/Admin/Message/Del",["admin\Message","del",["auth"]]]
 ];

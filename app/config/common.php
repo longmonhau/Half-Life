@@ -28,7 +28,7 @@ return [
 
 	//================== Email config ===============
 	"MAIL-SERVER-CONFIG" =>[
-		"HOST" 		=> 'smtp.mxhichina.com',
+		"HOST" 	=> 'smtp.mxhichina.com',
 		"USERNAME" 	=> "root@userextra.com",
 		"PASSWORD" 	=> "Kiss963.",
 		"PORT"		=> 25,

@@ -779,3 +779,88 @@ a.current-nav-div{
 .feeds-list-content span{
 	color: #999;
 }
+
+/**
+ * Msg Page
+ */
+.msg-div{
+	width: 100%;
+}
+.msg-div-list{
+	width: 800px;
+}
+.msg-div-list-left{
+	width: 100px;
+	float: left;
+}
+
+.msg-div-list-right{
+	width: 700px;
+	float: left;
+}
+.msg-div-list-right-title{
+	width: 700px;
+}
+.msg-div-list-right-title a,
+.msg-div-list-right-title span{
+	float: left;
+	margin-right: 10px;
+	color: #777;
+}
+.msg-div-list-right-content{
+	width: 100%;
+	float: left;
+	padding: 1em 0;
+	border-bottom: 1px dashed #CDCDCD;
+}
+
+.msg-div-list-right-resp-list{
+	width: 100%;
+	float: left;
+	padding: 1em 0px;
+	border-bottom: 1px dashed #CDCDCD;
+}
+.mdlr-resp-list-title{
+	width: 100%;
+	float: left;
+	margin-bottom: 0.8em;
+	color: #777;
+}
+
+.msg-div-list-right-resp{
+	width: 100%;
+	float: left;
+	margin-top: 1em;
+}
+.msg-resp-text{
+	width: 676px;
+	padding: 12px;
+	height: 50px;
+	float: left;
+	box-shadow: 1px 1px 1px #DEDEDE inset;
+	resize:none;
+	border-radius: 3px;
+}
+.msg-div-list-right-resp-buttons{
+	width: 100%;
+	float: left;
+	margin-top: 10px;
+}
+.msg-div-list-right-resp-button-a{
+	padding: 0 25px;
+	background: #0083D6;
+	box-shadow: 1px 1px 1px #CCC;
+	color: #FFF;
+	height: 30px;
+	line-height: 30px;
+	display: block;
+	float: right;
+	border-radius: 2px;
+	position: relative;
+}
+.msg-div-list-right-resp-button-a:hover{
+	color: #FFF;
+}
+.msg-div-list-right-resp-button-a:active{
+	top:2px;
+}
