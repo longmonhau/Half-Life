@@ -864,3 +864,122 @@ a.current-nav-div{
 .msg-div-list-right-resp-button-a:active{
 	top:2px;
 }
+
+/**
+ * comment page
+ */
+.com-div{
+	width: 70%;
+}
+.com-div-post{
+	width: 100%;
+}
+
+.com-div-post-avatar{
+	width: 10%;
+	float: left;
+}
+.com-div-post-summary{
+	width: 90%;
+	float: left;
+}
+.com-div-post-summary-title{
+	width: 100%;
+	float: left;
+}
+.com-div-post-summary-title a{
+	font-size: 18px;
+	font-weight: bold;
+	color: #0083D6;
+}
+.com-div-post-summary-words{
+	width: 100%;
+	padding: 1em 0;
+	float: left;
+}
+.com-div-summary-meta{
+	width: 100%;
+	float: left;
+	padding-bottom: 1em;
+	border-bottom: 1px dashed #CDCDCD;
+	margin-bottom: 1.4em;
+}
+.com-div-summary-meta span,
+.com-div-summary-meta a{
+	float: left;
+	margin-right: 1em;
+	height: 26px;
+	line-height: 26px;
+	padding: 0px 20px;
+	background: #0083D6;
+	color: #FFF;
+	box-shadow: 1px 1px 1px #CCC;
+	border-radius: 3px;
+}
+.com-div-box{
+	width: 90%;
+	float: right;
+}
+.com-div-comlist{
+	width: 100%;
+	float: right;
+}
+.com-div-comlist-avatar{
+	width: 7%;
+	float: left;
+}
+.com-div-comlist-box{
+	width: 93%;
+	float: left;
+}
+.com-div-comlist-box-header{
+	width: 100%;
+	float: left;
+}
+.com-div-comlist-box-header span,
+.com-div-comlist-box-header a{
+	float: left;
+	color: #777;
+	margin-right: 1em;
+}
+.com-div-comlist-box-content{
+	width: 100%;
+	padding: 1em 0;
+	float: left;
+	border-bottom: 1px dashed #CDCDCD;
+}
+.com-div-comlist-box-resp{
+	width: 100%;
+	float: left;
+	margin-top: 1em;
+}
+.com-div-comlist-box-resp-text{
+	width: 96%;
+	float: left;
+	padding: 14px 2%;
+	border-radius: 2px;
+	box-shadow: 1px 1px 1px #CDCCDD inset;
+	resize:none;
+}
+.com-div-comlist-box-resp-buttons{
+	width: 100%;
+	margin-top: 1em;
+	float: left;
+}
+.com-div-comlist-box-resp-button-a{
+	padding: 0px 20px;
+	height: 28px;
+	line-height: 28px;
+	float: right;
+	background: #0083D6;
+	box-shadow: 1px 1px 1px #CCC;
+	color: #FFF;
+	border-radius: 2px;
+	position: relative;
+}
+.com-div-comlist-box-resp-button-a:hover{
+	color: #FFF;
+}
+.com-div-comlist-box-resp-button-a:active{
+	top:2px;
+}

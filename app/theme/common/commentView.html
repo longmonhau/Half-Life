@@ -1,0 +1,42 @@
+{%extends "dashBoard.html"%}
+
+{%block title%}评论详情{%endblock%}
+
+{%block bashmain%}
+<div class="com-div">
+	<div class="com-div-post">
+		<div class="com-div-post-avatar">
+			<img src="/static/images/mm_.jpeg" class="medium-avatar">
+		</div>
+		<div class="com-div-post-summary">
+			<div class="com-div-post-summary-title"><a href="">{{post.title}}</a></div>
+			<div class="com-div-post-summary-words">{{post.summary}}</div>
+			<div class="com-div-summary-meta">
+				<span>{{post.created_at}}</span>
+				<a href="">PHP</a>
+				<a href="">MySQL</a>
+				<a href="">Go</a>
+			</div>
+		</div>
+	</div>
+	<div class="com-div-box">
+		<div class="com-div-comlist">
+			<div class="com-div-comlist-avatar">
+				<img src="/static/images/mm_.jpeg" class="big-avatar">
+			</div>
+			<div class="com-div-comlist-box">
+				<div class="com-div-comlist-box-header"><span style="font-weight: bold;color:#0083D6;">这只鹰像</span><a href="mailto:dw32d">(307763929@qq.com)</a><span>2015.12.25 15:11:44</span></div>
+				<div class="com-div-comlist-box-content">
+					近日，一位网友贴出“西游记(微博)中的孙悟空其实早就死了 最后取到真经的并不是他”的意见。看看他是怎么说的吧！你有什么样的观点，也可以在评论中探讨哦~
+				</div>
+				<div class="com-div-comlist-box-resp">
+					<textarea class="com-div-comlist-box-resp-text"></textarea>
+				</div>
+				<div class="com-div-comlist-box-resp-buttons">
+					<a href="javascript:;" class="com-div-comlist-box-resp-button-a">回复</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{%endblock%}

@@ -61,7 +61,7 @@ class Blog extends Control
 		}
 
 		$commentModel = Model::make("Comment");
-		if( $commentModel->insertGetId($Rep) )
+		if( $cid = $commentModel->insertGetId($Rep) )
 		{
 			$Rep['receiver'] = $this->getAdminEmail();
 			$Rep["post"] = ["title"=>$post->title,"url"=>$post->url];
@@ -73,7 +73,7 @@ class Blog extends Control
 			$feed['name'] = $Rep['name'];
 			$feed['email'] = $Rep['email'];
 			$feed['gravatar'] = $Rep['gravatar'];
-			$feed['content'] = $Rep['name']."评论了您的文章: << <a target='_blank' style='color:#0083D6;' href='/Blog/".$post->url.".html#comment'>".$post->title.">><br/>\"".substr( $Rep['content'], 0, 180)."\"</a> ";
+			$feed['content'] = $Rep['name']."评论了您的文章: <br/><a target='_blank' style='font-size:14px;color:#0083D6;' href='/Admin/CommentManage/commentView/".$cid.".html'>".$post->title."<br/>\"".substr( $Rep['content'], 0, 180)."\"</a> ";
 			$FeedModel->insert( $feed );
 		}
 		return $this->renderJson(['code'=>200,'errmsg'=>"ok"]);
