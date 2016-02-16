@@ -11,10 +11,10 @@ use lOngmon\Hau\core\Model;
 
 /*************************************************
  *  系统核心类
- *  
+ *
  *  @package core
  *  @author longmon Hau <longmon.hau@gmail.com>
- * 
+ *
  *************************************************/
 class Kernel
 {
@@ -24,7 +24,9 @@ class Kernel
 
 	public static function boot()
 	{
-		if ( version_compare( PHP_VERSION, 5.5, "<" ) ) 
+		date_default_timezone_set("Asia/Shanghai");
+		
+		if ( version_compare( PHP_VERSION, 5.5, "<" ) )
 		{
     			exit( "PHP required 5.5+" );
 		}
@@ -75,7 +77,7 @@ class Kernel
 			{
 				return call_user_func( [$ctrl, $route["action"] ]);
 			}
-		} else 
+		} else
 		{
 			return call_user_func( [$ctrl, "notFound"]);
 		}
@@ -83,7 +85,7 @@ class Kernel
 
 	private function midWare( $midwares )
 	{
-		foreach ($midwares as $name) 
+		foreach ($midwares as $name)
 		{
 			if( $midware = Dependency::MidWare( $name ) )
 			{
