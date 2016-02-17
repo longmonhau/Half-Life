@@ -10,6 +10,7 @@ create table  if not exists users(
 	name char(24) not null,
 	sname char(24) not null,
 	email varchar(100) not null,
+	avatar varchar(200) not null,
 	role tinyint not null default 1,
 	passwd char(60) not null,
 	updated_at timestamp,
@@ -61,10 +62,11 @@ CREATE;
 $create_table['comments'] = <<<CREATE
 create table if not exists comments(
 	id int not null auto_increment,
+	resp int not null default 0;
 	postId int not null,
 	name char(20),
 	email varchar(100),
-	gravatar char(32),
+	gravatar varchar(200),
 	content varchar(1000),
 	updated_at timestamp,
 	created_at char(20) not null default '0000-00-00 00:00:00',
@@ -90,9 +92,9 @@ create table if not exists feed(
 	id int not null auto_increment,
 	name varchar(20),
 	email varchar(50),
-	gravatar char(32),
+	gravatar varchar(200),
 	content varchar(1000) not null,
-	isread tinyint not null default 0,
+	isread enum("n","y") default "n",
 	updated_at timestamp,
 	created_at char(20) not null default '0000-00-00 00:00:00',
 	primary key(`id`)
@@ -117,9 +119,9 @@ create table if not exists message(
 	resp int not null default 0,
 	name varchar(20) not null,
 	email varchar(100) not null,
-	gravatar char(32) not null,
+	gravatar varchar(200) not null,
 	msgbody varchar(3000) not null,
-	isread tinyint not null,
+	isread enum("n","y") default "n",
 	updated_at timestamp,
 	created_at char(20) not null default '0000-00-00 00:00:00',
 	primary key(`id`),
@@ -138,13 +140,13 @@ foreach ($create_table as $table => $sql) {
 }
 $pdo->query( "SET NAMES UTF8" );
 $now = date("Y-m-d H:i:s");
-$insert['users'] = 'insert ignore into users(`name`,`sname`,`email`,`role`,`passwd`,`created_at`, `updated_at`, `last_login_at`, `last_login_ip`) values("longmon","lOngmon Hau","1307995200@qq.com",1, "'.password_hash("kiss", PASSWORD_DEFAULT).'", now(),now(),now(),'.ip2long("127.0.0.1").');';
+$insert['users'] = 'insert ignore into users(`name`,`sname`,`email`,`avatar`,`role`,`passwd`,`created_at`, `updated_at`, `last_login_at`, `last_login_ip`) values("longmon","lOngmon Hau","1307995200@qq.com","http://www.gravatar.com/avatar/8ef50e82e8fa906d1d7398c2add83104",1, "'.password_hash("kiss", PASSWORD_DEFAULT).'", now(),now(),now(),'.ip2long("127.0.0.1").');';
 $insert['category'] = 'insert ignore into category(`title`,`categoryId`,`postNum`,`desp`,`created_at`,`updated_at`) values("时光之里","default",0,"default category",now(),now())';
 $insert['siteInfo1'] = 'insert ignore into siteInfo(`meta`,`val`) values("site_name","longmon Hau")';
 $insert['siteInfo2'] = 'insert ignore into siteInfo(`meta`,`val`) values("site_domain","zxfc.in")';
 $insert['siteInfo3'] = 'insert ignore into siteInfo(`meta`,`val`) values("site_copyright","Copyright(c)2015-2016")';
 echo "\n";
-foreach ($insert as $name => $sql) 
+foreach ($insert as $name => $sql)
 {
 	echo "Insert into $name ..................";
 	$in = $pdo->query( $sql );

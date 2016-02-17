@@ -37,8 +37,8 @@ class Category extends Control
     			return $this->renderJson(['code'=>400,'errmsg'=>"Missing required parameter: cateid"]);
     		}
     		$desc = $this->request->get("desc");
-    		
-    		
+
+
     		if( $thisCategoryModel = $this->CateModel->getCategoryByCid( $cateId ) )
     		{
     			$thisCategoryModel->title = $title;
@@ -51,13 +51,14 @@ class Category extends Control
     			$category['categoryId'] = $cateId;
     			$category['postNum'] = 0;
     			$category['desp'] = $desc;
+					$category['created_at'] = date("Y-m-d H:i:s");
     			$insertId = $this->CateModel->insert($category);
     			return $this->renderJson(['code'=>200,'errmsg'=>'ok',"id"=>$insertId]);
     		}
-    		
+
     	} else
 	    {
-	    	return $this->renderString("Access denied!");	
+	    	return $this->renderString("Access denied!");
 	    }
 	}
 

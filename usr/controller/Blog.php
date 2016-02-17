@@ -26,9 +26,16 @@ class Blog extends Control
 	public function comment()
 	{
 		$request = Factory::make("request");
-		$postId = $request->get("postId");
+		if( !$postId = intval($request->get("postId")) )
+		{
+			return $this->renderJson(400, "Invalid input post id!");
+		}
 		$commentModel = Model::make("Comment");
-		$comments = $commentModel->getCommentsBypostId($postId);
+		$comments = $commentModel->where("resp",0)->where("postId", $postId)->get();
+		foreach ($comments as $k => $comment)
+		{
+			$comments[$k]["subcomment"] = iterator_to_array($comment->getSubComments( $comment->id ));
+		}
 		return $this->renderJson(["code"=>200,"comments"=> iterator_to_array($comments)]);
 	}
 
@@ -59,6 +66,7 @@ class Blog extends Control
 		{
 			return $this->renderJson(['code'=>400,'errmsg'=>"Comment text can not be blank!"]);
 		}
+		$Rep['created_at'] = date("Y-m-d H:i:s");
 
 		$commentModel = Model::make("Comment");
 		if( $cid = $commentModel->insertGetId($Rep) )
@@ -73,7 +81,8 @@ class Blog extends Control
 			$feed['name'] = $Rep['name'];
 			$feed['email'] = $Rep['email'];
 			$feed['gravatar'] = $Rep['gravatar'];
-			$feed['content'] = $Rep['name']."评论了您的文章: <br/><a target='_blank' style='font-size:14px;color:#0083D6;' href='/Admin/CommentManage/commentView/".$cid.".html'>".$post->title."<br/>\"".substr( $Rep['content'], 0, 180)."\"</a> ";
+			$feed['content'] = $Rep['name']."评论了您的文章:《".$post->title."》<a target='_blank' style='font-size:14px;color:#0083D6;' href='/Admin/CommentManage/commentView/".$cid.".html'>".mb_substr( $Rep['content'], 0, 60,"utf-8")."</a> ";
+			$feed['created_at'] = date("Y-m-d H:i:s");
 			$FeedModel->insert( $feed );
 		}
 		return $this->renderJson(['code'=>200,'errmsg'=>"ok"]);

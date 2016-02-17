@@ -36,7 +36,7 @@ class Message extends Control
 		} else{
 			$this->assign("no_msg_err", true);
 		}
-		
+
 		return $this->display("messageView.html");
 	}
 
@@ -57,6 +57,7 @@ class Message extends Control
 		$Resp['email'] = $user->email;
 		$Resp['gravatar'] = md5($user->email);
 		$Resp['msgbody'] = $resbody;
+		$Resp['created_at'] = date("Y-m-d H:i:s");
 		$this->msgModel->insert( $Resp );
 
 		$mailer = Mailer::newInstance();

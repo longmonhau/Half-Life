@@ -13,7 +13,13 @@
 		</div>
 		<div class="bash-header-nav">
 			{%block bashheader%}
-			<div class="bashheader-title">概览</div>
+			<div class="bashheader-title">
+					<div class="bashheader-header">概览</div>
+					<div class="bashheader-icon">
+						<a href="javascript:;" class="bashheader-icon-uc"></a>
+						<a href="javascript:;" class="bashheader-icon-email">{{messageCount}}</a>
+					</div>
+			</div>
 			{%endblock%}
 		</div>
 	</div>
@@ -96,14 +102,14 @@
 						<div class="bmdr-div-list-ul">
 							<div class="bmdr-div-list-avatar">
 								<img src="http://www.gravatar.com/avatar/{{feed.gravatar}}" class="big-avatar" />
-								
+
 							</div>
 							<div class="bmdr-div-list-msg">
 								<div class="bmdr-div-list-msg-summary">
 									<span>({{feed.humanLookTime}})</span> {{feed.content}}
 								</div>
 							</div>
-						</div> 
+						</div>
 						{%else%}
 						<div class="bmdr-div-list-ul">No feed yet!</div>
 						{%endfor%}
@@ -136,8 +142,8 @@
 								+'<span>('+msg.humanLookTime+') </span>'+msg.content+'</div></div></div>';
 					}
 					$(".feed-append-div").html(msgHtml);
-				} 
-				else if( resp.code == 503 ) 
+				}
+				else if( resp.code == 503 )
 				{
 					location.href=resp.go_url;
 				}else

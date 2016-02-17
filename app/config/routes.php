@@ -57,5 +57,9 @@ return [
 
 	"Admin/Message/Del" => ["POST","/Admin/Message/Del",["admin\Message","del",["auth"]]],
 
-	"Admin/Comment/Manage" => ["GET","/Admin/CommentManage/commentView/{postId:\d+}",["admin\CommentManage","viewComment",["auth"]]]
+	"Admin/Comment/Manage" => ["GET","/Admin/CommentManage/commentView/{postId:\d+}",["admin\CommentManage","viewComment",["auth"]]],
+
+	"adminCommentDel" => ["POST","/Admin/Comment/Del",["admin\CommentManage","del",["auth"]]],
+
+	"admin/Comment/Resp" => ["POST","/admin/Comment/Resp",["admin\CommentManage","resp",["auth"]]]
 ];

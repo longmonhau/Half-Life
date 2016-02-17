@@ -30,11 +30,11 @@ class Post extends Control
 	{
 		$page = 1;
 		$pageNum = 10;
-		
+
 		$where = [];
 
 		$postTotal = $this->PostModel->count();
-		
+
 		if( $P = $this->request->get("page") )
 		{
 			if( $P > ceil($postTotal/$pageNum) )
@@ -100,7 +100,7 @@ class Post extends Control
     		$skip = ($PageNo-1)*$pageNum;
 
     		$posts = $this->PostModel->skip($skip)->limit($pageNum)->orderby("created_at","DESC")->whereIn("id", $postList_array)->get();
-    		
+
     		return $this->renderJson(['code'=>200,'postList'=>iterator_to_array($posts)]);
 
     	}else{
@@ -143,7 +143,7 @@ class Post extends Control
 		{
 			$post['url'] = date("YmdHis");
 		}
-		
+
 		if( !$post['created_at'] = $this->request->get("created_at") )
 		{
 			$post['created_at'] = date("Y-m-d H:i:s");
@@ -202,14 +202,14 @@ class Post extends Control
 			$oldCateList = explode(',', $oldCategory);
 			$cateList = explode(',', $post['category']);
 			$shouldDeleteCateList = array_diff($oldCateList, $cateList);
-			foreach ($shouldDeleteCateList as $ce) 
+			foreach ($shouldDeleteCateList as $ce)
 			{
 				$cateModel = $this->CateModel->getCategoryById($ce);
 				$cateModel->deletePost($postId);
 			}
 
 			$newCateList = array_diff($cateList, $oldCateList);
-			foreach ($newCateList as $cate) 
+			foreach ($newCateList as $cate)
 			{
 				$cateModel = $this->CateModel->getCategoryById($cate);
 				$cateModel->addPost($postId);
@@ -219,9 +219,10 @@ class Post extends Control
 		 * or just a new post public
 		 */
 		else{
+			$post['created_at'] = date("Y-m-d H:i:s");
 			$insertId = $this->PostModel->insertGetId($post);
 			$cateList = explode(',', $post['category']);
-			foreach ($cateList as $cate) 
+			foreach ($cateList as $cate)
 			{
 				$cateModel = $this->CateModel->getCategoryById($cate);
 				$cateModel->addPost( $insertId );
@@ -240,10 +241,10 @@ class Post extends Control
 		{
 			return $this->renderJson(["code"=>400,"errmsg"=>"Missing requried parameter:postId"]);
 		}
-		
+
 		$postIdList = explode(",", $postId);
 		$CommentModel = Model::make("Comment");
-		foreach ($postIdList as $pid) 
+		foreach ($postIdList as $pid)
 		{
 			if( $Post = $this->PostModel->getPostById( $pid ) )
 			{
@@ -251,7 +252,7 @@ class Post extends Control
 			}
 		}
 		$CommentModel->destroy( $postIdList );
-		
+
 		return $this->renderJson(['code'=>200,'errmsg'=>"ok"]);
 	}
 

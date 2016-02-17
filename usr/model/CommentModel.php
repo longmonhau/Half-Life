@@ -17,8 +17,13 @@ class CommentModel extends Model
 		return $this->find($id);
 	}
 
-	public function Post()
+	public function post()
 	{
-		return $this->belongsto("\lOngmon\Hau\usr\model\PostModel","postId");
+		return $this->belongsTo("\lOngmon\Hau\usr\model\PostModel","postId");
+	}
+
+	public function getSubcomments( $id )
+	{
+		return $this->where("resp", $id)->get();
 	}
 }

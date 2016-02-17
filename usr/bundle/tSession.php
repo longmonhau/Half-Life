@@ -15,6 +15,7 @@ class tSession
 		$userInfo['name'] 	= $user->name;
 		$userInfo['sname']	= $user->sname;
 		$userInfo['email'] 	= $user->email;
+		$userInfo['avatar'] = $user->avatar;
 		$userInfo['role'] 	= $user->role;
 
 		$userInfoJson = json_encode( $userInfo );

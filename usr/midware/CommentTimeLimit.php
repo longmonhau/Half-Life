@@ -44,6 +44,6 @@ class CommentTimeLimit extends AbstractMidWare
 	protected function falseHandler()
 	{
 		//$this->Sess->clear();
-		exit(json_encode(["code"=>403,"errmsg"=>"The next comment will be in 2 minutes!"]));
+		exit(json_encode(["code"=>403,"errmsg"=>"请在两分钟后重试！"]));
 	}
 }

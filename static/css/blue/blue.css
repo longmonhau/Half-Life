@@ -170,7 +170,6 @@ html{
 	width: 100%;
 	padding: .8em 0;
 	float: left;
-	border-bottom: 1px dashed #DEDEDE;
 }
 .impc-div-list-content-reply{
 	width: 100%;
@@ -197,6 +196,7 @@ html{
 .impc-div-list-content{
 	width: 88%;
 	float: right;
+	border-bottom: 1px dashed #DDDDDD;
 }
 .impc-reply-form{
 	width: 88%;
@@ -369,4 +369,13 @@ html{
 	width: 100%;
 	border-radius: 10px;
 	float: left;
+}
+
+.impc-div-list-subcom{
+	width:100%;
+	float: left;
+	padding-top:1em;
+	padding-bottom:1em;
+	border-top: 1px dashed #DEDEDE;
+	font-size:0.9em;color:#555;
 }

@@ -11,10 +11,12 @@ class DashBoard extends Control
 		$PostModel 		= 	Model::make("Post");
 		$CategoryModel 	= 	Model::make("Category");
 		$CommentModel 	= 	Model::make("Comment");
-		
+		$MessageModel = Model::make("Message");
+
 		$postNum = $PostModel->count();
 		$CategoryNum = $CategoryModel->count();
 		$CommentNum = $CommentModel->count();
+		$newMessageCount = $MessageModel->where("isread","n")->count();
 		$Feed = $this->getFeeds();
 
 		$this->assign("totalCategoryNum", $CategoryNum );
@@ -23,6 +25,10 @@ class DashBoard extends Control
 		$this->assign("draftList", $this->getDraft() );
 		$this->assign("feeds", $Feed['feeds']);
 		$this->assign("feedCount", $Feed['FeedCount']);
+		if( $newMessageCount>0 )
+		{
+				$this->assign("messageCount", $newMessageCount);
+		}
 		$this->display( "dashBoard.html" );
 	}
 
@@ -36,10 +42,10 @@ class DashBoard extends Control
 	private function getFeeds()
 	{
 		$FeedModel = Model::make("Feed");
-		$feeds = $FeedModel->getFeeds(5);
+		$feeds = $FeedModel->getFeeds(10);
 		$feedCount = $FeedModel->count();
 		$feeds = iterator_to_array( $feeds );
-		foreach ($feeds as $k=>$feed) 
+		foreach ($feeds as $k=>$feed)
 		{
 			$feeds[$k]['humanLookTime'] = DateTime::humanLook( $feed->created_at );
 		}

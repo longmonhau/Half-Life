@@ -6,6 +6,11 @@ class PostModel extends Model
 {
 	protected $table = "posts";
 
+	public function comments()
+	{
+		return $this->hasMany("\lOngmon\Hau\usr\model\CommentModel","postId");
+	}
+	
 	public function getPostsByKeyword( $key )
 	{
 		$titleSelect = $this->where("title","like","%{$key}%")->where("public",1);
@@ -24,10 +29,10 @@ class PostModel extends Model
 		$categid = $this->category;
 
 		$this->delete();
-		
+
 		$cateid_array = explode(",", $categid);
 		$CateModel = Model::make("Category");
-		foreach ($cateid_array as $k => $cid) 
+		foreach ($cateid_array as $k => $cid)
 		{
 			$Category = $CateModel->getCategoryById( $cid );
 			$Category->deletePost( $id );

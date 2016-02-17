@@ -16,7 +16,7 @@
 		<div class="index-main-post-list-summary">
 			{{post.html}}
 		</div>
-		
+
 	</div>
 	<div class="index-main-post-comment">
 		<a name="comment" id="comment"></a>
@@ -33,9 +33,13 @@
 					<div class="impc-div-list-content-words">
 						该函数比较两个（或更多个）数组的键值，并返回一个差集数组，该数组包括了所有在被比较的数组（array1）中，但是不在任何其他参数数组（array2 或 array3 等等）中的键值。
 					</div>
+					<div class="impc-div-list-subcom">
+						<img src="/static/images/mm_.jpeg" class="small-avatar left"/> &nbsp;&nbsp;
+						2015.12.11 12:14:55 :&nbsp;&nbsp; 数组包括了所有在被比较的数组（array1）中，
+					</div>
 				</div>
 			</div>
-			
+
 		</div>
 		<div class="impc-reply-form">
 			<div class="impc-reply-form-input">
@@ -66,7 +70,7 @@
 	var postId = {{post.id}};
 	var CommentPosting = false;
 	$(function(){
-		
+
 		initLoadBlogComment();
 
 		$("#post-comment-button").click(function(){
@@ -108,7 +112,7 @@
 				error:function(error,errstr)
 				{
 					alert(errstr);
-				}, 
+				},
 				success:function( ret )
 				{
 					console.log(ret);
@@ -140,6 +144,7 @@
 				//alert(ret.errmsg);
 				return;
 			}
+			console.log(ret.comments);
 			var com = ret.comments;
 			$("#comment-num").text(com.length);
 			var comHtml = '';
@@ -151,7 +156,17 @@
 				+'<div class="impc-div-list-content-meta">'
 				+'<a href="javascript:;">'+com[i].name+'</a><span>'+com[i].created_at+'</span>'
 				+'</div><div class="impc-div-list-content-words">'+com[i].content
-				+'</div></div></div>';
+				+'</div>';
+				var subcomhtml = '';
+				for( var n in com[i].subcomment )
+				{
+					var subcom = com[i].subcomment[n];
+					console.log(subcom);
+					subcomhtml += '<div class="impc-div-list-subcom">'
+								+'<img src="'+subcom.gravatar+'" class="small-avatar left"/> &nbsp;&nbsp;'
+						 		+subcom.created_at+' :&nbsp;&nbsp;'+subcom.content+'</div>';
+				}
+				comHtml += subcomhtml+'</div></div>';
 			}
 			$(".impc-div").html(comHtml);
 		},"json");

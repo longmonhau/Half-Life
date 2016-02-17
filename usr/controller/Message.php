@@ -16,15 +16,16 @@ class Message extends Control
 
 	public function submit()
 	{
-		if(isset($_SERVER["HTTP_X_REQUESTED_WITH"])
-		&& strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) == "xmlhttprequest")
-    	{
+		    if(isset($_SERVER["HTTP_X_REQUESTED_WITH"])
+		      && strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) == "xmlhttprequest")
+  	     {
     		$request = Factory::make("request");
     		$msg = [];
     		$msg['name'] = strip_tags($request->get("name"));
     		$msg['email'] = $request->get("email");
     		$msg['gravatar'] = md5($msg['email']);
     		$msg['msgbody'] = strip_tags($request->get("text"));
+        $msg['created_at'] = date("Y-m-d H:i:s");
     		$MessageModel = Model::make("Message");
     		$id = $MessageModel->insertGetId($msg);
 
@@ -34,7 +35,8 @@ class Message extends Control
     		$feed['name'] = $msg['name'];
     		$feed['email'] = $msg['email'];
     		$feed['gravatar'] = $msg['gravatar'];
-    		$feed['content'] = $feed['name']."给你发来私信:<br/><a href='/Admin/Message/View/".$id.".html' style='font-size:14px;color:#0083D6;'>\"".substr($msg['msgbody'], 0, 30*3)."\"</a>";
+    		$feed['content'] = $feed['name']."给你发来私信:<br/><a href='/Admin/Message/View/".$id.".html' style='font-size:14px;color:#0083D6;'>".mb_substr($msg['msgbody'], 0, 60,"utf-8")."</a>";
+        $feed['created_at'] = date("Y-m-d H:i:s");
     		$feedModel->insert( $feed );
 
     		/***************** Sending email asyn way **********/

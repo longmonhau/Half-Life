@@ -23,8 +23,8 @@ html{
 	width: 77%;
 	padding: 0 3%;
 	float: left;
-	height: 4em;
-	line-height: 4em;
+	height: 60px;
+	line-height: 60px;
 	box-shadow: 0 1px 2px #888;
 	background: #FFF;
 }
@@ -32,9 +32,35 @@ html{
 	font-size: 1.3em;
 	color: #0083D6;
 }
-.bashheader-title span{
+.bashheader-header{
+	float: left;
 	font-size: 1em;
 	color: #0083D6;
+}
+.bashheader-icon{
+	float: right;
+	height:24px;
+	margin-top:20px;
+	display:block;
+}
+.bashheader-icon-email{
+	padding-left: 28px;
+	height: 24px;
+	line-height: 24px;
+	background: url(/static/css/blue/img/ic_email_black_24dp_1x.png) no-repeat;
+	float: right;
+	color: #f6504d;
+}
+.bashheader-icon-uc{
+	width: 24px;
+	height: 24px;
+	display: block;
+	background: url(/static/css/blue/img/ic_grain_black_24dp_1x.png) no-repeat;
+	margin-left: 1.5em;
+	float: right;
+}
+.bashheader-title span{
+
 }
 .bash-main{
 	width: 100%;
@@ -65,7 +91,7 @@ html{
 .bms-user-avatar{
 	border:2px solid #FFF;
 	padding: 1px;
-	float: left;	
+	float: left;
 }
 .mbs-user-name{
 	float: right;
@@ -378,7 +404,7 @@ a.current-nav-div{
 	border-radius: 4px;
 	margin-bottom: 2em;
 	background: #FFF;
-	
+
 }
 .bmdr-div-header{
 	width: 88%;
@@ -486,7 +512,7 @@ a.current-nav-div{
 	margin-left: 2px;
 	float: left;
 	color: #999;
-	white-space:nowrap; 
+	white-space:nowrap;
 	overflow: hidden;
 }
 .editormd-bottom-url-input{
@@ -902,7 +928,6 @@ a.current-nav-div{
 	float: left;
 	padding-bottom: 1em;
 	border-bottom: 1px dashed #CDCDCD;
-	margin-bottom: 1.4em;
 }
 .com-div-summary-meta span,
 .com-div-summary-meta a{
@@ -922,6 +947,7 @@ a.current-nav-div{
 }
 .com-div-comlist{
 	width: 100%;
+	padding-top: 1.5em;
 	float: right;
 }
 .com-div-comlist-avatar{
@@ -947,6 +973,7 @@ a.current-nav-div{
 	padding: 1em 0;
 	float: left;
 	border-bottom: 1px dashed #CDCDCD;
+	font-size: 0.9em;
 }
 .com-div-comlist-box-resp{
 	width: 100%;
@@ -964,6 +991,8 @@ a.current-nav-div{
 .com-div-comlist-box-resp-buttons{
 	width: 100%;
 	margin-top: 1em;
+	padding-bottom: 1em;
+	border-bottom: 1px dashed #CDCDCD;
 	float: left;
 }
 .com-div-comlist-box-resp-button-a{
@@ -982,4 +1011,11 @@ a.current-nav-div{
 }
 .com-div-comlist-box-resp-button-a:active{
 	top:2px;
+}
+
+.resp-temp-div{
+	padding: 1em 0;
+	border-bottom: 1px dashed #DEDEDE;
+	width: 100%;
+	float: left;
 }
