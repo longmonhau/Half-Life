@@ -17,7 +17,9 @@
 					<div class="bashheader-header">概览</div>
 					<div class="bashheader-icon">
 						<a href="javascript:;" class="bashheader-icon-uc"></a>
-						<a href="javascript:;" class="bashheader-icon-email">{{messageCount}}</a>
+						<a href="/Admin/Message/List.html" class="bashheader-icon-email">
+							{%if messageCount >0 %}<img src="/static/images/red-dot.png"/>{%endif%}
+						</a>
 					</div>
 			</div>
 			{%endblock%}
@@ -95,7 +97,7 @@
 					<div class="bmdr-div-list-title">
 						<a href="/admin/feeds" style="float:left;font-weight:bold;">Feeds ({{feedCount}})</a>
 						&nbsp;
-						<a href="javascript:;" id="reflesh-feeds-a">Reflesh</a>
+						<a href="javascript:;" id="reflesh-feeds-a"></a>
 					</div>
 					<div class="feed-append-div">
 					{%for feed in feeds %}

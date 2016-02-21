@@ -61,5 +61,7 @@ return [
 
 	"adminCommentDel" => ["POST","/Admin/Comment/Del",["admin\CommentManage","del",["auth"]]],
 
-	"admin/Comment/Resp" => ["POST","/admin/Comment/Resp",["admin\CommentManage","resp",["auth"]]]
+	"admin/Comment/Resp" => ["POST","/admin/Comment/Resp",["admin\CommentManage","resp",["auth"]]],
+
+	"admin/Message/List" => ["GET","/Admin/Message/List",["admin\Message","index",["auth"]]]
 ];

@@ -44,12 +44,15 @@ html{
 	display:block;
 }
 .bashheader-icon-email{
-	padding-left: 28px;
+	padding-left: 20px;
 	height: 24px;
 	line-height: 24px;
 	background: url(/static/css/blue/img/ic_email_black_24dp_1x.png) no-repeat;
 	float: right;
 	color: #f6504d;
+}
+.bashheader-icon-email img{
+	float:left;
 }
 .bashheader-icon-uc{
 	width: 24px;
@@ -268,6 +271,12 @@ html{
 	float: right;
 	color: #FFF;
 	font-size: 1em;
+}
+#reflesh-feeds-a{
+	width:18px;
+	height: 18px;
+	display: block;
+	background: url(/static/css/blue/img/ic_autorenew_white_18dp_1x.png) no-repeat;
 }
 
 .bmdr-div-list-ul{
