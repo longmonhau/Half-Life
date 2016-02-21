@@ -2,3 +2,4 @@ vendor/
 app/Log/
 app/theme/compiled/
 composer.lock
+*DS_Store
