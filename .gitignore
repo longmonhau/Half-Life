@@ -3,3 +3,4 @@ app/Log/
 app/theme/compiled/
 composer.lock
 *DS_Store
+/Users/longmon/Half-Life/app/config/database.php
