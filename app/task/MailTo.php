@@ -50,15 +50,15 @@ class MailTo
 		$this->mail->addAddress("1307995200@qq.com","root");
 		$this->mail->addReplyTo( $msg->email, $msg->name);
 		$this->mail->isHTML(TRUE);
-		$this->mail->Subject = "Received a message from ".$msg->name;
-		$this->mail->Body = '<div style="width:1000px;margin:0 auto;">'
+		$this->mail->Subject = "您收到一条私信！";
+		$this->mail->Body = '<div style="width:1000px;">'
 							.'<div style="width:100px; float:left;">'
-							.'<img src="" style="width:60px;height:60px;borderr-radius:100%;"/><br/>'
-							.$msg->name.'</div><div style="width:900px;float:left;">'.$msg->msgbody.'</div></div>';
+							.'<img src="" style="width:60px;height:60px;borderr-radius:100%;"/>'
+							.'</div><div style="width:900px;float:left;">'.$msg->name."&nbsp;&nbsp;".date("Y-m-d H:i:s")."<br/>".$msg->msgbody.'</div></div>';
 		if( !$this->mail->send() )
 		{
 			Log::error($this->mail->ErrorInfo);
-		}							
+		}
 	}
 }
 

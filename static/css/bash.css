@@ -314,6 +314,8 @@ html{
 	font-size: 0.9em;
 	color: #666;
 	line-height: 1.6em;
+	max-height: 4.8em;
+	overflow: hidden;
 }
 .bmdr-div-list-msg-summary span{
 	color: #999;
@@ -1027,4 +1029,101 @@ a.current-nav-div{
 	border-bottom: 1px dashed #DEDEDE;
 	width: 100%;
 	float: left;
+}
+
+
+/**
+ * Message List page
+ */
+.message-list-box{
+	width: 100%;
+	float: left;
+	background: #FFF;
+	border-radius: 3px;
+}
+.message-list-box-header{
+	width: 96%;
+	padding:.7em 2%;
+	float: left;
+	background: #0083D6;
+	color: #FFF;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	box-shadow: 0 0px 1px #999;
+}
+
+.message-list-box-header input,
+.message-list-box-header label,
+.message-list-box-header span,
+.message-list-box-header a{
+	float: left;
+	margin-right: 0.7em;
+	color: #FFF;
+	line-height: 1.5em;
+	height: 1.5em;
+	cursor: pointer;
+}
+.message-list-box-li{
+	width: 96%;
+	padding: 0em 2%;
+	float: left;
+}
+.message-list-box-li-item{
+	float: left;
+	width: 100%;
+	padding: 1em 0;
+	border-bottom: 1px dashed #DEDEDE;
+}
+.message-list-box-list-item-header{
+	width: 100%;
+	height: 28px;
+}
+.message-list-box-list-item-header img{
+	margin-right: 1em;
+}
+.message-list-box-list-item-header input,
+.message-list-box-list-item-header a,
+.message-list-box-list-item-header span{
+	float: left;
+	margin-right: 10px;
+	height: 28px;
+	line-height: 28px;
+	color: #888;
+}
+.message-list-box-list-item-header a{
+	color: #0083D6;
+}
+.message-list-box-content{
+	padding-left: 20px;
+	font-size:14px;
+}
+.unread-msg{
+	color: #0083D6;
+}
+
+.message-box-list-nav{
+	width: 96%;
+	padding: 1em 2%;
+	float: left;
+}
+.message-box-list-nav-box{
+	float: right;
+}
+.message-box-list-nav a{
+	float: left;
+	height: 35px;
+	width: 35px;
+	text-align: center;
+	line-height: 36px;
+	border-radius: 100%;
+	box-shadow: 0 0 1px #999;
+	margin-left: 1em;
+}
+.message-box-list-nav a:hover{
+	background:#0083D6;
+	color: #FFF;
+}
+.msg-nav-current-a{
+	background:#0083D6;
+	color: #FFF;
 }

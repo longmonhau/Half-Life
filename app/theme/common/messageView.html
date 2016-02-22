@@ -74,13 +74,13 @@
 	function msg_del( mid )
 	{
 		$.post("/Admin/Message/Del.html",{msgid:mid},function(resp){
-			console.error(resp);
 			if( resp.code == 200 )
 			{
 				alert("删除成功!");
+				location.href=resp.go_url;
 			}
 			resp_submit = false;
-		},"html");
+		},"json");
 	}
 	function resp_ok( mid )
 	{

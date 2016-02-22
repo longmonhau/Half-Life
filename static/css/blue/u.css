@@ -39,18 +39,18 @@
 	box-shadow: 0 1px 2px #999;
 }
 .msg-header-title{
-	width: 800px;
+	width: 1000px;
 	margin: 0 auto;
 	font-size: 25px;
 	color: #FFF;
 }
 .msg-body{
-	width: 800px;
+	width: 1000px;
 	margin: 0 auto;
 	margin-top: 2em;
 }
 .msg-body-left{
-	width: 450px;
+	width: 550px;
 	float: left;
 }
 .msg-box-input{
@@ -121,7 +121,7 @@
 }
 
 .msg-body-right{
-	width: 300px;
+	width: 400px;
 	float: right;
 }
 .msg-body-right-title{

@@ -16,7 +16,7 @@ class DashBoard extends Control
 		$postNum = $PostModel->count();
 		$CategoryNum = $CategoryModel->count();
 		$CommentNum = $CommentModel->count();
-		$newMessageCount = $MessageModel->where("isread","n")->count();
+		$newMessageCount = $MessageModel->where("isread","n")->where("resp",0)->count();
 		$Feed = $this->getFeeds();
 
 		$this->assign("totalCategoryNum", $CategoryNum );

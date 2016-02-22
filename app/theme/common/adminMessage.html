@@ -1,3 +1,138 @@
 {%extends "dashBoard.html"%}
 
-{%block title%}{%endblock%}
+{%block title%}
+消息列表
+{%endblock%}
+{%block bashheader%}消息列表{%endblock%}
+
+{%block bashmain%}
+<div class="bash-main-div-left">
+    <div class="message-list-box">
+        <div class="message-list-box-header">
+            <input type="checkbox" name="all_message_selected" id="select-all-message" value="all" />
+            <label for="select-all-message">全选</label>
+            <span>选中项:</span>
+            <a href="javascript:;" id="click-to-delete-the-selected">删除</a>
+        </div>
+        <div class="message-list-box-li">
+            {%for msg in messageList%}
+            <div class="message-list-box-li-item">
+                <div class="message-list-box-list-item-header left">
+                    <input type="checkbox" name="msg-selected-{{msg.id}}" class="msg-input-msg-id {%if msg.isread=='n'%}unread-msg-id{%endif%}" value="{{msg.id}}" />
+                    <img src="http://www.gravatar.com/avatar/{{msg.gravatar}}" class="small-avatar left"/>
+                    <span class="left">{{msg.name}}&nbsp;{{msg.created_at}}</span>
+                    <a href="/admin/Message/View/{{msg.id}}.html" target="_blank">回复</a>
+                </div>
+                <div class="message-list-box-content {%if msg.isread=='n'%}unread-msg{%endif%}">{{msg.msgbody}}</div>
+            </div>
+            {%else%}
+            <div class="message-list-box-li-item">还没有消息</div>
+            {%endfor%}
+        </div>
+        <div class="message-box-list-nav">
+            <div class="message-box-list-nav-box">
+                {%for page in pageList%}
+                <a href="javascript:;">{{page}}</a>
+                {%endfor%}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bash-main-div-right">
+    <!--Do nothing-->
+</div>
+{%endblock%}
+{%block bashscript%}
+<script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        updateMsgStatus();
+        $(".message-box-list-nav a").eq(0).addClass("msg-nav-current-a");
+
+        $("#select-all-message").change(function(){
+            var checked = $(this).prop("checked");
+            $(".msg-input-msg-id").prop("checked", checked);
+        });
+    });
+    function updateMsgStatus()
+    {
+        var msgInput = $(".unread-msg-id");
+        if( msgInput.length == 0 )
+        {
+            return;
+        }
+        var msgList = '';
+        for( var i=0; i<msgInput.length; i++ )
+        {
+            msgList+= "|"+msgInput.eq(i).val();
+        }
+        if( msgList == '' )
+        {
+            location.reload();
+        }
+        msgList = msgList.substr(1);
+        $.post("/admin/Message/updateStatus",{msgList:msgList});
+    }
+    $(".message-box-list-nav a").click(function(){
+        var page = $(this).text();
+        $.get("/admin/Message/List",{page:page},function(resp){
+            if( resp.code == 200 )
+            {
+                var msgList = resp.msgList;
+                if(msgList.length == 0)
+                {
+                    return;
+                }
+                var msgListHtml = '';
+                for(var n=0; n<msgList.length; n++ )
+                {
+                    var msg = msgList[n];
+                    var unread_msg_id = '';
+                    var unread_msg = '';
+                    if(msg.isread == 'n')
+                    {
+                        unread_msg = " unread-msg";
+                        unread_msg_id = ' unread-msg-id';
+                    }
+                    msgListHtml += '<div class="message-list-box-li-item"><div class="message-list-box-list-item-header left">'
+                                +'<input type="checkbox" name="msg-selected-'+msg.id+'" class="msg-input-msg-id '
+                                +unread_msg_id+'" value="'+msg.id+'" />'
+                                +'<img src="http://www.gravatar.com/avatar/'+msg.gravatar+'" class="small-avatar left"/>'
+                                +'<span class="left">'+msg.name+'&nbsp;'+msg.created_at+'</span>'
+                                +'<a href="/admin/Message/View/'+msg.id+'.html" target="_blank">回复</a>'
+                                +'</div><div class="message-list-box-content'
+                                +unread_msg+'">'+msg.msgbody+'</div></div>';
+                }
+                $(".message-list-box-li").html(msgListHtml);
+            } else if(resp.code = 503 )
+            {
+                alert(resp.errmsg);
+                location.href = resp.go_url;
+            } else {
+                alert(resp.errmsg);
+            }
+        },"json");
+        $(this).addClass("msg-nav-current-a").siblings().removeClass("msg-nav-current-a");
+    });
+    $("#click-to-delete-the-selected").click(function(){
+        var selected = $(".msg-input-msg-id:checked");
+        if( selected.length == 0 )
+        {
+            alert("您还没有选中任何消息！");
+            return;
+        }
+        var msgList = '';
+        for(var i=0; i<selected.length; i++ )
+        {
+            msgList += "|"+selected.eq(i).val();
+        }
+        msgList = msgList.substr(1);
+        $.post("/Admin/Message/Del",{msgid:msgList},function(resp){
+            if( resp.code == 200 )
+            {
+                selected.parent().parent().remove();
+            }
+        },"json");
+    });
+</script>
+{%endblock%}

@@ -25,7 +25,7 @@ class Message extends Control
     		$msg['email'] = $request->get("email");
     		$msg['gravatar'] = md5($msg['email']);
     		$msg['msgbody'] = strip_tags($request->get("text"));
-        $msg['created_at'] = date("Y-m-d H:i:s");
+            $msg['created_at'] = date("Y-m-d H:i:s");
     		$MessageModel = Model::make("Message");
     		$id = $MessageModel->insertGetId($msg);
 
@@ -36,7 +36,7 @@ class Message extends Control
     		$feed['email'] = $msg['email'];
     		$feed['gravatar'] = $msg['gravatar'];
     		$feed['content'] = $feed['name']."给你发来私信:<br/><a href='/Admin/Message/View/".$id.".html' style='font-size:14px;color:#0083D6;'>".mb_substr($msg['msgbody'], 0, 60,"utf-8")."</a>";
-        $feed['created_at'] = date("Y-m-d H:i:s");
+            $feed['created_at'] = date("Y-m-d H:i:s");
     		$feedModel->insert( $feed );
 
     		/***************** Sending email asyn way **********/

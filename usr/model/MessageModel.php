@@ -10,4 +10,9 @@ class MessageModel extends Model
 	{
 		return $this->find($id);
 	}
+
+	public function updateStatus(array $msg)
+	{
+		$this->whereIn("id",$msg)->update(["isread"=>'y']);
+	}
 }

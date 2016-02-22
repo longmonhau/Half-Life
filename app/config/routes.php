@@ -63,5 +63,7 @@ return [
 
 	"admin/Comment/Resp" => ["POST","/admin/Comment/Resp",["admin\CommentManage","resp",["auth"]]],
 
-	"admin/Message/List" => ["GET","/Admin/Message/List",["admin\Message","index",["auth"]]]
+	"admin/Message/List" => ["GET","/Admin/Message/List",["admin\Message","index",["auth"]]],
+
+	"admin/Message/updateStatus" => ["POST","/admin/Message/updateStatus",["admin\Message","updateStatus",["auth"]]]
 ];

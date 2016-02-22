@@ -12,17 +12,19 @@
 			Half-Life
 		</div>
 		<div class="bash-header-nav">
-			{%block bashheader%}
+
 			<div class="bashheader-title">
-					<div class="bashheader-header">概览</div>
+					<div class="bashheader-header">
+						{%block bashheader%}概览{%endblock%}
+					</div>
 					<div class="bashheader-icon">
 						<a href="javascript:;" class="bashheader-icon-uc"></a>
 						<a href="/Admin/Message/List.html" class="bashheader-icon-email">
-							{%if messageCount >0 %}<img src="/static/images/red-dot.png"/>{%endif%}
+							{%if messageCount >0 %}<img src="/static/images/red-dot.png"/>{%endif%}&nbsp;&nbsp;
 						</a>
 					</div>
 			</div>
-			{%endblock%}
+
 		</div>
 	</div>
 	<div class="bash-main">
@@ -62,24 +64,32 @@
 			{%block bashmain%}
 			<div class="bash-main-div-left">
 				<div class="bash-main-div-chart">
-					<div class="bash-main-div-chart-div visitor-statistics-photograph">
-						New Visitors
-						<span>120k</span>
-					</div>
+					<a href="">
+						<div class="bash-main-div-chart-div visitor-statistics-photograph">
+							New Visitors
+							<span>120k</span>
+						</div>
+					</a>
 					<div class="bash-main-div-chart-sperat"></div>
-					<div class="bash-main-div-chart-div post-statistics-photograph">
-						Posts
-						<span>{{totalPostNum}}</span>
-					</div>
+					<a href="">
+						<div class="bash-main-div-chart-div post-statistics-photograph">
+							Posts
+							<span>{{totalPostNum}}</span>
+						</div>
+					</a>
 					<div class="bash-main-div-chart-sperat"></div>
-					<div class="bash-main-div-chart-div category-statistics-photograph">
-						Category
-						<span>{{totalCategoryNum}}</span>
-					</div>
+					<a href="">
+						<div class="bash-main-div-chart-div category-statistics-photograph">
+							Category
+							<span>{{totalCategoryNum}}</span>
+						</div>
+					</a>
 					<div class="bash-main-div-chart-sperat"></div>
-					<div class="bash-main-div-chart-div comment-statistics-photograph">
-					Comments<span>{{totalCommentNum}}</span>
-					</div>
+					<a href="">
+						<div class="bash-main-div-chart-div comment-statistics-photograph">
+						Comments<span>{{totalCommentNum}}</span>
+						</div>
+					</a>
 				</div>
 				<div class="bash-main-div-todo">
 					<div class="bash-main-div-todo-table-title">Pending tasks</div>
