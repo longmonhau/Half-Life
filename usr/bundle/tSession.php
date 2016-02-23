@@ -80,6 +80,5 @@ class tSession
 		$user_login_key_old = $session->get("_login_cookie_key");
 		setCookie( $user_login_key_old, '',time()-1,'/');
 		$session->clear();
-
 	}
 }

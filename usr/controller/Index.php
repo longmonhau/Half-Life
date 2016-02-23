@@ -4,6 +4,7 @@ use lOngmon\Hau\core\Control;
 use lOngmon\Hau\core\Model;
 use lOngmon\Hau\core\Factory;
 use lOngmon\Hau\usr\bundle\SlideBar;
+use lOngmon\Hau\usr\bundle\tSession;
 use lOngmon\Hau\usr\traits\SiteInfo;
 
 class Index extends Control
@@ -21,6 +22,12 @@ class Index extends Control
 	{
 		$posts = $this->fetchPosts(1,10);
 		$this->assign("posts", $posts);
+		if( $loginedUser = tSession::getLoginedUserInfo() )
+		{
+			$this->assign("adminlogined", true);
+			$this->assign("loginedUserName", $loginedUser->sname);
+		}
+		
 		$this->display("index.html");
 	}
 

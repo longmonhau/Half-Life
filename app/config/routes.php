@@ -19,6 +19,8 @@ return [
 
 	'login'=> ['POST','/admin/login.submit',["admin\User","login"]],
 
+	"logout" => ["GET","/User/Logout",["admin\User","logout"]],
+
 	"dashBoard" => ['GET',"/Admin/dashBoard",["admin\DashBoard","index",["auth"]]],
 
 	"postList" => ['GET',"/Admin/Post/List",["admin\Post","lists",["auth"]]],
@@ -65,5 +67,15 @@ return [
 
 	"admin/Message/List" => ["GET","/Admin/Message/List",["admin\Message","index",["auth"]]],
 
-	"admin/Message/updateStatus" => ["POST","/admin/Message/updateStatus",["admin\Message","updateStatus",["auth"]]]
+	"admin/Message/updateStatus" => ["POST","/admin/Message/updateStatus",["admin\Message","updateStatus",["auth"]]],
+
+	"adminSetting" => ["GET", "/admin/Setting", ["admin\Setting", "index", ["auth"]]],
+
+	"admin/Setting/submit" => ["POST","/admin/Setting/submit",["admin\Setting","submit",["auth"]]],
+
+	"admin/Profile" => ["GET","/admin/Profile",["admin\Profile","index",["auth"]]],
+
+	"/admin/Profile/submit" => ["POST","/admin/Profile/submit",["admin\Profile","submit",["auth"]]],
+
+	"admin/Profile/chpwd" => ["POST","/admin/Profile/chpwd",["admin\Profile","chpwd",["auth"]]]
 ];

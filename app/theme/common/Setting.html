@@ -1,0 +1,85 @@
+{%extends "dashBoard.html"%}
+
+{%block title%}设置{%endblock%}
+
+{%block bashheader%}系统设置{%endblock%}
+
+{%block bashmain%}
+<div class="bash-main-div-left">
+	<div class="bash-setting-list">
+		<span>网站名称：</span>
+		<input type="text" name="setting_name" class="site-setting-name" value="{{site.site_name}}" />
+	</div>
+
+	<div class="bash-setting-list">
+		<span>网站域名：</span>
+		<input type="text" name="setting_domain" class="site-setting-domain" value="{{site.site_domain}}" />
+	</div>
+
+	<div class="bash-setting-list">
+		<span>网站描述：</span>
+		<textarea class="bash-setting-list-textarea">{{site.site_desc}}</textarea>
+	</div>
+
+	<div class="bash-setting-list">
+		<span>版权描述：</span>
+		<input type="text" name="setting_copy" class="site-setting-copy" value="{{site.site_copyright}}" />
+	</div>
+
+	<div class="bash-setting-list">
+		<div class="bash-setting-list-box">
+			<a href="javascript:;" id="site-setting-ok-a">确定</a>
+			<div class="bash-setting-list-tip"></div>
+		</div>
+	</div>
+
+</div>
+<div class="bash-main-div-right"></div>
+{%endblock%}
+
+{%block bashscript%}
+<script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+var posting = false;
+$("#site-setting-ok-a").click(function(){
+	if( posting )
+	{
+		return;
+	}
+	var site = {};
+	site.name = $(".site-setting-name").val();
+	site.domain = $(".site-setting-domain").val();
+	site.desc = $(".bash-setting-list-textarea").val();
+	site.copy = $(".site-setting-copy").val();
+	posting = true;
+	$.ajax({
+		url:"/admin/Setting/submit",
+		data:site,
+		type:"post",
+		dataType:"json",
+		error:function(error,errStr)
+		{
+			alert(errStr);
+		},
+		success:function(resp)
+		{
+			if( resp.code == 200 )
+			{
+				$(".bash-setting-list-tip").html("ok");
+				setTimeout(function(){
+					$(".bash-setting-list-tip").html("");
+				},3000);
+			} else if( resp.code == 503 )
+			{
+				alert(resp.errmsg);
+				location.href=resp.go_url;
+			} else
+			{
+				alert(resp.errmsg);
+			}
+		}
+	});
+	posting = false;
+});
+</script>
+{%endblock%}

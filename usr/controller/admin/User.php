@@ -11,6 +11,14 @@ class User extends Control
 {
 	public function sign()
 	{
+        $sess = Factory::make("session");
+        if( stripos($this->server->HTTP_REFERER, "entrance") === false
+        && stripos($this->server->HTTP_REFERER, "logout") === false
+        && stripos($this->server->HTTP_REFERER, "login") === false )
+        {
+            $sess->set("http_referer", $this->server->HTTP_REFERER);
+        }
+        
 		$this->display("sign.html");
 	}
 
@@ -19,13 +27,12 @@ class User extends Control
 		if(isset($_SERVER["HTTP_X_REQUESTED_WITH"])
 		&& strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) == "xmlhttprequest")
     	{
-    		$request = Factory::make("request");
 
-    		if( !$name = $request->get("name") )
+    		if( !$name = $this->post("name") )
     		{
     			return $this->renderJson(['code'=>400,'errmsg'=>'Missing required parameter:$username.']);
     		}
-    		if( !$passwd = $request->get("passwd") )
+    		if( !$passwd = $this->post("passwd") )
     		{
     			return $this->renderjson(['code'=>400,'errmsg'=>"Missing required parameter: $password"]);
     		}
@@ -41,16 +48,29 @@ class User extends Control
     			return $this->renderJson(['code'=>401,'errmsg'=>"incorrect password input"]);
     		}
 
-    		tSession::login( $userObj, $request->server->get("HTTP_USER_AGENT") );
-            $this->updateLoginInfo( $userObj, $request->server->get("REMOTE_ADDR"));
+    		tSession::login( $userObj, $this->server("HTTP_USER_AGENT") );
+            $this->updateLoginInfo( $userObj, $this->server("REMOTE_ADDR"));
 
-    		$goRoute = Route::getRouteUri("dashBoard");
-    		return $this->renderJson(['code'=>200,'errmsg'=>'ok', 'go_url'=> $goRoute[1] ]);
+            $sess = Factory::make("session");
+    		if( !$goRoute = $sess->get("http_referer") )
+            {
+                $Gor = Route::getRouteUri('dashBoard');
+                $goRoute = $Gor[1];
+                $sess->remove("http_referer");
+            }
+    		return $this->renderJson(['code'=>200, 'errmsg'=>'ok', 'go_url'=> $goRoute ]);
     	} else {
     		return $this->renderJson(["code"=>403, "errmsg"=>"Access forbindden"]);
     	}
 		
 	}
+
+    public function logout()
+    {
+        tSession::clear();
+        $goRoute = Route::getRouteUri("index");
+        Route::redirect( $goRoute[1] );
+    }
 
     private function updateLoginInfo( $userModel, $remote_ip )
     {

@@ -10,7 +10,7 @@
 <body>
 	<div class="index-header">
 		<div class="index-header-top">
-			<div class="index-header-top-logo"><a href="/">{{Site.site_name|default("longmon Hau")}}</a></div>
+			<div class="index-header-top-logo"><a href="/">{{Site.site_name|default("Falf-Life")}}</a></div>
 			<div class="index-header-desc">{{Site.site_desc|default("此刻，我多想拥抱你，可惜时光之里山南水北，可惜你我中间人来人往")}}</div>
 		</div>
 		<div class="clear"></div>
@@ -89,7 +89,11 @@
 				</div>
 				<div class="index-main-right-div-ul index-main-right-div-ul-page">
 					<ul>
+						{%if adminlogined %}
+						<li><a href="/admin/dashBoard.html">管理中心({{loginedUserName}})</a></li>
+						{%else%}
 						<li><a href="/admin/entrance.html">登陆</a></li>
+						{%endif%}
 						<li><a href="/Contact_Me.html">私信</a></li>
 						<li><a target="_blank" href="https://github.com/longmonhau/Half-Life.git">源码&nbsp;(Github.com)</a></li>
 					</ul>

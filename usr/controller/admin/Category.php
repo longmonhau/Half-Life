@@ -3,6 +3,7 @@
 use lOngmon\Hau\core\Control;
 use lOngmon\Hau\core\Factory;
 use lOngmon\Hau\core\Model;
+use lOngmon\Hau\usr\bundle\tSession;
 
 class Category extends Control
 {
@@ -13,13 +14,13 @@ class Category extends Control
 	public function __construct()
 	{
 		parent::__construct();
-		$this->request = Factory::make("request");
 		$this->CateModel = Model::make("Category");
 	}
 	public function index()
 	{
 		$categories = $this->CateModel->get();
 		$this->assign("categories", $categories);
+        $this->assign("user", tSession::getLoginedUserInfo());
 		$this->display("categoryIndex.html");
 	}
 
@@ -28,15 +29,15 @@ class Category extends Control
 		if(isset($_SERVER["HTTP_X_REQUESTED_WITH"])
 		&& strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) == "xmlhttprequest")
     	{
-    		if( !$title = $this->request->get("title") )
+    		if( !$title = $this->post("title") )
     		{
     			return $this->renderJson(['code'=>400,'errmsg'=>"Missing requried parameter:title"]);
     		}
-    		if( !$cateId = $this->request->get("cateid") )
+    		if( !$cateId = $this->post("cateid") )
     		{
     			return $this->renderJson(['code'=>400,'errmsg'=>"Missing required parameter: cateid"]);
     		}
-    		$desc = $this->request->get("desc");
+    		$desc = $this->post("desc");
 
 
     		if( $thisCategoryModel = $this->CateModel->getCategoryByCid( $cateId ) )
@@ -51,7 +52,7 @@ class Category extends Control
     			$category['categoryId'] = $cateId;
     			$category['postNum'] = 0;
     			$category['desp'] = $desc;
-					$category['created_at'] = date("Y-m-d H:i:s");
+				$category['created_at'] = date("Y-m-d H:i:s");
     			$insertId = $this->CateModel->insert($category);
     			return $this->renderJson(['code'=>200,'errmsg'=>'ok',"id"=>$insertId]);
     		}
@@ -67,7 +68,7 @@ class Category extends Control
 		if(isset($_SERVER["HTTP_X_REQUESTED_WITH"])
 		&& strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) == "xmlhttprequest")
     	{
-    		$categoryId = $this->request->get("categoryId");
+    		$categoryId = $this->post("categoryId");
     		if( $categoryId == 'default' )
     		{
     			return $this->renderJson(['code'=>403,"errmsg"=>"Default category can not delete"]);

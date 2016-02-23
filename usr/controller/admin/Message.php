@@ -23,10 +23,9 @@ class Message extends Control
 	public function index()
 	{
 		$skip = 0;
-		$pageNum = 2;
+		$pageNum = 10;
 
-		$request = Factory::make("request");
-		if( !$page = $request->query->get("page") )
+		if( !$page = intval($this->get("page")) )
 		{
 			$page = 1;
 		}
@@ -43,7 +42,7 @@ class Message extends Control
 				$pageList = range(1,ceil($totalMsg/$pageNum));
 				$this->assign("pageList", $pageList);
 			}
-
+			$this->assign("user", tSession::getLoginedUserInfo());
 			$this->assign("messageList", iterator_to_array($msgList));
 			return $this->display("adminMessage.html");
 		}
@@ -55,8 +54,7 @@ class Message extends Control
 		if(isset($_SERVER["HTTP_X_REQUESTED_WITH"])
 		&& strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) == "xmlhttprequest")
     	{
-			$request = Factory::make("request");
-			$msgList = $request->get("msgList");
+			$msgList = $this->post("msgList");
 			$msgList_array = explode("|", $msgList);
 			$this->msgModel->updateStatus( $msgList_array );
 		}
@@ -73,16 +71,16 @@ class Message extends Control
 		} else{
 			$this->assign("no_msg_err", true);
 		}
-
+		
+		$this->assign("user", tSession::getLoginedUserInfo());
 		return $this->display("messageView.html");
 	}
 
 
 	public function reply()
 	{
-		$request = Factory::make("request");
-		$mid = intVal($request->get("mid"));
-		$resbody = nl2br(strip_tags( $request->get("content")));
+		$mid = intVal($this->post("mid"));
+		$resbody = nl2br(strip_tags( $this->post("content")));
 		if( !$msg = $this->msgModel->getMessageById( $mid ) )
 		{
 			return $this->renderJson(401,"消息不存在！");
@@ -116,8 +114,7 @@ class Message extends Control
 
 	public function del()
 	{
-		$request = Factory::make("request");
-		$mid = $request->get("msgid");
+		$mid = $this->post("msgid");
 		$mid = explode("|", $mid);
 		if( $msg = $this->msgModel->destroy($mid) )
 		{

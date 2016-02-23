@@ -16,7 +16,6 @@ class Post extends Control
 	public function __construct()
 	{
 		parent::__construct();
-		$this->request = Factory::make("request");
 		$this->session = Factory::make("session");
 		$this->CateModel = Model::make("Category");
 		$this->PostModel = Model::make("Post");
@@ -35,7 +34,7 @@ class Post extends Control
 
 		$postTotal = $this->PostModel->count();
 
-		if( $P = $this->request->get("page") )
+		if( $P = $this->post("page") )
 		{
 			if( $P > ceil($postTotal/$pageNum) )
 			{
@@ -48,7 +47,7 @@ class Post extends Control
 			}
 		}
 
-		if( $cate = $this->request->get("cate") )
+		if( $cate = $this->post("cate") )
 		{
 			$where['category'] = $cate;
 		}
@@ -78,6 +77,8 @@ class Post extends Control
 			}
 			$this->assign("tags", SlideBar::getTags());
 			$this->assign("postList", $PostList);
+
+			$this->assign("user", tSession::getLoginedUserInfo());
 			$this->display("postList.html");
 		}
 	}
@@ -87,13 +88,13 @@ class Post extends Control
 		if(isset($_SERVER["HTTP_X_REQUESTED_WITH"])
     	   && strtolower($_SERVER["HTTP_X_REQUESTED_WITH"])=="xmlhttprequest")
     	{
-    		$categoryId = $this->request->get("categoryId");
+    		$categoryId = $this->post("categoryId");
     		$postListStr = $this->CateModel->select("postList","postNum")->where("categoryId",$categoryId)->first();
     		$postList_array = explode(",", $postListStr->postList );
 
     		$pageNum = 10;
     		$PageNo = 1;
-    		if( $page = $this->request->get("page") )
+    		if( $page = $this->post("page") )
     		{
     			$PageNo = $page;
     		}
@@ -114,7 +115,7 @@ class Post extends Control
 	 */
 	public function edit()
 	{
-		if( $postId = $this->request->query->get("pid") )
+		if( $postId = $this->get("pid") )
 		{
 			$Post = $this->PostModel->getPostById($postId);
 			$this->assign("Post", $Post);
@@ -122,6 +123,7 @@ class Post extends Control
 
 		$Category = $this->CateModel->get();
 		$this->assign("Category", $Category);
+		$this->assign("user", tSession::getLoginedUserInfo());
 		$this->display("postEdit.html");
 	}
 
@@ -132,45 +134,45 @@ class Post extends Control
 	public function submit()
 	{
 		$post = [];
-		$postId = $this->request->get("postId");
+		$postId = $this->post("postId");
 
-		if( !$post['title'] = $this->request->get("title") )
+		if( !$post['title'] = $this->post("title") )
 		{
 			$post['title'] = "无题";
 		}
 
-		if( !$post['url'] = $this->request->get("url") )
+		if( !$post['url'] = $this->post("url") )
 		{
 			$post['url'] = date("YmdHis");
 		}
 
-		if( !$post['created_at'] = $this->request->get("created_at") )
+		if( !$post['created_at'] = $this->post("created_at") )
 		{
 			$post['created_at'] = date("Y-m-d H:i:s");
 		}
 
-		if( !$post['category'] = $this->request->get("cateVal") )
+		if( !$post['category'] = $this->post("cateVal") )
 		{
 			$post['category'] = 1;
 		}
 
-		$post['markdown'] = $this->request->get("markdown");
-		$post['html'] = $this->request->get("htmlContent");
+		$post['markdown'] = $this->post("markdown");
+		$post['html'] = $this->post("htmlContent");
 
 		if( !$length = stripos($post['html'], "&lt;!--more--&gt;") )
 		{
-			$length = 600;
+			$length = 200;
 		}
 
-		$post['summary'] = "<p>".substr(strip_tags($post['html']), 0, $length-3)."</p>";
+		$post['summary'] = "<p>".mb_substr(strip_tags($post['html']), 0, $length)."</p>";
 		if( preg_match('/<img\s*src=[\'"]+([^\'"]+)[\'"]+.*>/', $post['html'], $mat) )
 		{
 			$post['summary'] = "<img src='".$mat[1]."'/>".$post['summary'];
 		}
 
-		$post['tags'] = $this->request->get('tags');
+		$post['tags'] = $this->post('tags');
 
-		$post['public'] = $this->request->get("public");
+		$post['public'] = $this->post("public");
 		if( $post['public'] !== '0' )
 		{
 			$post['public'] = 1;
@@ -237,7 +239,7 @@ class Post extends Control
 
 	public function del()
 	{
-		if( !$postId = $this->request->get("postId") )
+		if( !$postId = $this->post("postId") )
 		{
 			return $this->renderJson(["code"=>400,"errmsg"=>"Missing requried parameter:postId"]);
 		}

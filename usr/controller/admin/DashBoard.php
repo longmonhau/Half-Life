@@ -3,6 +3,7 @@
 use lOngmon\Hau\core\Control;
 use lOngmon\Hau\core\Model;
 use lOngmon\Hau\core\component\DateTime;
+use lOngmon\Hau\usr\bundle\tSession;
 
 class DashBoard extends Control
 {
@@ -25,6 +26,8 @@ class DashBoard extends Control
 		$this->assign("draftList", $this->getDraft() );
 		$this->assign("feeds", $Feed['feeds']);
 		$this->assign("feedCount", $Feed['FeedCount']);
+
+		$this->assign("user", tSession::getLoginedUserInfo());
 		if( $newMessageCount>0 )
 		{
 				$this->assign("messageCount", $newMessageCount);

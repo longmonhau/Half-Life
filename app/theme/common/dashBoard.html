@@ -18,7 +18,7 @@
 						{%block bashheader%}概览{%endblock%}
 					</div>
 					<div class="bashheader-icon">
-						<a href="javascript:;" class="bashheader-icon-uc"></a>
+						<a href="/" target="_blank" class="bashheader-icon-uc"></a>
 						<a href="/Admin/Message/List.html" class="bashheader-icon-email">
 							{%if messageCount >0 %}<img src="/static/images/red-dot.png"/>{%endif%}&nbsp;&nbsp;
 						</a>
@@ -31,15 +31,15 @@
 		<div class="bash-main-slide">
 			<div class="bms-user">
 				<div class="bms-user-avatar-div">
-					<img src="/static/images/mm_.jpeg" class="medium-avatar bms-user-avatar">
+					<a href="/admin/Profile"><img src="{{user.avatar}}" class="medium-avatar bms-user-avatar"></a>
 				</div>
 				<div class="mbs-user-name">
-					<span class="mbs-user-name-name">longmon</span>
-					<span class="mbs-user-name-job">A PHPer</span>
+					<span class="mbs-user-name-name">{{user.sname}}</span>
+					<a href="/User/Logout.html" class="mbs-user-name-job">退出登陆</a>
 				</div>
 			</div>
 			<div class="bash-main-slide-nav">
-				<div class="bash-main-side-nav-div dash-main-current-nav">
+				<div class="bash-main-side-nav-div">
 					<a href="/Admin/dashBoard.html">概览</a>
 				</div>
 				<div class="bash-main-side-nav-div">
@@ -56,7 +56,7 @@
 					<a href="javascript:;">统计图表</a>
 				</div>
 				<div class="bash-main-side-nav-div">
-					<a href="javascript:;">设置</a>
+					<a href="/admin/Setting.html">设置</a>
 				</div>
 			</div>
 		</div>

@@ -4,6 +4,7 @@ use lOngmon\Hau\core\Control;
 use lOngmon\Hau\core\Model;
 use lOngmon\Hau\core\Factory;
 use lOngmon\Hau\usr\traits\SiteInfo;
+use lOngmon\Hau\core\bundle\Feed;
 
 class Message extends Control
 {
@@ -16,28 +17,26 @@ class Message extends Control
 
 	public function submit()
 	{
-		    if(isset($_SERVER["HTTP_X_REQUESTED_WITH"])
-		      && strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) == "xmlhttprequest")
-  	     {
-    		$request = Factory::make("request");
+	    if(isset($_SERVER["HTTP_X_REQUESTED_WITH"])
+	      && strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) == "xmlhttprequest")
+	    {   
     		$msg = [];
-    		$msg['name'] = strip_tags($request->get("name"));
-    		$msg['email'] = $request->get("email");
+    		$msg['name'] = strip_tags($this->post("name"));
+    		$msg['email'] = strip_tags($this->post("email"));
     		$msg['gravatar'] = md5($msg['email']);
-    		$msg['msgbody'] = strip_tags($request->get("text"));
+    		$msg['msgbody'] = strip_tags($this->post("text"));
             $msg['created_at'] = date("Y-m-d H:i:s");
     		$MessageModel = Model::make("Message");
     		$id = $MessageModel->insertGetId($msg);
 
     		/******************* 插入Feed ******************/
-    		$feedModel = Model::make("Feed");
     		$feed = [];
     		$feed['name'] = $msg['name'];
     		$feed['email'] = $msg['email'];
     		$feed['gravatar'] = $msg['gravatar'];
     		$feed['content'] = $feed['name']."给你发来私信:<br/><a href='/Admin/Message/View/".$id.".html' style='font-size:14px;color:#0083D6;'>".mb_substr($msg['msgbody'], 0, 60,"utf-8")."</a>";
             $feed['created_at'] = date("Y-m-d H:i:s");
-    		$feedModel->insert( $feed );
+    		Feed::add( $feed );
 
     		/***************** Sending email asyn way **********/
     		popen("php ".APP_PATH."/task/MailTo.php -fmessageEmail -d".$id."&", "r");

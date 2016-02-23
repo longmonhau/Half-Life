@@ -6,6 +6,7 @@ use lOngmon\Hau\usr\bundle\SlideBar;
 use lOngmon\Hau\core\Factory;
 use lOngmon\Hau\usr\traits\AdminInfo;
 use lOngmon\Hau\usr\traits\SiteInfo;
+use lOngmon\Hau\usr\bundle\tSession;
 
 class Blog extends Control
 {
@@ -20,13 +21,17 @@ class Blog extends Control
 		$this->assign("category", SlideBar::getCategoryAll());
 		$this->assign("tags",SlideBar::getTags());
 		$this->assign("Site",$this->getSiteInfo());
+		if( $loginedUser = tSession::getLoginedUserInfo() )
+		{
+			$this->assign("adminlogined", true);
+			$this->assign("loginedUserName", $loginedUser->sname);
+		}
 		$this->display("blogView.html");
 	}
 
 	public function comment()
 	{
-		$request = Factory::make("request");
-		if( !$postId = intval($request->get("postId")) )
+		if( !$postId = intval($this->post("postId")) )
 		{
 			return $this->renderJson(400, "Invalid input post id!");
 		}
@@ -41,9 +46,8 @@ class Blog extends Control
 
 	public function commentPost()
 	{
-		$request = Factory::make("request");
 		$Rep = [];
-		if( !$Rep['postId'] = $request->get("postId") )
+		if( !$Rep['postId'] = $this->post("postId") )
 		{
 			return $this->renderJson(['code'=>400,'errmsg'=>"Missing required parameter:postId"]);
 		}
@@ -53,16 +57,16 @@ class Blog extends Control
 		{
 			return $this->renderJson(['code'=>402,"errmsg"=>"Post dose not exists!"]);
 		}
-		if( !$Rep['name'] = $request->get("name") )
+		if( !$Rep['name'] = $this->post("name") )
 		{
 			$Rep['name'] = "unnamed";
 		}
-		if( !$Rep['email'] = $request->get("email") )
+		if( !$Rep['email'] = $this->post("email") )
 		{
 			return $this->renderJson(['code'=>400,'errmsg'=>"Missing required parameter:email"]);
 		}
 		$Rep['gravatar'] = md5($Rep['email']);
-		if( !$Rep['content'] = $request->get("text") )
+		if( !$Rep['content'] = $this->post("text") )
 		{
 			return $this->renderJson(['code'=>400,'errmsg'=>"Comment text can not be blank!"]);
 		}
@@ -76,14 +80,13 @@ class Blog extends Control
 			popen("php ".APP_PATH.'/task/MailTo.php -fcommentEmail -d'.base64_encode(json_encode($Rep))."&", "r");
 
 			/************** Insert Feed *******************/
-			$FeedModel = Model::make("Feed");
 			$feed = [];
 			$feed['name'] = $Rep['name'];
 			$feed['email'] = $Rep['email'];
 			$feed['gravatar'] = $Rep['gravatar'];
 			$feed['content'] = $Rep['name']."评论了您的文章:《".$post->title."》<a target='_blank' style='font-size:14px;color:#0083D6;' href='/Admin/CommentManage/commentView/".$cid.".html'>".mb_substr( $Rep['content'], 0, 60,"utf-8")."</a> ";
 			$feed['created_at'] = date("Y-m-d H:i:s");
-			$FeedModel->insert( $feed );
+			Feed::add($feed);
 		}
 		return $this->renderJson(['code'=>200,'errmsg'=>"ok"]);
 	}

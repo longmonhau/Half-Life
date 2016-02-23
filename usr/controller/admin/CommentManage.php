@@ -43,6 +43,8 @@ class CommentManage extends Control
 		$this->assign("thecomment", $theComment );
 		$this->assign("comRepls", iterator_to_array($comRepl));
 		$this->assign("comments", $comments );
+
+		$this->assign("user", tSession::getLoginedUserInfo());
 		return $this->display("commentView.html");
 	}
 
@@ -51,8 +53,7 @@ class CommentManage extends Control
 		if(isset($_SERVER["HTTP_X_REQUESTED_WITH"])
 		&& strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) == "xmlhttprequest")
     	{
-			$request = Factory::make("request");
-			$cid = intval($request->get("cid"));
+			$cid = intval($this->post("cid"));
 			if( $cid < 1 )
 			{
 				return $this->renderJson(400, "Invalid input parameter!");
@@ -71,12 +72,11 @@ class CommentManage extends Control
 
 	public function resp()
 	{
-		$request = Factory::make("request");
-		if( !$cid = intval($request->get("cid")) )
+		if( !$cid = intval($this->post("cid")) )
 		{
 			return $this->renderJson(400,"Invalid input parameter:cid");
 		}
-		if( !$content = strip_tags( $request->get("resContent") ) )
+		if( !$content = strip_tags( $this->post("resContent") ) )
 		{
 			return $this->renderJson(400,"Invalid input response content!");
 		}

@@ -47,7 +47,7 @@ html{
 	padding-left: 20px;
 	height: 24px;
 	line-height: 24px;
-	background: url(/static/css/blue/img/ic_email_black_24dp_1x.png) no-repeat;
+	background: url(/static/css/blue/img/ic_mail_outline_black_24dp_1x.png) no-repeat;
 	float: right;
 	color: #f6504d;
 }
@@ -111,17 +111,21 @@ html{
 	text-shadow:-1px -1px 2px #444;
 }
 .mbs-user-name-job{
-	width: 100%;
+	padding: .2em 1em;
+	border-radius: 2px;
+	box-shadow: 0 0 1px #888;
 	float: left;
-	color: #FFF;
 	font-size: 0.9em;
 	color: #AAA;
+}
+.mbs-user-name-job:hover{
+	color:#AAA;
 }
 
 .bash-main-slide-nav{
 	width: 100%;
 	float: left;
-	background: #333;
+	
 	color: #FFF;
 }
 .bash-main-side-nav-div{
@@ -1126,4 +1130,147 @@ a.current-nav-div{
 .msg-nav-current-a{
 	background:#0083D6;
 	color: #FFF;
+}
+
+/**
+ * Setting page
+ */
+.bash-setting-list
+{
+	width: 100%;
+	margin-bottom:2em;
+	float: left;
+}
+.bash-setting-list span{
+	width: 12%;
+	height: 30px;
+	line-height: 32px;
+	font-weight: bold;
+	float: left;
+}
+.bash-setting-list input{
+	width: 50%;
+	padding:0 1%;
+	border:0px;
+	background: #FFF;
+	box-shadow: 0 0 2px #666;
+	border-radius: 2px;
+	height: 30px;
+	line-height: 30px;
+}
+.bash-setting-list-textarea{
+	width: 50%;
+	height: 4em;
+	padding: 0.5em 1%;
+	border: 0px;
+	background: #FFF;
+	box-shadow: 0 0 2px #666;
+	border-radius: 2px;
+	resize:none;
+}
+.bash-setting-list-box{
+	width:64%;
+	padding-bottom: 3.5em;
+	border-bottom: 1px dashed #CDCDCD;
+}
+.bash-setting-list-box a{
+	height: 33px;
+	padding: 0 20px;
+	line-height: 33px;
+	float: right;
+	border-radius: 2px;
+	background: #0083D6;
+	box-shadow: 1px 1px 2px #999;
+	color: #FFF;
+	font-size: 14px;
+	position: relative;
+}
+.bash-setting-list-box a:hover{
+	color:#FFF;
+}
+.bash-setting-list-box a:active{
+	top:2px;
+}
+.bash-setting-list-tip{
+	float: right;
+	height: 33px;
+	line-height: 33px;
+	color: #FF8899;
+	margin-right: 2em;
+}
+
+.bash-profile-list{
+	width:100%;
+	float: left;
+	margin-bottom: 35px;
+}
+.bash-profile-list span{
+	width: 12%;
+	float: left;
+	font-weight: bold;
+	height: 33px;
+	line-height: 33px;
+}
+.bash-profile-list input{
+	width: 50%;
+	padding: 0 1%;
+	height: 33px;
+	line-height: 33px;
+	float: left;
+	box-shadow: 0 0 2px #AAA;
+	background: #FFF;
+	border-radius: 2px;
+	border:0px;
+}
+.profile-avatar-list
+{
+	width:52%;
+	float: left;
+}
+.profile-avatar-list-header{
+	width:100%;
+	margin-bottom: 1em;
+	float: left;
+}
+#profile-avatar-input{
+	width:62%;
+	padding: 0 2%;
+	line-height: 35px;
+	float: left;
+}
+.profile-avatar-list-header a{
+	padding:0 20px;
+	height: 33px;
+	line-height: 33px;
+	background: #0083D6;
+	border-radius: 2px;
+	box-shadow: 1px 1px 2px #DDD;
+	float: right;
+	font-size: 14px;
+	color: #FFF;
+}
+.bash-profile-list-buttons{
+	width:64%;
+	float: left;
+	padding-bottom: 2em;
+	border-bottom: 1px dashed #CDCDCD;
+}
+.bash-profile-list-buttons a{
+	padding:0 20px;
+	height: 33px;
+	line-height: 33px;
+	background: #0083D6;
+	border-radius: 2px;
+	box-shadow: 1px 1px 2px #DDD;
+	float: right;
+	font-size: 14px;
+	color: #FFF;
+}
+.submit-profile-ok-tip,
+.submit-passwd-ok-tip{
+	height:33px;
+	line-height: 33px;
+	float: right;
+	color: #FF0099;
+	margin-right: 1.45em;
 }

@@ -53,6 +53,12 @@ ul,li{
         height: 50px;
         border-radius: 50px;
 }
+.large-avatar{
+    widows: 70px;
+    height: 70px;
+    border-radius: 100%;
+}
+
 .left{
     float: left;
 }

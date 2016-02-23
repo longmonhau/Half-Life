@@ -3,6 +3,7 @@
 use lOngmon\Hau\core\Control;
 use lOngmon\Hau\core\Model;
 use lOngmon\Hau\core\component\DateTime;
+use lOngmon\Hau\usr\bundle\tSession;
 
 class Feed extends Control
 {
@@ -16,6 +17,7 @@ class Feed extends Control
 			$feeds[$k]['humanLookTime'] = DateTime::humanLook( $feed->created_at );
 		}
 		$this->assign("feeds", $feeds);
+		$this->assign("user", tSession::getLoginedUserInfo());
 		return $this->display("feeds.html");
 	}
 
