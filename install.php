@@ -171,7 +171,7 @@ foreach ($create_table as $table => $sql) {
 	if (! $pdo->query( $sql ) )
 	{
 		$error = $pdo->errorInfo();
-		exit($error);
+		exit($error[2]);
 	} else 
 	{
 		echo "Done!\n";
