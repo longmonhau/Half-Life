@@ -1,8 +1,45 @@
 <?php
+/**
+ * 
+ * 数据库配置
+ * @var array
+ */
+$mysql = array(
+	'driver'    	=> 'mysql',
+    'host'      	=> 'localhost',
+    'database'  	=> 'halflife',
+    'username'  	=> 'root',
+    'password'  	=> '123456',
+    'charset'   	=> 'utf8',
+    'collation' 	=> 'utf8_unicode_ci',
+    'prefix' 		=> ''
+);
 
-$dsn = 'mysql:host=127.0.0.1;dbname=halflife;';
+/**
+ * 站点设置
+ * @var array
+ */
+$site = array(
+	"site_name" 	=> 'Half-Life',//网站名称
+	'site_domain'	=> 'longmonhau.com',//网站域名
+	'site_desc'		=> 'Just a php blog program!'//网站简短描述
+);
 
-$pdo = new PDO( $dsn , "longmon", "123456" );
+/**
+ * 管理员设置
+ * @var array
+ */
+$admin = array(
+	'name'			=> 'admin',//管理员账号
+	'sname'			=> 'admin',//管理员昵称，也是网站前台显示的名称
+	'email'			=> '1307995200@qq.com',//邮箱
+	'passwd'		=> 'DWI@D99##DJ*$*DJKK(9'//登陆密码
+);
+
+
+$dsn = $mysql['driver'].':host='.$mysql['host'].';dbname='.$mysql['database'].';';
+
+$pdo = new PDO( $dsn , $mysql['username'], $mysql['password'] );
 
 $create_table['users'] = <<<CREATE
 create table  if not exists users(
@@ -134,17 +171,19 @@ foreach ($create_table as $table => $sql) {
 	if (! $pdo->query( $sql ) )
 	{
 		$error = $pdo->errorInfo();
-		var_dump( $error );
-	}
-	echo "Done!\n";
+		exit($error);
+	} else 
+	{
+		echo "Done!\n";
+	}	
 }
 $pdo->query( "SET NAMES UTF8" );
 $now = date("Y-m-d H:i:s");
-$insert['users'] = 'insert ignore into users(`name`,`sname`,`email`,`avatar`,`role`,`passwd`,`created_at`, `updated_at`, `last_login_at`, `last_login_ip`) values("longmon","lOngmon Hau","1307995200@qq.com","http://www.gravatar.com/avatar/8ef50e82e8fa906d1d7398c2add83104",1, "'.password_hash("kiss", PASSWORD_DEFAULT).'", now(),now(),now(),'.ip2long("127.0.0.1").');';
+$insert['users'] = 'insert ignore into users(`name`,`sname`,`email`,`avatar`,`role`,`passwd`,`created_at`, `updated_at`, `last_login_at`, `last_login_ip`) values('.$admin['name'].','.$admin['sname'].','.$admin['email'].',"http://www.gravatar.com/avatar/'.md5($admin['email']).',1, "'.password_hash($mysql['passwd'], PASSWORD_DEFAULT).'", now(),now(),now(),'.ip2long("127.0.0.1").');';
 $insert['category'] = 'insert ignore into category(`title`,`categoryId`,`postNum`,`desp`,`created_at`,`updated_at`) values("默认分类","default",0,"default category",now(),now())';
-$insert['siteInfo1'] = 'insert ignore into siteInfo(`meta`,`val`,`created_at`) values("site_name","longmon Hau",now())';
-$insert['siteInfo2'] = 'insert ignore into siteInfo(`meta`,`val`,`created_at`) values("site_domain","zxfc.in",now())';
-$insert['siteInfo3'] = 'insert ignore into siteInfo(`meta`,`val`,`created_at`) values("site_copyright","Copyright(c)2015-2016",now())';
+$insert['siteInfo1'] = 'insert ignore into siteInfo(`meta`,`val`,`created_at`) values("site_name",'.$site['site_name'].',now())';
+$insert['siteInfo2'] = 'insert ignore into siteInfo(`meta`,`val`,`created_at`) values("site_domain",'.$site['site_domain'].',now())';
+$insert['siteInfo3'] = 'insert ignore into siteInfo(`meta`,`val`,`created_at`) values("site_desc",'.$site['site_desc'].',now())';
 echo "\n";
 foreach ($insert as $name => $sql)
 {
@@ -153,9 +192,19 @@ foreach ($insert as $name => $sql)
 	echo "Done\n";
 }
 
-
-if( !is_dir("app/log") )
+$database = "<?php\n return array(\n";
+foreach ($mysql as $k => $v) 
 {
-	mkdir("app/log",0777,true);
-	chmod('app/log', 0777);
+	$database .= "'{$k}'=>'{$v}',\n";
 }
+$database .= ");";
+
+file_put_contents("app/config/database.php", $database);
+
+echo "Installed successfully!\n";
+
+echo "admin: ", $admin['name'],"\n";
+
+echo "Password: ", $admin['passwd'],"\n";
+
+echo "Thanks you for using Half-Life blog program!";
