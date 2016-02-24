@@ -10,7 +10,7 @@
 <body>
 	<div class="index-header">
 		<div class="index-header-top">
-			<div class="index-header-top-logo"><a href="/">{{Site.site_name|default("Falf-Life")}}</a></div>
+			<div class="index-header-top-logo"><a href="/">{{Site.site_name|default("Half-Life")}}</a></div>
 			<div class="index-header-desc">{{Site.site_desc|default("此刻，我多想拥抱你，可惜时光之里山南水北，可惜你我中间人来人往")}}</div>
 		</div>
 		<div class="clear"></div>
@@ -125,13 +125,7 @@
 			}
 		});
 	});
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-74239973-1', 'auto');
-ga('send', 'pageview');
+{{Site.site_analytices}}
 </script>
 {%endblock%}
 </html>

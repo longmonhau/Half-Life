@@ -71,9 +71,7 @@
 <script type="text/javascript">
 	var currentPage = 1;
 	$(function(){
-		$(".bash-main-side-nav-div").removeClass("dash-main-current-nav");
-		$(".bash-main-side-nav-div").eq(1).addClass("dash-main-current-nav");
-		$(".bash-main-side-nav-collape").show();
+		$(".bash-main-side-nav-div-postlist").addClass("dash-main-current-nav");
 
 		$("#selected-all-posts").click(function(){
 			if( !$("#post-list-selected-all").prop("checked") )

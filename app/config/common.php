@@ -5,6 +5,12 @@ return [
 	
 	"LOG-PATH"    	=> APP_PATH.'/log/'.date("Y-m-d"),
 
+	"SAVE-UPLOAD-DIR" => STATIC_PATH.'/uploads',
+
+	"ALLOW-UPLOAD-TYPE" => ["image/png",'image/gif',"image/jpeg","image/jpg","image/bmp"],
+
+	"MAX-UPLOAD-SIZE" => '5M',
+
 	//========== template setting ===========
 	"TEMPLATE-ENGINE" 		=> "twig",
 

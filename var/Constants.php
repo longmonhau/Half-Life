@@ -11,3 +11,5 @@ define("BLOG_STATIC_PATH",ROOT_PATH."/Blog");
 define("REDIS_ENABLE", false);
 
 define("CTRL_NAMESPACE", "\lOngmon\Hau\usr\controller");
+
+define("STATIC_PATH",ROOT_PATH.'/static');

@@ -12,12 +12,11 @@ html{
 	float: left;
 	height: 60px;
 	line-height: 60px;
-	font-size: 1.2em;
+	font-size: 2em;
 	font-weight: bold;
 	color: #FFF;
 	text-align: center;
 	background: #0083D6;
-	text-shadow:1px 1px 2px #887;
 }
 .bash-header-nav{
 	width: 77%;
@@ -130,39 +129,23 @@ html{
 }
 .bash-main-side-nav-div{
 	width: 70%;
-	padding: 0px 15%;
+	padding: 5px 15%;
 	height: 3.5em;
-	line-height: 3.5em;
+	line-height: 3.6em;
 	float: left;
 }
 .bash-main-side-nav-div a{
 	color: #CCC;
 	font-weight: bold;
-	font-size: 0.9em;
-	width: 100%;
+	font-size: 1em;
 	float: left;
 }
 .bash-main-side-nav-div a:hover{
 	color: #FFF;
 }
-.bash-main-side-nav-collape{
-	width: 70%;
-	padding: 10px 15%;
-	float: left;
-	background: #222;
-	display: none;
-}
 
-.bash-main-side-nav-collape a{
-	width: 100%;
-	float: left;
-	height: 2em;
-	line-height: 2em;
-	font-size: 0.95em;
-	color: #CCC;
-}
 .dash-main-current-nav{
-	background: #454545;
+	background: #000;
 }
 
 

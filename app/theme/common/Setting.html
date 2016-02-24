@@ -17,13 +17,18 @@
 	</div>
 
 	<div class="bash-setting-list">
-		<span>网站描述：</span>
-		<textarea class="bash-setting-list-textarea">{{site.site_desc}}</textarea>
+		<span>版权描述：</span>
+		<input type="text" name="setting_copy" class="site-setting-copy" value="{{site.site_copyright}}" />
 	</div>
 
 	<div class="bash-setting-list">
-		<span>版权描述：</span>
-		<input type="text" name="setting_copy" class="site-setting-copy" value="{{site.site_copyright}}" />
+		<span>网站描述：</span>
+		<textarea class="bash-setting-list-textarea site-setting-desc">{{site.site_desc}}</textarea>
+	</div>
+
+	<div class="bash-setting-list">
+		<span>统计代码：</span>
+		<textarea class="bash-setting-list-textarea site-setting-analytices">{{site.site_analytices}}</textarea>
 	</div>
 
 	<div class="bash-setting-list">
@@ -40,6 +45,7 @@
 {%block bashscript%}
 <script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript">
+$(".bash-main-side-nav-div-setting").addClass("dash-main-current-nav");
 var posting = false;
 $("#site-setting-ok-a").click(function(){
 	if( posting )
@@ -49,8 +55,9 @@ $("#site-setting-ok-a").click(function(){
 	var site = {};
 	site.name = $(".site-setting-name").val();
 	site.domain = $(".site-setting-domain").val();
-	site.desc = $(".bash-setting-list-textarea").val();
+	site.desc = $(".site-setting-desc").val();
 	site.copy = $(".site-setting-copy").val();
+	site.analytices = $(".site-setting-analytices").val();
 	posting = true;
 	$.ajax({
 		url:"/admin/Setting/submit",
@@ -63,6 +70,7 @@ $("#site-setting-ok-a").click(function(){
 		},
 		success:function(resp)
 		{
+			//console.log(resp);
 			if( resp.code == 200 )
 			{
 				$(".bash-setting-list-tip").html("ok");

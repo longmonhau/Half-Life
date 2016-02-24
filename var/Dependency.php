@@ -39,6 +39,7 @@ class Dependency
 	{
 		self::$midware = array(
 			"auth" 				=> "lOngmon\Hau\usr\midware\auth",
+			"uploadAuth" 		=> "lOngmon\Hau\usr\midware\uploadAuth",
 			"CommentTimeLimit" 	=> "lOngmon\Hau\usr\midware\CommentTimeLimit"
 		);
 

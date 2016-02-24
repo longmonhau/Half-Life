@@ -77,5 +77,7 @@ return [
 
 	"/admin/Profile/submit" => ["POST","/admin/Profile/submit",["admin\Profile","submit",["auth"]]],
 
-	"admin/Profile/chpwd" => ["POST","/admin/Profile/chpwd",["admin\Profile","chpwd",["auth"]]]
+	"admin/Profile/chpwd" => ["POST","/admin/Profile/chpwd",["admin\Profile","chpwd",["auth"]]],
+
+	"FileUpload" => ["POST","/admin/Upload/File/{name}",['admin\File',"upload",["uploadAuth"]]]
 ];

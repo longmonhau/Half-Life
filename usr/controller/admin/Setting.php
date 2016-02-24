@@ -26,6 +26,7 @@ class Setting extends Control
     		$site['site_domain'] = strip_tags($this->post("domain"));
     		$site['site_copyright'] = strip_tags( $this->post("copy"));
     		$site['site_desc'] = strip_tags( $this->post("desc"));
+    		$site['site_analytices'] = $this->post("analytices");
     		$siteModel->addSiteInfo($site);
     		return $this->renderJson(200,"ok");
     	}

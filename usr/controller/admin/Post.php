@@ -5,9 +5,11 @@ use lOngmon\Hau\core\Model;
 use lOngmon\Hau\core\Factory;
 use lOngmon\Hau\usr\bundle\tSession;
 use lOngmon\Hau\usr\bundle\SlideBar;
+use lOngmon\Hau\usr\traits\SiteInfo;
 
 class Post extends Control
 {
+	use SiteInfo;
 	private $CateModel = NULL;
 	private $PostModel = NULL;
 	private $request = NULL;
@@ -124,6 +126,8 @@ class Post extends Control
 		$Category = $this->CateModel->get();
 		$this->assign("Category", $Category);
 		$this->assign("user", tSession::getLoginedUserInfo());
+
+		$this->assign("Site", $this->getSiteInfo());
 		$this->display("postEdit.html");
 	}
 

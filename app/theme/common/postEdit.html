@@ -17,7 +17,7 @@
 	<div id="editormdbox">{{Post.markdown}}</div>
 	<div class="editormd-bottom">
 		<div class="editormd-bottom-url">
-			<div class="editormd-bottom-url-tag">伪静态: https://{{SiteInfo.site_domain|default("localhost")}}/Blog/</div>
+			<div class="editormd-bottom-url-tag">伪静态: http://{{Site.site_domain|default("localhost")}}/Blog/</div>
 			<input type="text" name="editormd-bottom-url-input" value="{{Post.url}}" class="editormd-bottom-url-input">
 		</div>
 		<div class="editormd-bottom-buttons">
@@ -102,9 +102,9 @@ $(function(){
 		//dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为true
 		//dialogMaskOpacity : 0.4,    // 设置透明遮罩层的透明度，全局通用，默认值为0.1
 		//dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
-		//imageUpload : true,
-		//imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-		//imageUploadURL : "./php/upload.php",
+		imageUpload : true,
+		imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+		imageUploadURL : "/admin/Upload/File/editormd-image-file"
 	});
 
 	initCategorySelected();

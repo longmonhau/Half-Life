@@ -118,7 +118,7 @@ $create_table['siteInfo'] = <<<CREATE
 create table if not exists siteInfo(
 	id int not null auto_increment,
 	meta char(15) not null,
-	val varchar(200) not null,
+	val text(20000) not null,
 	updated_at timestamp,
 	created_at char(20) not null default '0000-00-00 00:00:00',
 	primary key(`id`),
@@ -204,6 +204,12 @@ foreach ($mysql as $k => $v)
 	$database .= "'{$k}'=>'{$v}',\n";
 }
 $database .= ");";
+
+if( !is_dir("static/uploads") )
+{
+	mkdir("static/uploads");
+	chmod("static/uploads", 0777);
+}
 
 file_put_contents("app/config/database.php", $database);
 

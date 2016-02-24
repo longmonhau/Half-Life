@@ -39,23 +39,24 @@
 				</div>
 			</div>
 			<div class="bash-main-slide-nav">
-				<div class="bash-main-side-nav-div">
+				<div class="bash-main-side-nav-div bash-main-side-nav-div-about" >
 					<a href="/Admin/dashBoard.html">概览</a>
 				</div>
-				<div class="bash-main-side-nav-div">
+				<div class="bash-main-side-nav-div bash-main-side-nav-div-postlist">
 					<a href="/Admin/Post/List.html">文章</a>
+					<a href="/Admin/Post/Edit.html" style="float:right">发表</a>
 				</div>
-				<div class="bash-main-side-nav-collape">
-					<a href="/Admin/Post/Edit.html">发表</a>
+				<div class="bash-main-side-nav-div bash-main-side-nav-div-category">
 					<a href="/Admin/Category.html">分类</a>
 				</div>
-				<div class="bash-main-side-nav-div">
+				
+				<div class="bash-main-side-nav-div bash-main-side-nav-div-archive">
 					<a href="javascript:;">附件</a>
 				</div>
-				<div class="bash-main-side-nav-div">
+				<!--<div class="bash-main-side-nav-div">
 					<a href="javascript:;">统计图表</a>
-				</div>
-				<div class="bash-main-side-nav-div">
+				</div>-->
+				<div class="bash-main-side-nav-div bash-main-side-nav-div-setting">
 					<a href="/admin/Setting.html">设置</a>
 				</div>
 			</div>
@@ -64,28 +65,28 @@
 			{%block bashmain%}
 			<div class="bash-main-div-left">
 				<div class="bash-main-div-chart">
-					<a href="">
+					<a href="https://www.google.com/analytics/web/?et&authuser=0#report/defaultid/a74239973w112395808p117340030/">
 						<div class="bash-main-div-chart-div visitor-statistics-photograph">
-							New Visitors
-							<span>120k</span>
+							谷歌统计
+							<span></span>
 						</div>
 					</a>
 					<div class="bash-main-div-chart-sperat"></div>
-					<a href="">
+					<a href="/Admin/Post/List.html">
 						<div class="bash-main-div-chart-div post-statistics-photograph">
 							Posts
 							<span>{{totalPostNum}}</span>
 						</div>
 					</a>
 					<div class="bash-main-div-chart-sperat"></div>
-					<a href="">
+					<a href="/Admin/Category.html">
 						<div class="bash-main-div-chart-div category-statistics-photograph">
 							Category
 							<span>{{totalCategoryNum}}</span>
 						</div>
 					</a>
 					<div class="bash-main-div-chart-sperat"></div>
-					<a href="">
+					<a href="javascript:;">
 						<div class="bash-main-div-chart-div comment-statistics-photograph">
 						Comments<span>{{totalCommentNum}}</span>
 						</div>
@@ -135,6 +136,7 @@
 {%block bashscript%}
 <script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript">
+$(".bash-main-side-nav-div-about").addClass("dash-main-current-nav");
 	$(function(){
 		$("#reflesh-feeds-a").click(function(){
 			$.get("/Feed/AjaxLoad.html",function(resp){
