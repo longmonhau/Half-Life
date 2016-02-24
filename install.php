@@ -1,4 +1,6 @@
 <?php
+
+date_default_timezone_set("Asia/Shanghai");
 /**
  * 
  * 数据库配置
@@ -179,16 +181,20 @@ foreach ($create_table as $table => $sql) {
 }
 $pdo->query( "SET NAMES UTF8" );
 $now = date("Y-m-d H:i:s");
-$insert['users'] = 'insert ignore into users(`name`,`sname`,`email`,`avatar`,`role`,`passwd`,`created_at`, `updated_at`, `last_login_at`, `last_login_ip`) values('.$admin['name'].','.$admin['sname'].','.$admin['email'].',"http://www.gravatar.com/avatar/'.md5($admin['email']).',1, "'.password_hash($admin['passwd'], PASSWORD_DEFAULT).'", now(),now(),now(),'.ip2long("127.0.0.1").');';
+$insert['users'] = 'insert ignore into users(`name`,`sname`,`email`,`avatar`,`role`,`passwd`,`created_at`, `updated_at`, `last_login_at`, `last_login_ip`) values("'.$admin['name'].'","'.$admin['sname'].'","'.$admin['email'].'","http://www.gravatar.com/avatar/'.md5($admin['email']).'",1, "'.password_hash($admin['passwd'], PASSWORD_DEFAULT).'", now(),now(),now(),'.ip2long("127.0.0.1").');';
 $insert['category'] = 'insert ignore into category(`title`,`categoryId`,`postNum`,`desp`,`created_at`,`updated_at`) values("默认分类","default",0,"default category",now(),now())';
-$insert['siteInfo1'] = 'insert ignore into siteInfo(`meta`,`val`,`created_at`) values("site_name",'.$site['site_name'].',now())';
-$insert['siteInfo2'] = 'insert ignore into siteInfo(`meta`,`val`,`created_at`) values("site_domain",'.$site['site_domain'].',now())';
-$insert['siteInfo3'] = 'insert ignore into siteInfo(`meta`,`val`,`created_at`) values("site_desc",'.$site['site_desc'].',now())';
+$insert['siteInfo1'] = 'insert ignore into siteInfo(`meta`,`val`,`created_at`) values("site_name","'.$site['site_name'].'",now())';
+$insert['siteInfo2'] = 'insert ignore into siteInfo(`meta`,`val`,`created_at`) values("site_domain","'.$site['site_domain'].'",now())';
+$insert['siteInfo3'] = 'insert ignore into siteInfo(`meta`,`val`,`created_at`) values("site_desc","'.$site['site_desc'].'",now())';
 echo "\n";
 foreach ($insert as $name => $sql)
 {
 	echo "Insert into $name ..................";
-	$in = $pdo->query( $sql );
+	if(!$pdo->query( $sql ) )
+	{
+		$err = $pdo->errorInfo();
+		exit($err[2]);
+	}
 	echo "Done\n";
 }
 
@@ -201,10 +207,16 @@ $database .= ");";
 
 file_put_contents("app/config/database.php", $database);
 
-echo "\nInstalled successfully!\n";
+echo "\n安装成功!\n";
 
-echo "admin: ", $admin['name'],"\n";
+echo "管理员账号: ", $admin['name'],"\n";
 
-echo "Password: ", $admin['passwd'],"\n";
+echo "管理员密码: ", $admin['passwd'],"\n";
 
-echo "Thanks you for using Half-Life blog program!\n\n";
+echo "请牢记您的管理员账号！\n";
+
+echo "欢迎使用Half-Life博客系统！\n";
+
+echo "安装完成后你可能需要修改app/config/common.php配置文件以适应您的环境！\n";
+
+echo "联系作者：www.longmonhau.com 1307995200@qq.com\n\n";
