@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>Sign in</title>
+	<meta charset="utf8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Open+Sans:300,400,600&subset=latin,latin-ext">
+	<link rel="stylesheet" type="text/css" href="/static/css/hl.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/black/index.css">
+</head>
+<body>
+	<div class="index-header"></div>
+	<div class="sign-box">
+		<div class="sign-box-head">
+			Sign in
+		</div>
+			<input type="hidden" name="signReferer" id="user-sign-http-referer" value="{{httpReferer}}" />
+			<div class="sign-box-div">
+				<input type="text" value="" name="name" placeholder="user name" id="sign-box-div-input-name">
+			</div>
+
+			<div class="sign-box-div">
+				<input type="password" value="" name="passwd" placeholder="password" id="sign-box-div-input-passwd">
+			</div>
+			<div class="sign-box-div" id="sign-box-button-div">
+				<a href="javascript:;" id="sign-box-button-fgp">Forget password?</a>
+				<a href="javascript:;" id="sign-box-div-sign-ok">sign in</a>
+			</div>
+		<div class="sign-box-bottom">
+			<div class="sign-box-bottom-copyright">&copy;2016 Powered by <a href="">Half-Life</a></div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+	var posting = false;
+	$("#sign-box-div-sign-ok").click(function(){
+		if( posting )
+		{
+			return;
+		}
+		var data = {};
+		data.name = $("#sign-box-div-input-name").val();
+		data.passwd = $("#sign-box-div-input-passwd").val();
+		data.http_referer = $("#user-sign-http-referer").val();
+		if( data.name == '' )
+		{
+			alert("用户名不能为空！");
+			$("#sign-box-div-input-name").focus();
+			return;
+		}
+		if( data.passwd == '' )
+		{
+			alert("密码不能为空！");
+			$("#sign-box-div-input-passwd").focus();
+			return;
+		}
+		
+		posting = true;
+		$.ajax({
+			url:"/admin/login.submit",
+			data:data,
+			type:"post",
+			dataType:"json",
+			error:function(err,errstr)
+			{
+				alert(errstr);
+			},
+			success:function(resp)
+			{
+				//console.log(resp);
+				if( resp.code == 200 )
+				{
+					location.href=resp.go_url;
+				} else
+				{
+					alert(resp.errmsg);
+				}
+				posting = false;
+			}
+		});
+	});
+	$("#sign-box-div-input-passwd").keypress(function(evt){
+		if(evt.keyCode == 13 )
+		{
+			$("#sign-box-div-sign-ok").trigger("click");
+		}
+	});
+</script>
+</html>

@@ -9,6 +9,8 @@ class Route
 
 	private $fastRoute = null;
 
+	private static $current_uri = '';
+
 	public static function initCacheRoute()
 	{
 		if( $redisRoute = tRedis::get('RoutesCache') )
@@ -29,7 +31,9 @@ class Route
 	public static function newInstance()
 	{
 		$self = new static();
-		$self->fastRoute = \FastRoute\SimpleDispatcher(function( \FastRoute\RouteCollector $R){
+		$self->fastRoute = \FastRoute\SimpleDispatcher(
+		function( \FastRoute\RouteCollector $R)
+		{
 			foreach (self::$route_array as $name=>$route) 
 			{
 				$R->addRoute($route[0], strtolower($route[1]), $route[2]);
@@ -40,6 +44,7 @@ class Route
 
 	public function dispatch( $uri, $method )
 	{
+		self::$current_uri = $uri;
 		(bool)$uri or $uri = '/';
 		$uri = strtolower( $uri );
 		$info = $this->fastRoute->dispatch( $method, urldecode( $uri ));
@@ -106,5 +111,10 @@ class Route
 		}
 		header("HTTP 1.1/ 301");
 		header("location: ". $name );
+	}
+
+	public static function get_currentUri()
+	{
+		return self::$current_uri;
 	}
 }

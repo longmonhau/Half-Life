@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>{{Site.site_name}}</title>
+	<meta charset="utf8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Open+Sans:300,400,600&subset=latin,latin-ext">
+	<link rel="stylesheet" type="text/css" href="/static/css/hl.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/black/index.css">
+	<link rel="shortcut icon" href="/static/images/me.png" type="image/x-icon" />
+</head> 
+<body>
+	<div class="index-left">
+	<div class="index-header"></div>
+	<!--Index Main box-->
+	<div class="index-main">
+		<div class="index-main-box">
+			<div class="main-box-top">
+				<div class="main-box-top-box">
+					<img src="/static/images/hisi.jpeg" class="main-box-top-img-icon"/>
+				</div>
+				<div class="main-box-top-box">
+					<div class="main-box-top-box-title">
+						longmon Hau的博客
+					</div>
+					<div class="main-box-top-box-desc">
+						{{Site.site_desc}}
+					</div>
+				</div>
+				<div class="main-box-post">
+					<ul>
+						<li><a href="/Blog/ren-sheng-ba-ku.html">你很少刷微博，不发空间动态，也不经常更新朋友圈</a><span>Oct 02, 2015</span></li>
+						<li><a href="">我所有的自负都来自我的自卑</a><span>Oct 02, 2015</span></li>
+						<li><a href="">我所有的自负都来自我的自卑</a><span>Oct 02, 2015</span></li>
+						<li><a href="">我所有的自负都来自我的自卑</a><span>Oct 02, 2015</span></li>
+						<li><a href="">你很少刷微博，不发空间动态，也不经常更新朋友圈</a><span>Oct 02, 2015</span></li>
+						<li><a href="">你很少刷微博，不发空间动态，也不经常更新朋友圈</a><span>Oct 02, 2015</span></li>
+						<li><a href="">我所有的自负都来自我的自卑</a><span>Oct 02, 2015</span></li>
+						<li><a href="">当你每天都独进晚餐，下雨了没人送伞，开心的事没人可以分享</a><span>Oct 02, 2015</span></li>
+						<li><a href="">当你每天都独进晚餐，下雨了没人送伞，开心的事没人可以分享</a><span>Oct 02, 2015</span></li>
+						<li><a href="">我所有的自负都来自我的自卑</a><span>Oct 02, 2015</span></li>
+						
+					</ul>
+				</div>
+				<div class="main-box-post-bootm">
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!--Index Footer box-->
+	<div class="index-footer">
+		<div class="index-footer-copyright">
+			&copy;2015 Powered by <a href="https://github.com/longmonhau/Half-Life.git" target="_blank">Half-Life</a> 
+		</div>
+	</div>
+	<div class="index-left-door"></div>
+	</div>
+
+	<!--Index right box-->
+	<div class="index-right">
+		<div class="index-right-header"></div>
+		<div class="index-right-header-ac">
+			<a href="javascript:;" id="close-this-hidden-page"></a>
+		</div>
+		<div class="index-right-box">
+			<div class="index-right-box-inset">
+				<input type="text" value="" placeholder="search..." class="index-right-box-input">
+				<a href="javascript:;" class="index-right-box-search-button"></a>
+			</div>
+		</div>
+		<div class="index-right-box">
+			<ul class="index-right-box-ul">
+				<li><a href="javascript:;">PHP<span>(23)</span></a></li>
+				<li><a href="javascript:;">MySQL<span>(35)</span></a></li>
+				<li><a href="javascript:;">Golang<span>(64)</span></a></li>
+			</ul>
+		</div>
+
+		<div class="index-right-box">
+			<ul class="index-right-box-ul page-ul">
+				<li><a href="/admin/entrance.html">登陆</a></li>
+				<li><a href="/Contact.Me.html">私信</a></li>
+				<li><a href="">源码</a></li>
+				<li><a href="">简历</a></li>
+			</ul>
+		</div>
+
+		<div class="index-right-box">
+			<div class="index-right-box-list">
+				<div class="index-right-box-list-header">JiaYi Asynch</div>
+				<div class="index-right-box-list-summary">
+					一个C语言写的PHP异步操作扩展
+				</div>
+				<div class="index-right-box-list-bottom">
+					<a href="javascript:;" class="index-right-box-list-github"></a>
+					<a href="javascript:;" class="index-right-box-list-home"></a>
+				</div>
+			</div>
+		</div>
+
+		<div class="index-right-box">
+			<div class="index-right-box-list">
+				<div class="index-right-box-list-header">Half-Life 博客程序</div>
+				<div class="index-right-box-list-summary">
+					PHP实现的轻量级博客程序
+				</div>
+				<div class="index-right-box-list-bottom">
+					<a href="javascript:;" class="index-right-box-list-github"></a>
+					<a href="javascript:;" class="index-right-box-list-home"></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+	$(".index-left-door").mouseover(function(){
+		$(".index-left").width("85%");
+		$(".index-right").show();
+		$(".index-footer").width("85%");
+		$(this).hide();
+	});
+	$("#close-this-hidden-page").click(function(){
+		$(".index-left").width("100%");
+		$(".index-footer").width("100%");
+		$(".index-right").hide();
+		$(".index-left-door").show();
+	});
+</script>
+</html>

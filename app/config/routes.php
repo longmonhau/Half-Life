@@ -3,17 +3,17 @@
 return [
 	"index" => ["GET","/", ["Index","index"]],
 
-	['GET',"/Blog/{slug}",["Blog","view"]],
+	"blogView"=>['GET',"/Blog/{slug}",["Blog","view"]],
 
-	["POST","/Blog/Comment",["Blog","comment"]],
+	"blogComment"=>["POST","/Blog/Comment",["Blog","comment"]],
 
-	["POST","/Blog/postCommenct",["Blog","commentPost",['CommentTimeLimit']]],
+	"postCommenct"=>["POST","/Blog/postCommenct",["Blog","commentPost",['CommentTimeLimit']]],
 
-	['GET',"/Category/{category}", ["Index","categoryPost"]],
+	"categoryList"=>['GET',"/Category/{category}", ["Index","categoryPost"]],
 
-	["GET","/Search/{key}", ["Index","searchPostBy"]],
+	"searchPost"=>["GET","/Search/{key}", ["Index","searchPostBy"]],
 
-	["GET","/Tags/{tag}", ["Index","tagPost"]],
+	"tagPost"=>["GET","/Tags/{tag}", ["Index","tagPost"]],
 
 	"sign" => ["GET","/admin/entrance", ["admin\User", "sign"]],
 
@@ -43,7 +43,7 @@ return [
 
 	"getCategoryPost" => ["POST","/getCategoryPost",["admin\Post","getPostByCategoryOnAjax"]],
 
-	"Contactme" => ["GET","/Contact_me",["Message","index"]],
+	"Contactme" => ["GET","/contact.me",["Message","index"]],
 
 	"msgSunmit" => ["POST","/Message/Submit",["Message","submit",["CommentTimeLimit"]]],
 

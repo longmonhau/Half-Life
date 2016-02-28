@@ -12,20 +12,21 @@ class User extends Control
 	public function sign()
 	{
         $sess = Factory::make("session");
-        if( stripos($this->server->HTTP_REFERER, "entrance") === false
-        && stripos($this->server->HTTP_REFERER, "logout") === false
-        && stripos($this->server->HTTP_REFERER, "login") === false )
+        $request_come_from = $this->cookie->hl_http_referer;
+        if( $request_come_from != '' 
+        && stripos($request_come_from, "entrance") === false
+        && stripos($request_come_from, "logout") === false
+        && stripos($request_come_from, "login") === false )
         {
-            $sess->set("http_referer", $this->server->HTTP_REFERER);
+            $this->assign("httpReferer", $request_come_from);
         }
-        
+    
 		$this->display("sign.html");
 	}
 
 	public function login()
 	{
-		if(isset($_SERVER["HTTP_X_REQUESTED_WITH"])
-		&& strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) == "xmlhttprequest")
+		if( $this->AjaxRequest )
     	{
 
     		if( !$name = $this->post("name") )
@@ -51,14 +52,14 @@ class User extends Control
     		tSession::login( $userObj, $this->server("HTTP_USER_AGENT") );
             $this->updateLoginInfo( $userObj, $this->server("REMOTE_ADDR"));
 
-            $sess = Factory::make("session");
-    		if( !$goRoute = $sess->get("http_referer") )
+            if( $http_referer = $this->post("http_referer") )
             {
-                $Gor = Route::getRouteUri('dashBoard');
-                $goRoute = $Gor[1];
-                $sess->remove("http_referer");
+                $go_url = $http_referer;
+            } else
+            {
+                $go_url = "/admin/dashBoard.html";
             }
-    		return $this->renderJson(['code'=>200, 'errmsg'=>'ok', 'go_url'=> $goRoute ]);
+    		return $this->renderJson(['code'=>200, 'errmsg'=>'ok', 'go_url'=> $go_url ]);
     	} else {
     		return $this->renderJson(["code"=>403, "errmsg"=>"Access forbindden"]);
     	}

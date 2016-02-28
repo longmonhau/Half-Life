@@ -90,7 +90,7 @@
 				<div class="index-main-right-div-ul index-main-right-div-ul-page">
 					<ul>
 						{%if adminlogined %}
-						<li><a href="/admin/dashBoard.html">管理中心({{loginedUserName}})</a></li>
+						<li><a href="/admin/dashBoard.html">管理中心({{loginedUser.name}})</a></li>
 						{%else%}
 						<li><a href="/admin/entrance.html">登陆</a></li>
 						{%endif%}

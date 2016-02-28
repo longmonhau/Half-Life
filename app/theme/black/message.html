@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>Messages</title>
+	<meta charset="utf8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Open+Sans:300,400,600&subset=latin,latin-ext">
+	<link rel="stylesheet" type="text/css" href="/static/css/hl.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/black/index.css">
+	<link rel="shortcut icon" href="/static/images/me.png" type="image/x-icon" />
+</head>
+<body>
+	<div class="index-header"></div>
+	<div class="msg-main">
+		<div class="msg-main-header">
+			Mail to longmon Hau
+		</div>
+		<div class="msg-main-inputdiv">
+			<input type="text" value="" placeholder="your name" id="msg-user-name">
+			<div style="float: left;width: 40px;height: 30px;"></div>
+			<input type="text" value="" placeholder="your email address" id="msg-user-email">
+		</div>
+		<div class="msg-main-inputdiv">
+			<textarea id="msg-input-textarea"></textarea>
+		</div>
+		<div class="msg-main-inputdiv">
+			<a href="javascript:;" id="msg-submit-ok">确定</a>
+			<div class="msg-submit-fail-tip"></div>
+		</div>
+
+		<div class="msg-bottom-div">
+			<div class="msg-bottom-div-icon">
+			<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1307995200&site=qq&menu=yes"><img border="0" style="margin-top:-3px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAClklEQVRIS7XVWejUdRQF8M+/PaGwUooUwlCjrCAxjLKIMGgjEBEUIQSXFjIfRXyzEFqURI2eDEIoUGgRhYryoRRKE9QQk8osyKwkyxZbtDhyR8bxNzP/F78vw8z3fu+5955z7gw4y2dgkPmH4SHchL+wDe/gj37v+wFcgGcwHxd1JPsZS/BiL5BeAOdjI+7tU+WqKqAxrBfAUiyqV+9iE57Ff1hYI2uBT8P6JoRuAFfhADKinJG4ATPxDz7EZnxT919gbIGfhtMNYBZeaYu8GE8jnwF4Hx/g97aYCfi0s4tuAIuL3Fb8Y3i91HMcE6ubl9oSPonVgwG4stq/voJT8dsIDwdLpkNxK6bX+BL6JSbj63aQpg7mVfAGHMak4qOJwwuxHI/gNtyPF/oBPIF1GI/XitB08Tw+rsfD8WjFjEbexHxPVdwpjKYOVuDyquoKPI4HMQ5/4yiGYDfeLDGE7PjhKyzr1cEd+KgCXsZK7Gl7cF5JMUS3zojyRySc1TEG37UuOzuIcx+oKiO7ufgNf2IX9rd1EF/cgp/wHj6vpM+VEU9+bQe4DD/iXHxbMjyBLbgb1yL755KqdF+NKc6+FL8UQMx3TVMHt1eybMs8moE49LOS3xFsb5ISrsPeknCUlWITf1oHsfonRehbmI07sRM3F3nfdwHIto374/ZXSyT/dgLke5Azhsx+Ku5DSAx5+b2bF8LPnJJ0K8cZHLQeRymR3Dk1opDW7SQm6+IHxN0LOhdekw9isCytX7GmMq/tWGRJfA+mlMoyoizCCCFKO3WaAEZhK7Kyc3ZU8sg1hKfDmC6fd+HGist6zxI81A8g93Hqw7XQIsvI9o0CyH26zP3VpZaskHjoWOcs+/0n9xj/4K7OOsD/W7WSGe+sePAAAAAASUVORK5CYII=" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>	
+			</div>
+			<div class="msg-bottom-div-icon">
+				<a  href="" target="_blank"><img title="访问我的Github主页" alt="访问我的Github主页" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAACuUlEQVQ4T5WUPWgUQRTH/2/W+IF4RLid3ROVE6+RlApiZSeIjUpMUIKoiB+ohRq4QoiKTYgfKEiIhUgISEyIsZA0NvYKFhaKRImR3O3OHhJODZpk58ns7R2byymX6Xbe///b9968GUKDlcvl1vwslzuZ+SAT7RRAxsg0UBTAWwLG16dSo5OTk3/q7VS/4TjOUWK+A2BTo59V9xiYIeYrXhCMJHVJoHCk7Cfg7P9A9TEN9CulLlUKAGpAR8qBlcKq8Bh6oQaMy3waCYhGKAxvsxAnUMn2FxMVoxCzacM6EA1QGA6yZeXBfCTyMXea8imbza79PTf3BXHjAeQ9pfqMJtva2jo1OzubLDO559p2HkS9EQ+Y2ZBKbSdXyuMABhOmPk+pfDN9dKU0h3e1qiWgixzbfk5Eh+LNRUvrtplS6VMzwEwms4PD8D0AK9aPkW3b0xbRlrhHr4pBsK8ZWFXjOM5rYt4bfYfhlCl5HkBLfCBPPN8/tSJgOj1EQnTFgz+/BMjM434QHF4J0HWcl2A+UANKKb8KYGsMKXhKmfKjIW1iWW46XYAQMlnyGIBaVkx02vf9x03A4Ep5HkB/TUs0ShkpuxgY0sC80HpBC9FCzN1+EAwAWGgEbmtrW11S6hwRmbGp9N/MItExMi/Lj3L5M0eziQ5BdM30RAPfSesJv1Q6CWAx9qzKSDmoifYT88bkzzQwrZTKRXfZte0OED0Lmb8x824hxLAA9gDo9ZTqSRodKR8RcKY+cwLai0qN1R4HV8qHAMwF7/GUuvWvHrpS3gBwPRln5vt+EFyOZjkREK7jPADzxZD5jUX0kYkmfN8fTpobAO95SnVXrvNSYOQz5WuiuwLYDOCmp5TJqLZqwDCcEpZ1uaDUi2R82YttgtEplkrtltYfCkHwLmnIpNO7mGibFwQGtGwK/gIiex1qodtLKQAAAABJRU5ErkJggg=="></a>
+			</div>
+			<div class="msg-bottom-div-icon">
+				<a href="mailto:longmon.hau@gmail.com">
+					<img alt="给我发邮件" title="给我发邮件" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAUCAYAAABvVQZ0AAACXklEQVQ4T43UW+hVZRAF8J9okiAqonnDG2ngLUkNuuhDipQhCgYahBKCoCEImg9KgS9SKJQVKT3oiz1kIIRhKGFgKvZgYpC31NDMLAw0k9Q0lPVnTpw2Gg4cOHvPt9c3a82a6eT+MQUv4UkMRGdcxjF8iU9xrf3zTvfAegbvY2LlfsRZ/INHMBoP4QrW1Nk7OdsEW4m3cR3v4SP81LiwB17GGxhcFb6C2+1gAVqHw0Uv1fxfBDRUn8c7WNECm4y9+B7R6mqhPI15RS8VbkE3PIf9OIpvMBbjWmCpZhTG44cSexMWNUr7G8fr3GzswFTsiXYByy1f4V0sr483YBlO4tWinsvewow6k2Zcqv8X8EfAPsRreAynMAGH8GdKbzRgEH7GGYxoq3o3JgfsO0TM4ZXcjIVVxeoGzTnYjo8xvy33OaYHLBXsw4uVPIchmIRvG2Dr8XoxiaatCJMBAYvhtpV3YsaInEjXbjTADiCmfgJHKtcdv+PrgN3ELqQ7AfirDnUp17fw+uN8ne/Zlove0X1ZwGKFWxhTX6VDfWomU34rPinPxVfxX2Jk+SzsHg3YVmQchtbNH2BpGfjNor0EL5T/TmNxdX0VemFuGhOwmUg3OkYCoRDaT7VVlW0RvwWk5bOkL9a7mLdj0PMLnccxLUJWBZm5GPVX7Kwt8XBR7Y0TZfZo3hGtcYpeB+vdAnzW6OIDPbZvjbQ8IH3xBTbWzDXtEeBMQoY7zv83mvusH9aWu7uW+On2b2WJeGpYmTo7L6DR8z80mzRS3Sw8WzMbqwQ8AL+UYaNj1lbHlk3cBQ1Tia8l74bQAAAAAElFTkSuQmCC">
+				</a>
+			</div>
+			<div class="msg-bottom-div-msg">同时按下CTRL+HOME键返回首页</div>
+		</div>
+		<div class="msg-bottom-copy">
+			&copy;2015 Powered by <a href="">Half-Life</a> 
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+	var posting = false;
+	$("#msg-submit-ok").click(function(){
+		if( posting )
+		{
+			return;
+		}
+		var data 	= {};
+		data.name 	= $("#msg-user-name").val();
+		data.email 	= $("#msg-user-email").val();
+		data.text 	= $("#msg-input-textarea").val();
+		if( data.name.length < 1 )
+		{
+			$(".msg-submit-fail-tip").text("用户名不能为空！");
+			$("#msg-user-name").focus();
+			setTimeout(function(){$(".msg-submit-fail-tip").text("");},3000);
+			return;
+		}
+		var emailRegex = /^(?:\w+\.?)*\w+@(?:\w+\.)*\w+$/;     
+		if( data.email.length < 3 || !emailRegex.test(data.email) )
+		{
+			$(".msg-submit-fail-tip").text("请输入正确的邮箱地址");
+			$("#msg-user-email").focus();
+			setTimeout(function(){$(".msg-submit-fail-tip").text("");},3000);
+			return;
+		}
+		if( data.text.length < 5 )
+		{
+			$(".msg-submit-fail-tip").text("您在3分钟内只能发送一次消息！请详细填写您的消息内容！不少于10个字符~");
+			$("#msg-input-textarea").focus();
+			setTimeout(function(){$(".msg-submit-fail-tip").text("");},3000);
+			return;
+		}
+		posting = true;
+		$.ajax({
+			url:"/Message/Submit",
+			data:data,
+			type:"post",
+			dataType:"json",
+			error:function(error,errStr)
+			{
+				alert(errStr);
+			},
+			success:function( resp )
+			{//console.log(resp);
+				posting = false;
+				if( resp.code == 200 )
+				{
+					$(".msg-submit-fail-tip").text("发送成功!");
+					$("#msg-input-textarea").val("");
+					setTimeout(function(){
+						$(".msg-submit-fail-tip").text("");
+					},3000);
+				} else {
+					$(".msg-submit-fail-tip").text(resp.errmsg);
+					setTimeout(function(){
+						$("#msg-input-textarea").text("");
+					},5000);
+				}
+				posting = false;
+			}
+		});
+	});
+	$(document).keypress(function(evt){
+		if(evt.keyCode == 63273 )
+		{
+			location.href="/";
+		}
+	});
+</script>
+</html>

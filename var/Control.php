@@ -16,27 +16,43 @@ class Control
 
 	protected $server = NULL;
 
+	protected $header = NULL;
+
+	protected $cookie = NULL;
+
 	protected $AjaxRequest = fasle;
 
 	public function __Construct()
 	{
 		$this->response = Factory::make("response");
 		$this->request = Factory::make("request");
-		$this->get = $this->post = $this->server = new \stdClass;
-		
-		foreach ($_GET as $k => $v ) 
+		$this->get 		= new \stdClass;
+		$this->post 	= new \stdClass;
+		$this->server 	= new \stdClass;
+		$this->header 	= new \stdClass;
+		$this->cookie 	= new \stdClass;
+		foreach ($this->request->query as $k => $v ) 
 		{
-			$this->get->$k = $this->request->query->get($k);
+			$this->get->$k = $v;
+		}
+		foreach ($this->request->request as $p => $v) 
+		{
+			$this->post->$p = $v;
 		}
 
-		foreach ($_POST as $p => $v) 
+		foreach ($this->request->server as $s => $v) 
 		{
-			$this->post->$p = $this->request->get($p);
+			$this->server->$s = $v;
 		}
 
-		foreach ($_SERVER as $s => $v) 
+		foreach ($this->request->headers as $k => $v) 
 		{
-			$this->server->$s = $this->request->server->get($s);
+			$this->header->$k = $v;
+		}
+
+		foreach ($this->request->cookies as $k => $v) 
+		{
+			$this->cookie->$k = $v;
 		}
 
 		if(isset($_SERVER["HTTP_X_REQUESTED_WITH"])

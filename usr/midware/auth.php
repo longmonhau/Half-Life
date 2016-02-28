@@ -3,6 +3,7 @@
 use lOngmon\Hau\core\midware\AbstractMidWare;
 use lOngmon\Hau\usr\bundle\tSession;
 use lOngmon\Hau\core\http\Route;
+use lOngmon\Hau\core\Factory;
 
 class auth extends AbstractMidWare
 {
@@ -17,6 +18,8 @@ class auth extends AbstractMidWare
 	protected function falseHandler()
 	{
 		tSession::clear();
+		$req = Factory::make("request");
+		setCookie("hl_http_referer", Route::get_currentUri(),time()+3600,"/");
 		if(isset($_SERVER["HTTP_X_REQUESTED_WITH"])
 		&& strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) == "xmlhttprequest")
     	{

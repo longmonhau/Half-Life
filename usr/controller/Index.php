@@ -25,7 +25,7 @@ class Index extends Control
 		if( $loginedUser = tSession::getLoginedUserInfo() )
 		{
 			$this->assign("adminlogined", true);
-			$this->assign("loginedUserName", $loginedUser->sname);
+			$this->assign("loginedUser", $loginedUser);
 		}
 		
 		$this->display("index.html");
