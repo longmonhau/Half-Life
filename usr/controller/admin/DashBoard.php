@@ -32,7 +32,7 @@ class DashBoard extends Control
 		{
 				$this->assign("messageCount", $newMessageCount);
 		}
-		$this->display( "dashBoard.html" );
+		$this->display( "adminIndex.html" );
 	}
 
 	private function getDraft()

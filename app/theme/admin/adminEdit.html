@@ -1,0 +1,294 @@
+{%extends "adminIndex.html"%}
+
+{%block pageTitle%}发表文章{%endblock%}
+
+{%block dashMain%}
+<link rel="stylesheet" type="text/css" href="/static/css/dropzone.css">
+<div class="edit-main">
+	<div class="edit-main-box">
+		<div class="edit-main-box-title">
+			<input type="text" value="{{Post.title}}" id="edit-post-title-input" placeholder="标题" />
+			<input type="hidden" id="edit-exists-post-id" value="{{Post.id}}" />
+		</div>
+		<div id="edit-boxer">
+			<div class="edit-boxed-title">
+				<a href="javascript:;" id="edit-preview-md">
+					<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAA+klEQVQ4T+3UsS6EQRSG4WeDEI2SYiMKik2UVEThDjS4BNGqVkQlGm5Ar5QoXAKR6CRKhWgUSg2SlcjJziRW/p+s0fE1k5mc887JmTNfQ1eDmMFA2ve7vOEWnQaGcIEHvPZLSvEjmMBiAFvYx8oPYTntDFsBnMUO1guBJ8H5BxZ18a/3cBerRR3kFO08h5c4Kvx6G5jLwJvC6nJ6K4BTuPslYDOAoW2sVdjXOJ7xlOLGMIzHTwV0cIzDDKwrcA/XiKENhYFMI84r9RVwFOfYxFXKXsABlvFSRawDhoPHGMwn8/2Yu5QuijELp+5RHTCqm/zmoe5Tf3vC3gFoxzQS2IELegAAAABJRU5ErkJggg==">
+				</a>
+				<a href="javascript:;" id="click-to-explore-imgs">
+					<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAABGUlEQVQ4T+3Uv0rDUBQG8PPdhL6B4J/JB9DBYqKITaK4KDeDs9DBXXDyOdwt+AYiAasOWghIO+hidxen2jdomk8SsEZEyK0Ze+bv/O7lXO6BVFzIvM1Aeyk5N7EBAvLWfYheTM/Dhq/PUqZrCngtNlOwI5Dz3mN0bYLC9fVNbZw047j9UWx0vTAQ8IQirTIgRIa9TtSF2whvE8Wj5040LDY6Db0sSo7LYFmG5IoC4j/BstBXrr59uGBbo1YOQnGJlLEp8jOf2kLrvbIbrvv78yq1L2fg9M8ym+Hvr2c6zckMHV+37ZrdfLq/GpgixfzWXriYjHgBx9OnoOxSSf8/IERWRXCXL1g3OKgrWt8LdgqZioNsIedglfUJV/KsQ21YyLMAAAAASUVORK5CYII=">
+				</a>
+				<a href="javascript:;" style="margin-top: -2px;" id="click-to-open-upload-div">
+					<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA9UlEQVQ4T7XTvyuGYRTG8c9bLMooJjbxJ5A/QUYpNptNVjHaXouMkpBBFhlMipLBYDRg8GMmAwOiu85TT57nLfdb7jrbOd/7Otc5p4F7nGvvjTWwh6n26u3XAfqxhg88YB7fLT6oACaxhAncYRGnEXWMCuAI03iJ7AQ7wdlfFayjNyR34hYLOS208rID2+jGLnYisdbEOsgcXqPwEMmrN6pTGMAqviKSic/YDGPTNMYxiOZvQBcOMIsn9GED71jBZUhLoy9UbJX3YBkXOC710IOZUFVurVAxmgBXuMEQrjM2chif/7LKGSLqbyEb8Bjm5RQWuSM/2ktDZ8Rja6cAAAAASUVORK5CYII=">
+				</a>
+			</div>
+			<textarea class="edit-boxer-textarea">{{Post.markdown}}</textarea>
+			<input type="text" class="edit-boxed-tag-input" value="{{Post.tags}}">
+		</div>
+		<div class="edit-main-box-bottom">
+			<a href="javascript:;" style="float: left;margin:0px;">预览</a>
+			<a href="javascript:;" style="background:#92C601;color: #FFF;" id="click-to-public-post">发布</a>
+			<a href="javascript:;" id="click-to-save-draft">保存草稿</a>
+		</div>
+	</div>
+
+	<div id="pop-bg">
+		<div id="file-explore-div">
+			<div class="file-explore-div-title">
+				<span>上传图片</span>
+				<a href="javascript:;" id="click-to-close-upload-div"></a>
+			</div>
+			
+			<div class="file-upload-list-div">
+				<div class="file-explore-div-list dropzone-file-div">
+					<form action="/admin/Upload/File/file" class="dropzone" id="my-awesome-dropzone">
+						<div class="fallback">
+					    	<input name="file" type="file"/>
+					  </div>
+					</form>
+				</div>
+			</div>
+		</div>		
+	</div>
+	<div id="explore-div">
+		<div id="img-explore-div">
+			<div class="img-explore-div-title">
+				<span>图片列表</span>
+				<a href="javascript:;" id="pop-img-selected-ok">确定</a>
+			</div>
+			<div class="img-explore-div-list">
+				<img src="/static/images/gears.gif">
+			</div>
+		</div>
+	</div>
+</div>
+{%endblock%}
+{%block dashRightNav%}
+<div class="edit-right-cate">
+	<ul>
+		{%for category in categorys%}
+		<li>
+			<a href="javascript:;"  alt="{{category.id}}">{{category.title}}</a>
+			<input type="checkbox" value="{{category.id}}"  class="category-select-input" style="display: none;" />
+		</li>
+		{%endfor%}
+	</ul>
+</div>
+{%endblock%}
+{%block dashRightAc%}
+<div class="edit-post-time-div">
+	<input type="text" value="{{Post.created_at|default|date('F d, Y')}}" id="edit-post-time-input" />
+</div>
+{%endblock%}
+
+{%block dashScript%}
+<script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/static/js/dropzone.js"></script>
+<script type="text/javascript">
+	var Postcategory = '{{Post.category}}';
+	if( Postcategory != '' )
+	{
+		var categoryA = Postcategory.split(",");
+		for(var n=0;n<categoryA.length;n++ )
+		{
+			$(".category-select-input[value='"+categoryA[n]+"']").prop("checked", true);
+			$(".category-select-input[value='"+categoryA[n]+"']").parent().addClass("selected-category");
+		}
+	}
+
+	$("#edit-preview-md").click(function(){
+		var md = $(".edit-boxer-textarea").val();
+		if( md.length < 1 )
+		{
+			alert("您还没有输入内容！");
+			return;
+		}
+		var title = $("#edit-post-title-input").val();
+		var form = $("<form></form>");
+		form.attr("action","/markdown2html/printHtml");
+		form.attr("method","post");
+		form.attr("target","_blank");
+		var textarea = $('<textarea name="md"></textarea>');
+		textarea.val(md);
+		var title = $("<input type='text' name='title' value=''/>");
+		title.val(title);
+		form.append(title);
+		form.append(textarea);
+		form.submit();
+		return;
+	});
+
+	$("#click-to-open-upload-div").click(function(){
+		$("#pop-bg").show();
+	});
+	$("#click-to-close-upload-div").click(function(){
+		$("#pop-bg").hide();
+	});
+	$("#pop-bg").click(function(evt){
+		if( evt.target.id == "pop-bg" )
+		{
+			$(this).hide();
+		}
+	});
+
+	var imgList = true;
+	Dropzone.options.myAwesomeDropzone = {
+	  init: function() {
+	    this.on("success", function(resp) { 
+	    	var res = $.parseJSON(resp.xhr.response);
+	    	var imgHtml = '<div class="dash-main-right-archive-list">'
+						+'<img src="'+res.url+'"></div>';
+			if( imgList ){
+				$(".dash-main-right-archive-left").prepend(imgHtml);
+			} else
+			{
+				$(".dash-main-right-archive-right").prepend(imgHtml);
+			}
+			imgList = false;
+	    });
+	  }
+	};
+
+	$("#click-to-explore-imgs").click(function(){
+		$("#explore-div").show();
+		$.get("/admin/file/uploadimglist",{page:1},function(resp){
+			if( resp.code == 200 )
+			{
+				var files = resp.files;
+				var fileHtml = '';
+				for(var i in files )
+				{
+					fileHtml += '<div class="img-explore-div-list-d">'
+							+'<a href="javascript:;" alt="no"><img src="'+files[i].file_url+'"></a>'
+							+'<img class="img-explore-div-list-d-tick" src="/static/images/1456849603_checkmark_tick.png"/>'
+							+'<input type="checkbox" value="'+files[i].file_url+'" class="img-checked-url" style="display:none;"/></div>';
+					if( i != 5 || i!= 11 )
+					{
+						fileHtml += '<div class="img-explore-div-list-sep"></div>';
+					}
+				}
+				$(".img-explore-div-list").html(fileHtml);
+			} else if( resp.code == 503 )
+			{
+				alert(resp.errmsg);
+				location.href=resp.go_url;
+			} else{
+				alert(resp.errmsg );
+			}
+		},"json");
+	});
+
+	$(".img-explore-div-list").on("click",".img-explore-div-list-d a",function(){
+		var alt = $(this).attr("alt");
+		if( alt == "no" )
+		{
+			$(this).parent().find(".img-explore-div-list-d-tick").show();
+			$(this).parent().find(".img-checked-url").prop("checked", true);
+			$(this).attr("alt","yes");
+		} else{
+			$(this).parent().find(".img-explore-div-list-d-tick").hide();
+			$(this).parent().find(".img-checked-url").prop("checked", false);
+			$(this).attr("alt","no");
+		}
+	});
+
+	$("#pop-img-selected-ok").click(function(){
+		$("#explore-div").hide();
+		var selected = $(".img-checked-url:checked");
+		$(".dash-main-right-archive-left,.dash-main-right-archive-right").html('');
+		for(var i = 0; i<selected.length; i++ )
+		{
+			var imgHtml = '<div class="dash-main-right-archive-list">'
+						+'<img src="'+selected.eq(i).val()+'"></div>';
+			if(i%2==0){
+				$(".dash-main-right-archive-left").append(imgHtml);
+			} else{
+				$(".dash-main-right-archive-right").append(imgHtml);
+			}
+		}
+	});
+
+	$("#explore-div").click(function(evt){
+		if( evt.target.id == "explore-div" )
+		{
+			$(this).hide();
+		}
+	});
+
+	$(".edit-right-cate li a").click(function(){
+		var CurrentCheckbox = $(this).parent().find(".category-select-input");
+		var checked = CurrentCheckbox.prop("checked");
+		if( checked ){
+			$(this).parent().removeClass("selected-category");
+			CurrentCheckbox.prop("checked", false);
+		} else{
+			CurrentCheckbox.prop("checked", true);
+			$(this).parent().addClass("selected-category");
+		}
+	});
+
+	var postIng = false;
+	$("#click-to-public-post").click(function(){
+		if( postIng )
+		{
+			return;
+		}
+		var postData = getPostData();
+		if( postData.markdown.length < 10 )
+		{
+			alert("内容太少了！");
+			return;
+		}
+		postIng = true;
+		$.ajax({
+			url:"/Post/submit",
+			data:postData,
+			type:"post",
+			dataType:"json",
+			error:function(error,errstr)
+			{
+				alert(errstr);
+			},
+			success:function(ret)
+			{
+				console.log(ret);
+				if( ret.code == 200 )
+				{
+					location.href=ret.go_url;
+				} else{
+					alert( ret.errmsg );
+				}
+			}
+		});
+	});
+
+	function getPostData()
+	{
+		var data = {};
+		data.title = $("#edit-post-title-input").val();
+		if($("#edit-exists-post-id").val())
+		{
+			data.postId = $("#edit-exists-post-id").val();
+		}
+		data.markdown = $(".edit-boxer-textarea").val();
+		data.created_at = $("#edit-post-time-input").val();
+		var cateList = $(".category-select-input:checked");
+		
+		var cateVal = '';
+		for(var i=0;i<cateList.length;i++ )
+		{
+			cateVal += ","+$(cateList).eq(i).val();
+		}
+		//console.log( cateVal );
+		if( cateVal != '' )
+		{
+			cateVal = cateVal.substr(1);
+		}
+		//console.log( cateVal );
+		data.cateVal = cateVal;
+		data.tags = $(".edit-boxed-tag-input").val();
+		return data;
+	}
+
+</script>
+{%endblock%}

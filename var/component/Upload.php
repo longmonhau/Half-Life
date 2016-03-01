@@ -44,4 +44,12 @@ class Upload
 			return ["success"=>0,"message"=>$e->getMessage()];
 		}
 	}
+
+	public function fileInfo()
+	{
+		$file = [];
+		$file['filename'] = $this->file->getNameWithExtension();
+		$file['filesize'] = $this->file->getSize();
+		return $file;
+	}
 }

@@ -15,17 +15,33 @@ class Blog extends Control
 	public function view($url)
 	{
 		$PostModel = Model::make('Post');
-		$Post = $PostModel->where("url", $url)->first();
+		$CategoryModel = Model::make("Category");
+		$UserModel = Model::make("User");
+		$user = $UserModel->getAdmin();
 
-		$this->assign("post", $Post);
-		$this->assign("category", SlideBar::getCategoryAll());
-		$this->assign("tags",SlideBar::getTags());
-		$this->assign("Site",$this->getSiteInfo());
-		if( $loginedUser = tSession::getLoginedUserInfo() )
+		$Post = $PostModel->where("url", $url)->first();
+		$time = strtotime($Post->created_at);
+		$Post->postTime = date("F d, Y", $time);
+
+		$cate_arr = [];
+		if( stripos($Post->category, ",") === false )
 		{
-			$this->assign("adminlogined", true);
-			$this->assign("loginedUserName", $loginedUser->sname);
+			$cate_arr[] = $Post->category;
+		} else
+		{
+			$cate_arr = explode(",", $Post->category);
 		}
+		$aCategory = [];
+		foreach ($cate_arr as $cate) 
+		{
+
+			$aCategory[] = $CategoryModel->getCategoryById($cate);
+		}
+		$Post->aCategory = $aCategory;
+		$Post->author = $user->sname;
+		$this->assign("post", $Post);
+		$this->assign("Site",$this->getSiteInfo());
+		
 		$this->display("blogView.html");
 	}
 

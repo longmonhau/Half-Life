@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>{{Post.title}}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Open+Sans:300,400,600&subset=latin">
+	<link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/black/index.css">
+	<link rel="shortcut icon" href="/static/images/me.png" type="image/x-icon" />
+</head>
+<body>
+	<div class="index-header"></div>
+	<div class="index-main">
+		<div class="index-main-view-box">
+			<div class="main-box-top">
+				<div class="main-box-top-box">
+					<div class="main-box-top-box-title">
+						longmon Hau的博客
+					</div>
+					<div class="main-box-top-box-desc">
+						{{Site.site_desc}}
+					</div>
+				</div>
+			</div>
+			<div class="view-box-post">
+				<div class="main-box-post-header">
+					<div class="main-box-post-header-category">
+						<a href="javascript:;">默认分类</a>
+					</div>
+
+					<div class="main-box-post-header-title">{{Post.title}}</div>
+				</div>
+				<div class="main-box-post-content-box">
+					<div class="main-box-post-content-author">
+						<ul class="mbpca-ul">
+							<li id="mbpca-ul-li-author"><a href="javascript:;">By Author</a></li>
+							<li id="mbpca-ul-li-date">September 05, 2014</li>
+							<li id="mbpca-ul-li-comment"><a href="#disqus_thread">0条评论</a></li>
+							<li id="mbpca-ul-li-share"><a href="javascript:;">Permalink</a></li>
+							<li id="mbpca-ul-li-location"><a href="javascript:;">广东.深圳</a></li>
+						</ul>
+					</div>
+					<div class="main-box-post-content-content">
+						<div id="mbpcc-text">
+						{{Post.html|raw}}
+						</div>
+						<div class="mbpcc-copyright">
+							<div class="mbpcc-copyright-head">
+								知识共享协议
+							</div>
+							<div class="mbpcc-copyright-desc">
+								本作品采用知识共享署名-非商业性使用 4.0 国际许可协议进行许可。 转载文章请注明原文出处。任何意见或建议请联系我：longmon.hau@gmail.com
+							</div>
+						</div>
+					</div>
+					<div class="main-box-post-comment-box">
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

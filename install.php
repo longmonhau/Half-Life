@@ -70,7 +70,6 @@ create table  if not exists posts(
 	title varchar(200) not null,
 	category char(20) not null,
 	url varchar(100) not null,
-	summary varchar(600) not null,
 	markdown text,
 	html text,
 	tags varchar(100),
@@ -166,6 +165,18 @@ create table if not exists message(
 	primary key(`id`),
 	index(`resp`)
 )engine = innodb default charset=utf8;
+CREATE;
+
+$create_table['file'] = <<<CREATE
+create table if not exists file(
+	id int not null auto_increment,
+	filename varchar(100) not null,
+	filesize bigint not null,
+	updated_at timestamp,
+	created_at char(20) not null default '0000-00-00 00:00:00',
+	primary key(`id`),
+	unique(`filename`)
+) engine=innodb default charset=utf8;
 CREATE;
 
 foreach ($create_table as $table => $sql) {

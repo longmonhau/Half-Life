@@ -19,7 +19,7 @@ return [
 
 	'login'=> ['POST','/admin/login.submit',["admin\User","login"]],
 
-	"logout" => ["GET","/User/Logout",["admin\User","logout"]],
+	"logout" => ["GET","/go.out",["admin\User","logout"]],
 
 	"dashBoard" => ['GET',"/Admin/dashBoard",["admin\DashBoard","index",["auth"]]],
 
@@ -27,7 +27,7 @@ return [
 
 	"loadmorePost" => ["POST","/Admin/Post/More",["admin\Post","lists",["auth"]]],
 
-	"postEdit" => ['GET',"/Admin/Post/Edit",["admin\Post","edit",["auth"]]],
+	"postEdit" => ['GET',"/Admin/Post/EditText",["admin\Post","edit",["auth"]]],
 
 	"postDel" => ["POST","/Admin/Post/Del",["admin\Post","del",["auth"]]],
 
@@ -79,5 +79,9 @@ return [
 
 	"admin/Profile/chpwd" => ["POST","/admin/Profile/chpwd",["admin\Profile","chpwd",["auth"]]],
 
-	"FileUpload" => ["POST","/admin/Upload/File/{name}",['admin\File',"upload",["uploadAuth"]]]
+	"FileUpload" => ["POST","/admin/Upload/File/{name}",['admin\File',"upload",["uploadAuth"]]],
+
+	"md2html" => ["POST","/markdown2html/printHtml",["admin\Markdown2html","printHtml",]],
+
+	"admin/file/uploadimglist" => ["GET","/admin/file/uploadimglist",["admin\File","listUploads",["auth"]]]
 ];

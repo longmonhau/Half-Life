@@ -47,6 +47,8 @@ class Index extends Control
 		$normalP = $PModel->where("top",0)->where("public",1)->limit($pagelength)->orderby("created_at", 'DESC')->get();
 		foreach ($normalP as $k=>$post) 
 		{
+			$time = strtotime($post->created_at);
+			$post->postTime = date("F d, Y", $time);
 			$cateList = explode(",", $post->category);
 			$category = [];
 			foreach ($cateList as $cateid) 
@@ -100,7 +102,14 @@ class Index extends Control
 
 		$PostModel = Model::make("Post");
 		$posts = $PostModel->whereIn("id", $post_array)->skip($skip)->orderby("created_at","DESC")->limit($pageNum)->get();
-		$this->assign("posts", $posts);
+		$post_return = [];
+		foreach ($posts as $post) 
+		{
+			$time = strtotime($post->created_at);
+			$post->postTime = date("F d, Y", $time);
+			$post_return[] = $post;
+		}
+		$this->assign("posts", $post_return);
 		$this->display("index.html");
 	}
 

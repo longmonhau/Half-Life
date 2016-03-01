@@ -18,7 +18,7 @@ class TwigTemplate implements TemplateInterface
 	{
 		$template_dir = Config::get( "TEMPLATE-DIR" );
 
-		$loader = new \Twig_Loader_Filesystem([$template_dir.'/'.Config::get("TEMPLATE-THEME"), $template_dir.'/common']);
+		$loader = new \Twig_Loader_Filesystem([$template_dir.'/'.Config::get("TEMPLATE-THEME"), $template_dir.'/admin', $template_dir.'/common']);
 
 		$option = [];
 		if ( Config::get("TEMPLATE-CACHE") ) {

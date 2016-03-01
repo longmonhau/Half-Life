@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>{%block pageTitle%}dashBoard{%endblock%}</title>
+	<meta charset="utf8"/>
+	<link rel="shortcut icon" href="/static/images/me.png" type="image/x-icon" />
+	<link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Open+Sans:300,400,600&subset=latin">
+	<link rel="stylesheet" type="text/css" href="/static/css/admin/main.css">
+</head>
+<body>
+	<div class="dash-header">
+		<div class="dash-header-top">
+			<div class="dash-header-top-logo"><a href="">Half-Life</a></div>
+			<div class="dash-header-top-nav">
+				<a href="javascript:;" id="dash-header-top-nav-me">我</a>
+				<a href="javascript:;">设置</a>
+				<a href="javascript:;" id="dash-header-top-nav-msg">
+					<span>私信</span>
+					<span id="dash-header-top-nav-msg-num">99+</span>
+				</a>
+				<a href="javascript:;">首页</a>
+			</div>
+			<div class="clear">&nbsp;</div>
+		</div>
+	</div>
+	<div class="dash-main">
+		<div class="dash-main-left">
+			<div class="dash-main-top">
+				<div class="dash-main-top-avatar">
+					<a href=""><img src="/static/images/mm_.jpeg" class="dash-main-avatar"></a>
+				</div>
+				<div class="dash-main-top-icons">
+					<a href="/Admin/Post/EditText.html" id="dash-main-icon-text"></a>
+					<a href="/Admin/Post/EditPhoto.html" id="dash-main-icon-photo"></a>
+					<a href="/Admin/Post/EditMusic.html" id="dash-main-icon-music"></a>
+					<a href="/Admin/Post/EditVideo.html" id="dash-main-icon-video"></a>
+				</div>
+			</div>
+			{%block dashMain%}
+			<div class="dash-main-feed row">
+				<div class="dash-main-feed-div">
+					<div class="dash-main-feed-avatar">
+						<img src="/static/images/even.jpg" class="dash-main-feed-avatar-img">
+					</div>
+					<div class="dash-main-feed-box">
+						<div class="dash-main-feed-postname">
+							<span class="dash-main-feed-ac-name">忆雯</span>
+							<div class="dash-main-feed-ac-icon">
+								<a href="javascript:;" class="dash-main-feed-ac-icon-reply"></a>
+								<a href="javascript:;" class="dash-main-feed-ac-icon-del"></a>
+							</div>
+						</div>
+						<div class="dash-main-feed-content">
+							如果你谈个恋爱谈的天天难过流泪，你就要停下来扪心自问：你到底是找了个对象，还是找了个洋葱？
+						</div>
+						<div class="dash-main-feed-postmeta">
+							<span>2015-12-05 14:11:12</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="dash-main-feed-div">
+					<div class="dash-main-feed-avatar">
+						<img src="/static/images/even.jpg" class="dash-main-feed-avatar-img">
+					</div>
+					<div class="dash-main-feed-box">
+						<div class="dash-main-feed-postname">
+							<span class="dash-main-feed-ac-name">忆雯</span>
+							<div class="dash-main-feed-ac-icon">
+								<a href="javascript:;" class="dash-main-feed-ac-icon-reply"></a>
+								<a href="javascript:;" class="dash-main-feed-ac-icon-del"></a>
+							</div>
+						</div>
+						<div class="dash-main-feed-content">
+							如果你谈个恋爱谈的天天难过流泪，你就要停下来扪心自问：你到底是找了个对象，还是找了个洋葱？
+						</div>
+						<div class="dash-main-feed-postmeta">
+							<span>2015-12-05 14:11:12</span>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			{%endblock%}
+		</div>
+		<div class="dash-main-right">
+			<div class="dash-main-right-top">
+				<a href="/"><div class="dash-main-right-top-title">{{Site.site_name}}</div>
+				<div class="dash-main-right-top-domain">{{Site.site_domain}}</div></a>
+			</div>
+			{%block dashRightNav%}
+			<div class="dash-main-right-nav">
+				<ul>
+					<li id="dash-main-right-nav-post"><a href="">文章<span>412</span></a></li>
+					<li id="dash-main-right-nav-draft"><a href="">草稿<span>5</span></a></li>
+					<li id="dash-main-right-nav-category"><a href="">分类<span>7</span></a></li>
+					<li id="dash-main-right-nav-chart"><a href="">图表<span></span></a></li>
+					<li id="dash-main-right-nav-visitor"><a href="">访客<span>12</span></a></li>
+				</ul>
+			</div>
+			{%endblock%}
+			{%block dashRightAc%}
+			<div class="dash-main-right-logout">
+				<a href="/go.out">退出登陆 ALT+Q</a>
+			</div>
+			{%endblock%}
+
+			<div class="dash-main-right-archive">
+				
+				<div class="dash-main-right-archive-left">
+					{%for k,file in files%}
+					{%if k%2 >0  %}
+					<div class="dash-main-right-archive-list">
+						<img src="{{file.url}}">
+					</div>
+					{%endif%}
+					{%endfor%}
+				</div>
+				<div class="dash-main-right-archive-right">
+					{%for k,file in files%}
+					{%if k%2 == 0 %}
+					<div class="dash-main-right-archive-list">
+						<img src="{{file.url}}">
+					</div>
+					{%endif%}
+					{%endfor%}
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+{%block dashScript%}
+<script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+	$(document).keypress(function(evt){
+		if(evt.keyCode == 339 )
+		{
+			location.href="/go.out";
+		}
+	});
+</script>
+{%endblock%}
+</html>

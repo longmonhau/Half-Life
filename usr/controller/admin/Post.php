@@ -3,6 +3,7 @@
 use lOngmon\Hau\core\Control;
 use lOngmon\Hau\core\Model;
 use lOngmon\Hau\core\Factory;
+use lOngmon\Hau\core\component\Config;
 use lOngmon\Hau\usr\bundle\tSession;
 use lOngmon\Hau\usr\bundle\SlideBar;
 use lOngmon\Hau\usr\traits\SiteInfo;
@@ -24,94 +25,6 @@ class Post extends Control
 	}
 
 	/**
-	 * Post List
-	 * @return void
-	 */
-	public function lists()
-	{
-		$page = 1;
-		$pageNum = 10;
-
-		$where = [];
-
-		$postTotal = $this->PostModel->count();
-
-		if( $P = $this->post("page") )
-		{
-			if( $P > ceil($postTotal/$pageNum) )
-			{
-				$page = ceil($postTotal/$pageNum);
-			} else if( $P <= 0 )
-			{
-				$page = 1;
-			} else{
-				$page = $P;
-			}
-		}
-
-		if( $cate = $this->post("cate") )
-		{
-			$where['category'] = $cate;
-		}
-
-		$Category = $this->CateModel->get();
-		if( !empty( $where ) )
-		{
-			$this->PostModel = $this->PostModel->where($where);
-		}
-
-		$skip = ($page-1)*$pageNum;
-		$select = ["id","title","url","public"];
-		$PostList = $this->PostModel->select( $select )->skip($skip)->limit($pageNum)->orderby("created_at","DESC")->get();
-
-
-		if(isset($_SERVER["HTTP_X_REQUESTED_WITH"])
-    	   && strtolower($_SERVER["HTTP_X_REQUESTED_WITH"])=="xmlhttprequest")
-    	{
-    		return $this->renderJson(['code'=>200,"postList"=>$PostList]);
-    	} else {
-			$this->assign("Category", $Category);
-			$pageTotal = ceil($postTotal/$pageNum);
-			if( $pageTotal > 1 )
-			{
-				$pageNav = range(1, $pageTotal);
-				$this->assign("pageNav", $pageNav);
-			}
-			$this->assign("tags", SlideBar::getTags());
-			$this->assign("postList", $PostList);
-
-			$this->assign("user", tSession::getLoginedUserInfo());
-			$this->display("postList.html");
-		}
-	}
-
-	public function getPostByCategoryOnAjax()
-	{
-		if(isset($_SERVER["HTTP_X_REQUESTED_WITH"])
-    	   && strtolower($_SERVER["HTTP_X_REQUESTED_WITH"])=="xmlhttprequest")
-    	{
-    		$categoryId = $this->post("categoryId");
-    		$postListStr = $this->CateModel->select("postList","postNum")->where("categoryId",$categoryId)->first();
-    		$postList_array = explode(",", $postListStr->postList );
-
-    		$pageNum = 10;
-    		$PageNo = 1;
-    		if( $page = $this->post("page") )
-    		{
-    			$PageNo = $page;
-    		}
-    		$skip = ($PageNo-1)*$pageNum;
-
-    		$posts = $this->PostModel->skip($skip)->limit($pageNum)->orderby("created_at","DESC")->whereIn("id", $postList_array)->get();
-
-    		return $this->renderJson(['code'=>200,'postList'=>iterator_to_array($posts)]);
-
-    	}else{
-    		return $this->renderString("Access denied!");
-    	}
-	}
-
-	/**
 	 * Edit a new Post
 	 * @return void
 	 */
@@ -122,13 +35,20 @@ class Post extends Control
 			$Post = $this->PostModel->getPostById($postId);
 			$this->assign("Post", $Post);
 		}
+		$siteInfo = $this->getSiteInfo();
+		$FileModel = Model::make("file");
+		$files = $FileModel->getFiles(0, 6);
+		$file_return = [];
+		foreach ($files as $file) 
+		{
+			$file_return[]['url'] = str_replace(ROOT_PATH, '', Config::get('SAVE-UPLOAD-DIR')."/".$file->filename);
+		}
 
 		$Category = $this->CateModel->get();
-		$this->assign("Category", $Category);
-		$this->assign("user", tSession::getLoginedUserInfo());
-
-		$this->assign("Site", $this->getSiteInfo());
-		$this->display("postEdit.html");
+		$this->assign("categorys", $Category);
+		$this->assign("files", $file_return);
+		$this->assign("Site", $siteInfo);
+		$this->display("adminEdit.html");
 	}
 
 	/**
@@ -145,14 +65,14 @@ class Post extends Control
 			$post['title'] = "无题";
 		}
 
-		if( !$post['url'] = $this->post("url") )
-		{
-			$post['url'] = date("YmdHis");
-		}
+		$post['url'] = date("YmdHis");
 
 		if( !$post['created_at'] = $this->post("created_at") )
 		{
 			$post['created_at'] = date("Y-m-d H:i:s");
+		} else
+		{
+			$post['created_at'] = date("Y-m-d H:i:s", strtotime($post['created_at']));
 		}
 
 		if( !$post['category'] = $this->post("cateVal") )
@@ -161,17 +81,14 @@ class Post extends Control
 		}
 
 		$post['markdown'] = $this->post("markdown");
-		$post['html'] = $this->post("htmlContent");
+		
+		include ROOT_PATH."/var/HyperDown.php";
+		$HyperDown = new \HyperDown\Parser;
+		$post['html'] = $HyperDown->makeHtml($post['markdown']);
 
 		if( !$length = stripos($post['html'], "&lt;!--more--&gt;") )
 		{
 			$length = 200;
-		}
-
-		$post['summary'] = "<p>".mb_substr(strip_tags($post['html']), 0, $length)."</p>";
-		if( preg_match('/<img\s*src=[\'"]+([^\'"]+)[\'"]+.*>/', $post['html'], $mat) )
-		{
-			$post['summary'] = "<img src='".$mat[1]."'/>".$post['summary'];
 		}
 
 		$post['tags'] = $this->post('tags');
@@ -196,8 +113,6 @@ class Post extends Control
 			$oldCategory = $thisPost->category;
 			$thisPost->title = $post['title'];
 			$thisPost->public = $post['public'];
-			$thisPost->url = $post['url'];
-			$thisPost->summary = $post['summary'];
 			$thisPost->category = $post['category'];
 			$thisPost->markdown = $post['markdown'];
 			$thisPost->html = $post['html'];
