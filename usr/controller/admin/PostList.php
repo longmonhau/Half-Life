@@ -1,4 +1,4 @@
-<?php lOngmon\Hau\usr\controller\admin;
+<?php namespace lOngmon\Hau\usr\controller\admin;
 
 use lOngmon\Hau\core\Control;
 use lOngmon\Hau\core\Model;
@@ -27,7 +27,7 @@ class PostList extends Control
 	 * Post List
 	 * @return void
 	 */
-	public function lists()
+	public function index()
 	{
 		$page = 1;
 		$pageNum = 10;
@@ -81,7 +81,7 @@ class PostList extends Control
 			$this->assign("postList", $PostList);
 
 			$this->assign("user", tSession::getLoginedUserInfo());
-			$this->display("postList.html");
+			$this->display("adminPostList.html");
 		}
 	}
 

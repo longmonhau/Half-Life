@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>{%block pageTitle%}设置{%endblock%}</title>
+	<meta charset="utf8"/>
+	<link rel="shortcut icon" href="{{site.site_favicon|default("/static/images/favicon.png")}}" type="image/x-icon" />
+	<link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/font.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/admin/main.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/dropzone.css">
+</head>
+<body>
+	<div class="dash-header">
+		<div class="dash-header-top">
+			<div class="dash-header-top-logo"><a href="">Half-Life</a></div>
+			<div class="dash-header-top-nav">
+				<a href="/Admin/Profiles.html" id="dash-header-top-nav-me">我</a>
+				<a href="/Admin/Settings.html">设置</a>
+				<a href="/Admin/Messages.html" id="dash-header-top-nav-msg">
+					<span>私信</span>{%if newMsgCount>0 %}
+					<span id="dash-header-top-nav-msg-num">
+					</span>{%endif%}
+				</a>
+				<a href="/Admin/showWorks.html">作品</a>
+				<a href="/Admin/dashBoard.html">首页</a>
+			</div>
+			<div class="clear">&nbsp;</div>
+		</div>
+	</div>
+	<div class="dash-main">
+		<div class="dash-set-div">
+			<div class="dash-set-div-title">网站设置</div>
+			<div class="dash-set-div-input">
+				<div class="dash-set-div-input-avatar">
+					<img src="{{site.site_logoimg|default("/static/images/male.png")}}" class="dash-set-div-input-avatar-img">
+					<a href="javascript:;" class="dash-st-div-input-upload">
+					上传图片</a>
+					<input type="hidden" value="{{site.site_logoimg|default("/static/images/male.png")}}" name="site_logoimg" id="dash-set-div-logo-val" class="site_setting_info" />
+					<div class="dash-set-backup-database">
+						<a href="javascript:;">备份数据库</a>
+					</div>
+				</div>
+				<div class="dash-set-div-input-list">
+					<div class="dash-set-div-input-div">
+						<div class="dash-set-div-input-div-title">网站名称</div>
+						<input type="text" name="site_name" value="{{site.site_name}}" class="dash-set-div-input-text site_setting_info" />
+					</div>
+
+					<div class="dash-set-div-input-div">
+						<div class="dash-set-div-input-div-title">网站域名</div>
+						<input type="text" name="site_domain" value="{{site.site_domain}}" class="dash-set-div-input-text site_setting_info" />
+					</div>
+
+					<div class="dash-set-div-input-div">
+						<div class="dash-set-div-input-div-title">Favicon图标</div>
+						<img id="set-favicon-src" src="{{site.site_favicon|default("/static/images/favicon.png")}}">
+						<a href="javascript:;" class="dash-set-favicon-div" style="text-decoration: underline;">
+							更换
+						</a>
+						<input type="hidden" name="site_favicon" value="{{site.site_favicon|default("/static/images/favicon.png")}}" id="site-set-favicon" class="dash-set-div-input-text site_setting_info" />
+					</div>
+
+					<div class="dash-set-div-input-div">
+						<div class="dash-set-div-input-div-title">网站描述</div>
+						<textarea name="site_desc" class="dash-set-div-textrea-text site_setting_info">{{site.site_desc}}</textarea>
+					</div>
+
+					<div class="dash-set-div-input-div">
+						<div class="dash-set-div-input-div-title">版权描述</div>
+						<input type="text" name="site_copyright" value="{{site.site_copyright}}" class="dash-set-div-input-text site_setting_info" />
+					</div>
+
+					<div class="dash-set-div-input-div">
+						<div class="dash-set-div-input-div-title">第三方统计代码</div>
+						<textarea name="site_analytices" class="dash-set-div-textrea-text site_setting_info">{{site.site_analytices}}</textarea>
+					</div>
+
+					<div class="dash-set-div-input-div">
+						<div class="dash-set-div-input-div-title">知识共享协议</div>
+						<textarea name="site_ccdesc" class="dash-set-div-textrea-text site_setting_info">{{site.site_ccdesc}}</textarea>
+					</div>
+
+					<div class="dash-set-div-input-div">
+						<a href="javascript:;" id="dash-set-div-input-button-ok">确定</a>
+						<div id="dashs-set-submit-ok-tip"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="upload-img-div" id="upload-img-div">
+		<div class="dropzone-file-div set-upload-img-div">
+			<div class="dropzone" id="my-awesome-dropzone">
+				<div class="fallback">
+			    	<input name="file" type="file"/>
+			  </div>
+			</div>
+		</div>
+	</div>
+	<div id="upload-favicon-div">
+		<div class="dropzone-file-div set-upload-img-div">
+			<div class="dropzone" id="favicon-dropzone">
+				<div class="fallback">
+			    	<input name="file" type="file"/>
+			  </div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/static/js/dropzone.js"></script>
+<script type="text/javascript">
+	//******************* 上传插件 *************
+	//******************* logo 上传 ***********
+	var myDropzone = new Dropzone("#my-awesome-dropzone", { 
+		url: "/admin/Upload/File/file",
+	  	init: function() {
+		    this.on("success", function(resp) { 
+		    	var res = $.parseJSON(resp.xhr.response);
+				$(".dash-set-div-input-avatar-img").attr("src",res.url);
+				$("#dash-set-div-logo-val").val(res.url);
+				$("#upload-img-div").hide();
+		    });
+		  }
+	});
+	//****************** Favicon上传 **********
+	var faviconDropzone = new Dropzone("#favicon-dropzone", { 
+		url: "/admin/Upload/File/file",
+	  	init: function() {
+		    this.on("success", function(resp) { 
+		    	var res = $.parseJSON(resp.xhr.response);
+				$("#set-favicon-src").attr("src",res.url);
+				$("#site-set-favicon").val(res.url);
+				$("#upload-favicon-div").hide();
+		    });
+		  }
+	});
+
+	//************* 打开遮罩层 ****************
+	$(".dash-st-div-input-upload").click(function(){
+		$("#upload-img-div").show();
+	});
+	$(".dash-set-favicon-div").click(function(){
+		$("#upload-favicon-div").show();
+	});
+	//************* 关闭遮罩层 ****************
+	$("#upload-img-div").click(function(evt){
+		if( evt.target.id == 'upload-img-div' )
+		{
+			$(this).hide();
+		} 
+	});
+	$("#upload-favicon-div").click(function(evt){
+		if( evt.target.id == 'upload-favicon-div' )
+		{
+			$(this).hide();
+		}
+	});
+
+	//************* 提交修改 *****************
+	var posting = false;
+	$("#dash-set-div-input-button-ok").click(function(){
+		if( posting )
+		{
+			return;
+		}
+		var inputs = $(".site_setting_info");
+		var data = {};
+		for(var j=0;j<inputs.length;j++)
+		{
+			var name = inputs.eq(j).attr("name");
+			data[name] = inputs.eq(j).val();
+		}
+		console.log(data);
+		posting = true;
+		$.ajax({
+			url:"/admin/Setting/submit",
+			data:data,
+			type:"post",
+			dataType:"json",
+			error:function(error,errStr)
+			{
+				alert(errStr);
+			},
+			success:function(resp)
+			{
+				//console.log(resp);
+				if( resp.code == 200 )
+				{
+					$("#dashs-set-submit-ok-tip").html("修改成功");
+					setTimeout(function(){
+						$("#dashs-set-submit-ok-tip").html("");
+					},3000);
+				} else if( resp.code == 503 )
+				{
+					alert(resp.errmsg);
+					location.href=resp.go_url;
+				} else
+				{
+					alert(resp.errmsg);
+				}
+			}
+		});
+	});
+</script>
+</html>

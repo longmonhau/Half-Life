@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>{%block pageTitle%}我的资料{%endblock%}</title>
+	<meta charset="utf8"/>
+	<link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/font.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/admin/main.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/dropzone.css">
+	<link rel="shortcut icon" href="{{site.site_favicon|default("/static/images/favicon.png")}}" type="image/x-icon" />
+</head>
+<body>
+	<div class="dash-header">
+		<div class="dash-header-top">
+			<div class="dash-header-top-logo"><a href="">Half-Life</a></div>
+			<div class="dash-header-top-nav">
+				<a href="/Admin/Profiles.html" id="dash-header-top-nav-me">我</a>
+				<a href="/Admin/Settings.html">设置</a>
+				<a href="/Admin/Messages.html" id="dash-header-top-nav-msg">
+					<span>私信</span>
+					{%if newMsgCount>0 %}<span id="dash-header-top-nav-msg-num">
+					</span>{%endif%}
+				</a>
+				<a href="/Admin/showWorks.html">作品</a>
+				<a href="/Admin/dashBoard.html">首页</a>
+			</div>
+			<div class="clear">&nbsp;</div>
+		</div>
+	</div>
+	<div class="dash-main">
+		<div class="dash-set-div">
+			<div class="dash-set-div-title">我的资料</div>
+			<div class="dash-set-div-input">
+				<div class="dash-set-div-input-avatar">
+					<img src="{{user.avatar|default("/static/images/male.png")}}" class="dash-set-div-input-avatar-img">
+					<a href="javascript:;" class="dash-st-div-input-upload">
+					更换头像
+					</a>
+					<input type="hidden" name="avatar" class="dash-set-div-input-text" value="{{user.avatar|default("/static/images/male.png")}}" id="dash-upload-div-avatar-input" />
+					<div class="dash-set-backup-database">
+					<a href="javascript:;">使用Gravatar头像</a>
+					</div>
+				</div>
+				<div class="dash-set-div-input-list">
+					<div class="dash-set-div-input-div">
+						<div class="dash-set-div-input-div-title">登陆账号：<span>{{user.name}}</span></div>
+					</div>
+
+					<div class="dash-set-div-input-div">
+						<div class="dash-set-div-input-div-title">昵称</div>
+						<input type="text" name="sname" value="{{user.sname}}" class="dash-set-div-input-text" />
+					</div>
+
+					<div class="dash-set-div-input-div">
+						<div class="dash-set-div-input-div-title">电子邮箱：</div>
+						<input type="text" name="email" value="{{user.email}}" class="dash-set-div-input-text" />
+					</div>
+
+					<div class="dash-set-div-input-div">
+						<div class="dash-set-div-input-div-title">原密码：</div>
+						<input type="password" name="oldpassword" value="" class="dash-set-div-input-text" />
+					</div>
+					<div class="dash-set-div-input-div">
+						<div class="dash-set-div-input-div-title">新密码：</div>
+						<input type="password" name="newpassword" value="" class="dash-set-div-input-text" />
+					</div>
+
+
+					<div class="dash-set-div-input-div">
+						<a href="javascript:;" id="dash-set-div-input-button-ok">确定</a>
+						<div id="dash-set-submit-ok-tip"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="upload-img-div" id="upload-img-div">
+		<div class="dropzone-file-div set-upload-img-div">
+			<form action="/admin/Upload/File/file" class="dropzone" id="my-awesome-dropzone">
+				<div class="fallback">
+			    	<input name="file" type="file"/>
+			  	</div>
+			</form>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/static/js/dropzone.js"></script>
+<script type="text/javascript">
+	//******************* 上传插件 *************
+	//******************* logo 上传 ***********
+	Dropzone.options.myAwesomeDropzone = {
+	  	init: function() {
+		    this.on("success", function(resp) { 
+		    	var res = $.parseJSON(resp.xhr.response);
+				$(".dash-set-div-input-avatar-img").attr("src",res.url);
+				$("#dash-upload-div-avatar-input").val(res.url);
+				$("#upload-img-div").hide();
+		    });
+		}
+	};
+
+	//****************** 打开遮罩层 *************
+	$(".dash-st-div-input-upload").click(function(){
+		$("#upload-img-div").show();
+	});
+	//***************** 关闭遮罩层 **************
+	$("#upload-img-div").click(function(evt ){
+		if( evt.target.id == 'upload-img-div' )
+		{
+			$(this).hide();
+		}
+	});
+
+	//****************** 提交内容 ***************
+	var posting = false;
+	$("#dash-set-div-input-button-ok").click(function(){
+		var inputs = $(".dash-set-div-input-text");
+		var pro = {};
+		
+		for(var i=0;i<inputs.length; i++)
+		{
+			var name = inputs.eq(i).attr("name");
+			pro[name] = inputs.eq(i).val();
+		}
+		console.log(pro);
+		posting = true;
+		$.ajax({
+			url:"/admin/profile/submit",
+			data:pro,
+			type:"post",
+			dataType:"json",
+			error:function(error,errStr)
+			{
+				alert(errStr);
+			},
+			success:function(resp)
+			{
+				console.log(resp);
+				if(resp.code == 200 )
+				{
+					$("#dash-set-submit-ok-tip").html(resp.errmsg);
+					setTimeout(function(){
+						$("#dash-set-submit-ok-tip").html('');
+					},3000);
+					$(".dash-set-div-input-text[type='password']").val('');
+				} else if( resp.code == 503 )
+				{
+					alert(resp.errmsg);
+					location.href=resp.go_url;
+				} else
+				{
+					alert(resp.errmsg);
+				}
+				posting = false;
+			}
+		});
+	});
+</script>
+</html>

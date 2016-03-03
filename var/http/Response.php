@@ -7,10 +7,15 @@ class Response
 {
 	private $response = null;
 
+	private $template = NULL;
+
+	private $html = '';
+
 	public static function newInstance()
 	{
 		$self = new static();
 		$self->response = new SymfonyResponse;
+		$self->template = new SimpleTemplate;
 		return $self;
 	}
 
@@ -32,13 +37,18 @@ class Response
 		$this->response->send();
 	}
 
-	public function toHtml( $html, $vars = [] )
+	public function renderHtml( $html, $vars = [] )
 	{
-		$this->response->headers->set('Content-Type', 'text/html');
-		$template = new SimpleTemplate();
-		$template->assign( $vars );
-		$htmls = $template->display( $html );
-		$this->response->setContent( $htmls );
+		$this->response->headers->set('Content-Type', 'text/html');	
+		$this->template->assign( $vars );
+		$this->html = $this->template->display( $html );
+		$this->response->setContent( $this->html );
 		$this->response->send();
+	}
+
+	public function toHtml($html,$vars, $fileName)
+	{
+		$this->renderHtml($html, $vars, $fileName );
+		$this->template->makeHtml($this->html, $fileName);
 	}
 }

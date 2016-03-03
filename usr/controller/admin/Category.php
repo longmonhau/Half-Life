@@ -21,13 +21,12 @@ class Category extends Control
 		$categories = $this->CateModel->get();
 		$this->assign("categories", $categories);
         $this->assign("user", tSession::getLoginedUserInfo());
-		$this->display("categoryIndex.html");
+		$this->display("adminCategory.html");
 	}
 
 	public function edit()
 	{
-		if(isset($_SERVER["HTTP_X_REQUESTED_WITH"])
-		&& strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) == "xmlhttprequest")
+		if( $this->AjaxRequest )
     	{
     		if( !$title = $this->post("title") )
     		{
@@ -37,13 +36,10 @@ class Category extends Control
     		{
     			return $this->renderJson(['code'=>400,'errmsg'=>"Missing required parameter: cateid"]);
     		}
-    		$desc = $this->post("desc");
-
 
     		if( $thisCategoryModel = $this->CateModel->getCategoryByCid( $cateId ) )
     		{
     			$thisCategoryModel->title = $title;
-    			$thisCategoryModel->desp = $desc;
     			$thisCategoryModel->save();
     			return $this->renderJson(['code'=>200,'errmsg'=>'ok']);
     		} else {
@@ -51,9 +47,8 @@ class Category extends Control
     			$category['title'] = $title;
     			$category['categoryId'] = $cateId;
     			$category['postNum'] = 0;
-    			$category['desp'] = $desc;
 				$category['created_at'] = date("Y-m-d H:i:s");
-    			$insertId = $this->CateModel->insert($category);
+    			$insertId = $this->CateModel->insertGetId($category);
     			return $this->renderJson(['code'=>200,'errmsg'=>'ok',"id"=>$insertId]);
     		}
 
@@ -65,8 +60,7 @@ class Category extends Control
 
 	public function del()
 	{
-		if(isset($_SERVER["HTTP_X_REQUESTED_WITH"])
-		&& strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) == "xmlhttprequest")
+		if( $this->AjaxRequest )
     	{
     		$categoryId = $this->post("categoryId");
     		if( $categoryId == 'default' )
@@ -74,7 +68,7 @@ class Category extends Control
     			return $this->renderJson(['code'=>403,"errmsg"=>"Default category can not delete"]);
     		}
 
-    		if($cateModel = $this->CateModel->getCategoryById($categoryId))
+    		if($cateModel = $this->CateModel->getCategoryByCid($categoryId))
     		{
     			$cateModel->delete();
     			return $this->renderJson(["code"=>200,"errmsg"=>"ok"]);
@@ -89,8 +83,7 @@ class Category extends Control
 
     public function loadCategoryAjax()
     {
-        if(isset($_SERVER["HTTP_X_REQUESTED_WITH"])
-        && strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) == "xmlhttprequest")
+        if( $this->AjaxRequest )
         {
             $categories = $this->CateModel->get();
             $categories = iterator_to_array( $categories );

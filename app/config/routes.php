@@ -23,7 +23,7 @@ return [
 
 	"dashBoard" => ['GET',"/Admin/dashBoard",["admin\DashBoard","index",["auth"]]],
 
-	"postList" => ['GET',"/Admin/Post/List",["admin\Post","lists",["auth"]]],
+	"postList" => ['GET',"/Admin/Post/List",["admin\PostList","index",["auth"]]],
 
 	"loadmorePost" => ["POST","/Admin/Post/More",["admin\Post","lists",["auth"]]],
 
@@ -37,7 +37,7 @@ return [
 
 	"adminDelCategory" => ["POST","/Admin/Category/Del",["admin\Category","del",["auth"]]],
 
-	"getCategoryByAjax" => ["POST","/AjaxLoadCategory",["admin\Category","loadCategoryAjax"]],
+	"getCategoryByAjax" => ["GET","/AjaxLoadCategory",["admin\Category","loadCategoryAjax"]],
 
 	"adminPostSubmit" => ["POST","/Post/submit",["admin\Post","submit",["auth"]]],
 
@@ -65,17 +65,17 @@ return [
 
 	"admin/Comment/Resp" => ["POST","/admin/Comment/Resp",["admin\CommentManage","resp",["auth"]]],
 
-	"admin/Message/List" => ["GET","/Admin/Message/List",["admin\Message","index",["auth"]]],
+	"admin/Message/List" => ["GET","/Admin/Messages",["admin\Message","index",["auth"]]],
 
 	"admin/Message/updateStatus" => ["POST","/admin/Message/updateStatus",["admin\Message","updateStatus",["auth"]]],
 
-	"adminSetting" => ["GET", "/admin/Setting", ["admin\Setting", "index", ["auth"]]],
+	"adminSetting" => ["GET", "/admin/Settings", ["admin\Setting", "index", ["auth"]]],
 
 	"admin/Setting/submit" => ["POST","/admin/Setting/submit",["admin\Setting","submit",["auth"]]],
 
-	"admin/Profile" => ["GET","/admin/Profile",["admin\Profile","index",["auth"]]],
+	"admin/Profile" => ["GET","/admin/Profiles",["admin\Profile","index",["auth"]]],
 
-	"/admin/Profile/submit" => ["POST","/admin/Profile/submit",["admin\Profile","submit",["auth"]]],
+	"admin/Profile/submit" => ["POST","/admin/profile/submit",["admin\Profile","submit",["auth"]]],
 
 	"admin/Profile/chpwd" => ["POST","/admin/Profile/chpwd",["admin\Profile","chpwd",["auth"]]],
 

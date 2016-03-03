@@ -4,16 +4,18 @@ use lOngmon\Hau\core\Control;
 use lOngmon\Hau\core\Model;
 use lOngmon\Hau\usr\bundle\tSession;
 use lOngmon\Hau\core\bundle\tPassword;
+use lOngmon\Hau\usr\traits\SiteInfo;
 
 class Profile extends Control
 {
+	use SiteInfo;
 	public function index()
 	{
 
 		$user = tSession::getLoginedUserInfo();
-
+		$this->assign("site", $this->getSiteInfo());
 		$this->assign("user", $user);
-		return $this->display("profile.html");
+		return $this->display("adminProfiles.html");
 	}
 
 	public function submit()
@@ -37,11 +39,22 @@ class Profile extends Control
 			{
 				$userObj->avatar = $user->avatar = $avatar;
 			}
+			if( $oldpasswd = $this->post('oldpassword') )
+			{
+				if( !tPassword::verify($oldpasswd, $userObj->passwd) )
+				{
+					return $this->renderJson(403, "原密码不正确！");
+				}
+			}
+			if( $newPwd = $this->post('newpassword') )
+			{
+				$userObj->passwd = tPassword::hash($newPwd);
+			}
 
 			$userObj->save();
 			tSession::login($user, $this->server("HTTP_USER_AGENT"));
 
-			return $this->renderJson(200,"ok");
+			return $this->renderJson(200,"修改成功");
 		}
 	}
 

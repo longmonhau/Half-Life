@@ -54,11 +54,13 @@ class Kernel
 
 	public function run()
 	{
-		$pathInfo = $this->request->getPathInfo();
-		$httpMethod = $this->request->server->get('REQUEST_METHOD');
-		$pathInfo = str_replace(Config::get("URL-SUFFIX"), '', $pathInfo);
-		$pathInfo = rtrim($pathInfo,"/");
-		$route_ret = $this->route->dispatch( $pathInfo, $httpMethod );
+		$pathInfo 	= 	$this->request->getPathInfo();
+		$httpMethod = 	$this->request->server->get('REQUEST_METHOD');
+		define("HTTP_METHOD", $httpMethod);
+		$pathInfo 	= 	str_replace(Config::get("URL-SUFFIX"), '', $pathInfo);
+		$pathInfo 	= 	rtrim($pathInfo,"/");
+		$route_ret 	= 	$this->route->dispatch( $pathInfo, $httpMethod );
+
 		return $this->execute( $route_ret );
 	}
 
@@ -104,6 +106,6 @@ class Kernel
 		$vars = [];
 		$vars['message'] = $e->getMessage();
 		$vars['file_line']  = $e->getFile()." ".$e->getLine();
-		$response->toHtml( "exception.html", $vars );
+		$response->renderHtml( "exception.html", $vars );
 	}
 }

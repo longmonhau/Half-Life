@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>{%block pageTitle%}文章列表{%endblock%}</title>
+	<meta charset="utf8"/>
+	<link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/font.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/admin/main.css">
+	<link rel="shortcut icon" href="/static/images/me.png" type="image/x-icon" />
+</head>
+<body>
+	<div class="dash-header">
+		<div class="dash-header-top">
+			<div class="dash-header-top-logo"><a href="">Half-Life</a></div>
+			<div class="dash-header-top-nav">
+				<a href="/Admin/Profiles.html" id="dash-header-top-nav-me">我</a>
+				<a href="/Admin/Settings.html">设置</a>
+				<a href="/Admin/Messages.html" id="dash-header-top-nav-msg">
+					<span>私信</span>
+					<span id="dash-header-top-nav-msg-num">
+					{%if newMsgCount>99 %}99+{%else%}{%if newMsgCount>0%}{{newMsgCount}}{%endif%}{%endif%}
+					</span>
+				</a>
+				<a href="/Admin/dashBoard.html">首页</a>
+			</div>
+			<div class="clear">&nbsp;</div>
+		</div>
+	</div>
+	<div class="dash-main">
+		<div class="dash-main-left">
+			<div class="post-list-top">
+				<div class="post-list-top-title">
+					全部
+				</div>
+				<div class="post-list-top-search">
+					<a href="javascript:;">PHP</a>
+					<a href="javascript:;">怡</a>
+					<a href="javascript:;">故事</a>
+				</div>
+			</div>
+			<div class="post-list-div">
+				<div class="post-list-div-li">
+					<div class="post-list-div-li-author">
+						<img src="/static/images/bg.jpg"/>
+					</div>
+					<div class="post-list-div-li-content">
+						<div class="post-list-div-li-content-title">
+							<a href="" class="post-list-div-li-content-url-a">现在有多少人喜欢这种清新生活风格</a>
+							<a href="" class="post-list-div-li-content-del"></a>
+						</div>
+						<div class="post-list-div-li-content-content">
+							我相信每个人都有过一次闹到鱼死网破才肯罢休的争吵经历，最后都会扬言从此之后你走你的阳关道，我过我的独木桥。多年以后回想起来又有几分后悔。往事随风，能记得的，依然是你最温柔的声音和那些匆匆流逝的美好时光。
+						</div>
+						<div class="post-list-div-li-content-bottom">
+							2016-02-12 15:14:11
+						</div>
+					</div>
+				</div>
+
+				<div class="post-list-div-li">
+					<div class="post-list-div-li-author">
+						<img src="/static/images/bg.jpg"/>
+					</div>
+					<div class="post-list-div-li-content">
+						<div class="post-list-div-li-content-title">
+							<a href="" class="post-list-div-li-content-url-a">现在有多少人喜欢这种清新生活风格</a>
+							<a href="" class="post-list-div-li-content-del"></a>
+						</div>
+						<div class="post-list-div-li-content-content">
+							我相信每个人都有过一次闹到鱼死网破才肯罢休的争吵经历，最后都会扬言从此之后你走你的阳关道，我过我的独木桥。多年以后回想起来又有几分后悔。往事随风，能记得的，依然是你最温柔的声音和那些匆匆流逝的美好时光。
+						</div>
+						<div class="post-list-div-li-content-bottom">
+							2016-02-12 15:14:11
+						</div>
+					</div>
+				</div>
+
+				<div class="post-list-div-li">
+					<div class="post-list-div-li-author">
+						<img src="/static/images/bg.jpg"/>
+					</div>
+					<div class="post-list-div-li-content">
+						<div class="post-list-div-li-content-title">
+							<a href="" class="post-list-div-li-content-url-a">现在有多少人喜欢这种清新生活风格</a>
+							<a href="" class="post-list-div-li-content-del"></a>
+						</div>
+						<div class="post-list-div-li-content-content">
+							我相信每个人都有过一次闹到鱼死网破才肯罢休的争吵经历，最后都会扬言从此之后你走你的阳关道，我过我的独木桥。多年以后回想起来又有几分后悔。往事随风，能记得的，依然是你最温柔的声音和那些匆匆流逝的美好时光。
+						</div>
+						<div class="post-list-div-li-content-bottom">
+							2016-02-12 15:14:11
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="dash-main-right">
+			<div class="dash-main-right-top">
+				<a href="/"><div class="dash-main-right-top-title">lognmon Hau{{Site.site_name}}</div>
+				<div class="dash-main-right-top-domain">{{Site.site_domain}}www.longmonhau.com</div></a>
+			</div>
+			<div class="dash-main-right-nav post-list-category-div">
+				<ul>
+					<li><a href="">PHP语言</a></li>
+					<li><a href="">Golang</a></li>
+					<li><a href="">架构</a></li>
+					<li><a href="">数据库</a></li>
+					<li><a href="">访客</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

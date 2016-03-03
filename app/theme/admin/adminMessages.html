@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>{%block pageTitle%}私信{%endblock%}</title>
+	<meta charset="utf8"/>
+	<link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/font.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/admin/main.css">
+	<link rel="shortcut icon" href="/static/images/me.png" type="image/x-icon" />
+</head>
+<body>
+	<div class="dash-header">
+		<div class="dash-header-top">
+			<div class="dash-header-top-logo"><a href="">Half-Life</a></div>
+			<div class="dash-header-top-nav">
+				<a href="/Admin/Profiles.html" id="dash-header-top-nav-me">我</a>
+				<a href="/Admin/Settings.html">设置</a>
+				<a href="/Admin/Messages.html" id="dash-header-top-nav-msg">
+					<span>私信</span>
+					<span id="dash-header-top-nav-msg-num">
+					{%if newMsgCount>99 %}99+{%else%}{%if newMsgCount>0%}{{newMsgCount}}{%endif%}{%endif%}
+					</span>
+				</a>
+				<a href="/Admin/dashBoard.html">首页</a>
+			</div>
+			<div class="clear">&nbsp;</div>
+		</div>
+	</div>
+	<div class="dash-main">
+
+		<div class="dash-main-left dash-msg-left-div">
+			<div class="dash-msg-top">
+				<div class="dash-msg-top-title">私信</div>
+			</div>
+			<div class="msg-list-div">
+				{%for msg in messageList%}
+				<div class="msg-list-div-list">
+					<div class="msg-list-div-list-author">
+						<img src="http://www.gravatar.com/avatar/{{msg.gravatar}}">
+					</div>
+					<div class="msg-list-div-list-content">
+						<div class="msg-list-div-list-content-name">
+							<a href="javascript:;" class="msg-sender-name">{{msg.name}}</a>
+							<a href="javascript:;" mid="{{msg.id}}" class="del-the-msg"></a>
+							<a href="javascript:;"  class="reply-to-the-msg"></a>				
+						</div>
+						<div class="msg-list-div-list-content-content">{{msg.msgbody}}</div>
+						<div class="msg-list-div-list-content-timer">{{msg.created_at}}</div>	
+						<div class="msg-list-div-list-content-reply">
+							<div class="msg-list-my-reply-list">
+								{%for rep in msg.ireply%}
+								<div class="msg-list-myreply-list"><span>您在{{rep.created_at}}的回复：</span>
+								<span>{{rep.msgbody}}</span></div>
+								{%endfor%}
+							</div>
+							<div class="msg-ldlc-reply-div-title">
+								{{msg.name}} [<a href="mailto:{{msg.email}}">{{msg.email}}</a>]
+							</div>
+							<div class="msg-ldlc-reply-avatar">
+								<img src="{{user.avatar}}" style="margin-top: 5px;" class="medium-avatar">
+							</div>
+							<div class="msg-ldlc-reply-box">
+								<textarea class="msg-ldlc-reply-text" placeholder="回复给{{msg.name}}"></textarea>
+								<a href="javascript:;" mid="{{msg.id}}" class="msg-ldlc-reply-submit">确定</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				{%endfor%}
+			</div>
+			<div class="clear">&nbsp;</div>
+		</div>
+
+		<div class="dash-main-right">
+		</div>
+
+	</div>
+</body>
+<script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+	//*************** 删除消息 **********************
+	$(".msg-list-div").on("click","a.del-the-msg",function(){
+		if( !confirm("确定要删除这条消息？此操作不可逆！") ){
+			return;
+		}
+		var mid = $(this).attr("mid");
+		var _this = $(this);
+		$.post("/Admin/Message/Del",{msgid:mid},function(resp){
+            if( resp.code == 200 )
+            {
+                _this.parent().parent().parent().remove();
+            }
+        },"json");
+	});
+
+	//************* 打开回复框 **************
+	$(".msg-list-div").on("click","a.reply-to-the-msg",function(){
+		$(this).parent().parent().find(".msg-list-div-list-content-reply").toggle();
+	});
+
+	//************ 回复消息 *********************
+	var postIng = false;
+	$(".msg-list-div").on("click","a.msg-ldlc-reply-submit",function(){
+		if( postIng )
+		{
+			return;
+		}
+		$(this).text("...");
+		var _this = $(this);
+		var data = {};
+		var replyTextArea = $(this).parent().find("textarea");
+		data.mid = $(this).attr("mid");
+		data.content = replyTextArea.val();
+		if( data.content.length <1 )
+		{
+			alert("请输入回复内容！");
+			replyTextArea.focus();
+			return;
+		}
+		postIng = true;
+		$.post("/Admin/Message/Reply",data,function(resp){
+			if(resp.code == 200 )
+			{
+				replyTextArea.val('');
+				_this.parent().parent().fadeOut();
+			} else{
+				alert(resp.errmsg);
+			}
+			_this.text("确定");
+			postIng = false;
+		},"json");
+	});
+
+	//**************** 滚动条sroll低就自动加载 ***************
+	var page = 1;
+	$(window).scroll(function(){
+		if( $(document).scrollTop() + $(window).height() >= $(document).height() )
+		{
+			if( page == -1){
+				return;
+			}
+			page++;
+			$.get("/Admin/Messages",{page:page},function(resp){
+				console.log(resp);
+				if( resp.code == 200 )
+				{
+					var msglist = resp.msgList;
+					if( msglist.length == 0 )
+					{
+						page = -1;
+						return;
+					}
+					var msgHtml = '';
+					for( var i in msglist)
+					{
+						var msg = msglist[i];
+						var replDiv = '';
+						for( var n in msg.ireply )
+						{
+							var rep = msg.ireply[n];
+							replDiv += '<div class="msg-list-myreply-list">'
+										+'<span>您在'+rep.created_at+'的回复：</span>'
+										+'<span>'+rep.msgbody+'</span></div>';
+						}
+						msgHtml += '<div class="msg-list-div-list">'
+								+'<div class="msg-list-div-list-author">'
+								+'<img src="http://www.gravatar.com/avatar/'+msg.gravatar+'">'
+								+'</div><div class="msg-list-div-list-content">'
+								+'<div class="msg-list-div-list-content-name">'
+								+'<a href="javascript:;" class="msg-sender-name">'+msg.name+'</a>'
+								+'<a href="javascript:;" mid="'+msg.id+'" class="del-the-msg"></a>'
+								+'<a href="javascript:;"  class="reply-to-the-msg"></a></div>'
+								+'<div class="msg-list-div-list-content-content">'+msg.msgbody+'</div>'
+								+'<div class="msg-list-div-list-content-timer">'+msg.created_at+'</div>'
+								+'<div class="msg-list-div-list-content-reply">'
+								+'<div class="msg-list-my-reply-list">'
+								+replDiv	
+								+'</div><div class="msg-ldlc-reply-div-title">'
+								+msg.name+' [<a href="mailto:'+msg.email+'">'+msg.email+'</a>]'
+								+'</div><div class="msg-ldlc-reply-avatar">'
+								+'<img src="{{user.avatar}}" style="margin-top: 5px;" class="medium-avatar">'
+								+'</div><div class="msg-ldlc-reply-box">'
+								+'<textarea class="msg-ldlc-reply-text" placeholder="回复给'+msg.name+'"></textarea>'
+								+'<a href="javascript:;" mid="'+msg.id+'" class="msg-ldlc-reply-submit">确定</a>'
+								+'</div></div></div></div>';
+					}
+					$(".msg-list-div").append(msgHtml);
+				}
+			},"json");
+		}
+	});
+</script>
+</html>

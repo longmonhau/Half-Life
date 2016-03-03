@@ -31,20 +31,21 @@ class Message extends Control
 		}
 		$skip = ($page-1)*$pageNum;
 		$msgList = $this->msgModel->where("resp",0)->orderby("created_at","DESC")->skip($skip)->limit( $pageNum )->get();
-		if(isset($_SERVER["HTTP_X_REQUESTED_WITH"])
-		&& strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) == "xmlhttprequest")
+
+		$return_msg = [];
+		foreach ($msgList as $msg) 
+		{
+			$msg->ireply = $this->msgModel->where("resp",$msg->id)->get();
+			$return_msg[] = $msg;
+		}
+
+		if( $this->AjaxRequest )
     	{
-			return $this->renderJson(["code"=>200,"msgList"=>iterator_to_array($msgList)]);
+			return $this->renderJson(["code"=>200,"msgList"=>$return_msg]);
 		} else {
-			$totalMsg = $this->msgModel->where("resp",0)->count();
-			if( $totalMsg>$pageNum )
-			{
-				$pageList = range(1,ceil($totalMsg/$pageNum));
-				$this->assign("pageList", $pageList);
-			}
 			$this->assign("user", tSession::getLoginedUserInfo());
-			$this->assign("messageList", iterator_to_array($msgList));
-			return $this->display("adminMessage.html");
+			$this->assign("messageList", $return_msg);
+			return $this->display("adminMessages.html");
 		}
 
 	}
@@ -114,15 +115,20 @@ class Message extends Control
 
 	public function del()
 	{
-		$mid = $this->post("msgid");
-		$mid = explode("|", $mid);
-		if( $msg = $this->msgModel->destroy($mid) )
+		if( $this->AjaxRequest )
 		{
-			$this->msgModel->whereIn("resp", $mid)->delete();
-			return $this->renderJson(['code'=>200,'errmsg'=>"ok",'go_url'=>'/Admin/Message/List']);
-		} else
-		{
-			return $this->renderJson(401,"消息{$mid}不存在！");
+			$mid = $this->post("msgid");
+			$mid = explode("|", $mid);
+			if( $msg = $this->msgModel->destroy($mid) )
+			{
+				$this->msgModel->whereIn("resp", $mid)->delete();
+				return $this->renderJson(['code'=>200,'errmsg'=>"ok",'go_url'=>'/Admin/Message/List']);
+			} else
+			{
+				return $this->renderJson(401,"消息{$mid}不存在！");
+			}
+		} else{
+			return $this->renderString("Access denied!");
 		}
 	}
 }

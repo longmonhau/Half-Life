@@ -14,9 +14,9 @@ class User extends Control
         $sess = Factory::make("session");
         $request_come_from = $this->cookie->hl_http_referer;
         if( $request_come_from != '' 
-        && stripos($request_come_from, "entrance") === false
-        && stripos($request_come_from, "logout") === false
-        && stripos($request_come_from, "login") === false )
+        && stripos($request_come_from, "entrance")  === false
+        && stripos($request_come_from, "logout")    === false
+        && stripos($request_come_from, "login")     === false )
         {
             $this->assign("httpReferer", $request_come_from);
         }

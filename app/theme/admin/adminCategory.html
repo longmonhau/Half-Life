@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>{%block pageTitle%}分类{%endblock%}</title>
+	<meta charset="utf8"/>
+	<link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/font.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/admin/main.css">
+	<link rel="shortcut icon" href="{{site.site_favicon|default("/static/images/favicon.png")}}" type="image/x-icon" />
+</head>
+<body>
+	<div class="dash-header">
+		<div class="dash-header-top">
+			<div class="dash-header-top-logo"><a href="">Half-Life</a></div>
+			<div class="dash-header-top-nav">
+				<a href="/Admin/Profiles.html" id="dash-header-top-nav-me">我</a>
+				<a href="/Admin/Settings.html">设置</a>
+				<a href="/Admin/Messages.html" id="dash-header-top-nav-msg">
+					<span>私信</span>
+					<span id="dash-header-top-nav-msg-num">
+					{%if newMsgCount>99 %}99+{%else%}{%if newMsgCount>0%}{{newMsgCount}}{%endif%}{%endif%}
+					</span>
+				</a>
+				<a href="/Admin/dashBoard.html">首页</a>
+			</div>
+			<div class="clear">&nbsp;</div>
+		</div>
+	</div>
+	<div class="dash-main">
+
+		<div class="dash-main-left">
+			<div class="dash-cate-div">
+				<div class="dash-cate-top-title">分类管理</div>
+				<div class="dash-cate-div-box">
+					{%for cate in categories%}
+					<a href="javascript:;" cateid="{{cate.categoryId}}" class="dash-cate-div-list"><span class="dash-cate-div-list-s-title">{{cate.title}}</span>&nbsp;&nbsp;<span>({{cate.postNum}})</span></a>
+					{%endfor%}
+				</div>
+
+				<div class="dash-cate-div-box-edit">
+					<input type="text" value="" class="dash-cate-div-list-name-input" placeholder="分类名称">
+					<input type="text" value="" class="dash-cate-div-list-id-input" placeholder="分类ID">
+					<a href="javascript:;" id="category-edit-submit-ok">确定</a>
+					<a href="javascript:;" id="category-edit-submit-cancel">取消</a>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+	$(".dash-cate-div-box").on("click",".dash-cate-div-list",function(){
+		$(".dash-cate-div-list-name-input").val($(this).find(".dash-cate-div-list-s-title").text());
+		$(".dash-cate-div-list-id-input").val($(this).attr("cateid"));
+		$(".dash-cate-div-list-id-input").prop("disabled", true).addClass("dash-cate-disabled-input");
+	});
+
+	$("#category-edit-submit-cancel").click(function(){
+		$(".dash-cate-div-list-id-input").prop("disabled", false).removeClass("dash-cate-disabled-input");
+		$(".dash-cate-div-list-id-input").val('');
+		$(".dash-cate-div-list-name-input").val('');
+	});
+
+	$(".dash-cate-div-box").on("dblclick",".dash-cate-div-list",function(){
+		var categoryId = $(this).attr("cateid");
+		$.post("/Admin/Category/Del",{categoryId:categoryId},function(resp){
+			if(resp.code == 200 )
+			{
+				loadCategoryByAjax();
+			}
+		},"json");
+	});
+
+	$("#category-edit-submit-ok").click(function(){
+		var category = {};
+		category.title = $(".dash-cate-div-list-name-input").val();
+		category.cateid = $(".dash-cate-div-list-id-input").val();
+		if( category.title.length < 1 )
+		{
+			alert("请输入分类名称！");
+			$(".dash-cate-div-list-name-input").focus();
+			return;
+		}
+		if( category.cateid.length < 1 )
+		{
+			alert("请输入分类ID!");
+			$(".dash-cate-div-list-id-input").focus();
+			return;
+		}
+		$.ajax({
+			url:"/Admin/Category/Edit",
+			data:category,
+			type:"post",
+			dataType:"json",
+			error:function(err, errStr)
+			{
+				alert(errStr);
+			},
+			success:function(resp)
+			{
+				if( resp.code == 200 )
+				{
+					loadCategoryByAjax();
+					$(".dash-cate-div-list-name-input").val('');
+					$(".dash-cate-div-list-id-input").val('');
+				} else if(resp.code == 503 ) {
+					alert(resp.errmsg);
+					location.href=resp.go_url;
+				} else
+				{
+					alert(resp.errmsg);
+				}
+			}
+		});
+
+		function loadCategoryByAjax()
+		{
+			$.get("/AjaxLoadCategory",function(resp){
+				if(resp.code == 200 )
+				{
+					var categories = resp.categories;
+					var categoriA = '';
+					for(var i in categories )
+					{
+						var category = categories[i];
+						categoriA += '<a href="javascript:;" cateid="'+category.categoryId+'" class="dash-cate-div-list"><span class="dash-cate-div-list-s-title">'+category.title+'</span>&nbsp;&nbsp;<span>('+category.postNum+')</span></a>';
+					}
+					$(".dash-cate-div-box").html(categoriA);
+				}
+			},"json");
+		}
+	});
+</script>
+</html>

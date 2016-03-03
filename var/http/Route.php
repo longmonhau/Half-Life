@@ -5,11 +5,11 @@ use lOngmon\Hau\core\Factory;
 
 class Route
 {
-	private static $route_array = [];
+	private static $route_array = 	[];
 
-	private $fastRoute = null;
+	private $fastRoute 			= 	null;
 
-	private static $current_uri = '';
+	private static $current_uri = 	'';
 
 	public static function initCacheRoute()
 	{
@@ -65,7 +65,7 @@ class Route
 				return $this->_dispatch( $uri_array, [] );
 				break;
 			case \FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
-
+				return $this->_dispatch([["common\Error","_40x"]]);
 				break;
 		}
 	}

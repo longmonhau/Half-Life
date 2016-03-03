@@ -4,33 +4,34 @@ use lOngmon\Hau\core\Factory;
 
 class Control
 {
-	private $tpl_vars = [];
+	private $tpl_vars 		= 	[];
 
-	private $response = NULL;
+	private $response 		= 	NULL;
 
-	private $request = NULL;
+	private $request 		= 	NULL;
 
-	protected $get = NULL;
+	protected $get 			= 	NULL;
 
-	protected $post = NULL;
+	protected $post 		= 	NULL;
 
-	protected $server = NULL;
+	protected $server 		= 	NULL;
 
-	protected $header = NULL;
+	protected $header 		= 	NULL;
 
-	protected $cookie = NULL;
+	protected $cookie 		= 	NULL;
 
-	protected $AjaxRequest = fasle;
+	protected $AjaxRequest 	= 	false;
 
 	public function __Construct()
 	{
 		$this->response = Factory::make("response");
-		$this->request = Factory::make("request");
+		$this->request 	= Factory::make("request");
 		$this->get 		= new \stdClass;
 		$this->post 	= new \stdClass;
 		$this->server 	= new \stdClass;
 		$this->header 	= new \stdClass;
 		$this->cookie 	= new \stdClass;
+		
 		foreach ($this->request->query as $k => $v ) 
 		{
 			$this->get->$k = $v;
@@ -69,7 +70,7 @@ class Control
 
 	protected function display( $html )
 	{
-		return $this->response->toHtml( $html, $this->tpl_vars );
+		return $this->response->renderHtml( $html, $this->tpl_vars );
 	}
 
 	protected function renderJson( $arr, $val = NULL )
@@ -84,6 +85,11 @@ class Control
 	protected function renderString( $str )
 	{
 		return $this->response->toString( $str );
+	}
+
+	protected function toHtml($html,$fileName)
+	{
+		$this->response->toHtml($html, $this->tpl_vars, $fileName );
 	}
 
 	/**

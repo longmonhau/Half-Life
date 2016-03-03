@@ -1,15 +1,17 @@
 <?php
 
 return [
-	"URL-SUFFIX" 	=> [".html",".htm",".xhtml"],
+	"URL-SUFFIX" 		=> 	[".html",".htm",".xhtml"],
 	
-	"LOG-PATH"    	=> APP_PATH.'/log/'.date("Y-m-d"),
+	"LOG-PATH"    		=> 	APP_PATH.'/log/'.date("Y-m-d"),
 
-	"SAVE-UPLOAD-DIR" => STATIC_PATH.'/uploads',
+	"SAVE-UPLOAD-DIR" 	=> 	STATIC_PATH.'/uploads',
 
-	"ALLOW-UPLOAD-TYPE" => ["image/png",'image/gif',"image/jpeg","image/jpg","image/bmp"],
+	"STATIC-HTML-DIR"	=>	ROOT_PATH.'/Blog',
 
-	"MAX-UPLOAD-SIZE" => '5M',
+	"ALLOW-UPLOAD-TYPE" => 	["image/png",'image/gif',"image/jpeg","image/jpg","image/bmp"],
+
+	"MAX-UPLOAD-SIZE" 	=> 	'5M',
 
 	//========== template setting ===========
 	"TEMPLATE-ENGINE" 		=> "twig",

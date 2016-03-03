@@ -1,7 +1,6 @@
 <?php namespace lOngmon\Hau\core;
 
 use lOngmon\Hau\core\Dependency;
-
 class Factory
 {
 	private static $dependency = [];

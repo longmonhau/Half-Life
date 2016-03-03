@@ -1,30 +1,33 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-	<title>{%block pageTitle%}dashBoard{%endblock%}</title>
+	<title>{%block pageTitle%}概览{%endblock%}</title>
 	<meta charset="utf8"/>
-	<link rel="shortcut icon" href="/static/images/me.png" type="image/x-icon" />
 	<link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
-	<link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Open+Sans:300,400,600&subset=latin">
+	<link rel="stylesheet" type="text/css" href="/static/css/font.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/admin/main.css">
+	<link rel="shortcut icon" href="/static/images/me.png" type="image/x-icon" />
 </head>
 <body>
 	<div class="dash-header">
 		<div class="dash-header-top">
 			<div class="dash-header-top-logo"><a href="">Half-Life</a></div>
 			<div class="dash-header-top-nav">
-				<a href="javascript:;" id="dash-header-top-nav-me">我</a>
-				<a href="javascript:;">设置</a>
-				<a href="javascript:;" id="dash-header-top-nav-msg">
+				<a href="/Admin/Profiles.html" id="dash-header-top-nav-me">我</a>
+				<a href="/Admin/Settings.html">设置</a>
+				<a href="/Admin/Messages.html" id="dash-header-top-nav-msg">
 					<span>私信</span>
-					<span id="dash-header-top-nav-msg-num">99+</span>
+					<span id="dash-header-top-nav-msg-num">
+					</span>
 				</a>
-				<a href="javascript:;">首页</a>
+				<a href="/Admin/works.html">作品</a>
+				<a href="/Admin/dashBoard.html">首页</a>
 			</div>
 			<div class="clear">&nbsp;</div>
 		</div>
 	</div>
 	<div class="dash-main">
+
 		<div class="dash-main-left">
 			<div class="dash-main-top">
 				<div class="dash-main-top-avatar">
@@ -39,48 +42,40 @@
 			</div>
 			{%block dashMain%}
 			<div class="dash-main-feed row">
+				{%for msg in messages%}
 				<div class="dash-main-feed-div">
 					<div class="dash-main-feed-avatar">
 						<img src="/static/images/even.jpg" class="dash-main-feed-avatar-img">
 					</div>
 					<div class="dash-main-feed-box">
 						<div class="dash-main-feed-postname">
-							<span class="dash-main-feed-ac-name">忆雯</span>
+							<span class="dash-main-feed-ac-name">{{msg.name}}</span>
 							<div class="dash-main-feed-ac-icon">
 								<a href="javascript:;" class="dash-main-feed-ac-icon-reply"></a>
-								<a href="javascript:;" class="dash-main-feed-ac-icon-del"></a>
+								<a href="javascript:;" msgid="{{msg.id}}" class="dash-main-feed-ac-icon-del"></a>
 							</div>
 						</div>
 						<div class="dash-main-feed-content">
-							如果你谈个恋爱谈的天天难过流泪，你就要停下来扪心自问：你到底是找了个对象，还是找了个洋葱？
+							{{msg.msgbody}}
 						</div>
 						<div class="dash-main-feed-postmeta">
-							<span>2015-12-05 14:11:12</span>
+							<span>{{msg.created_at}}</span>
 						</div>
-					</div>
-				</div>
-
-				<div class="dash-main-feed-div">
-					<div class="dash-main-feed-avatar">
-						<img src="/static/images/even.jpg" class="dash-main-feed-avatar-img">
-					</div>
-					<div class="dash-main-feed-box">
-						<div class="dash-main-feed-postname">
-							<span class="dash-main-feed-ac-name">忆雯</span>
-							<div class="dash-main-feed-ac-icon">
-								<a href="javascript:;" class="dash-main-feed-ac-icon-reply"></a>
-								<a href="javascript:;" class="dash-main-feed-ac-icon-del"></a>
+						<div class="dash-main-feed-reply">
+							<div class="dash-main-feed-reply-email">
+								{{msg.name}} [<a href="mailto:{{msg.email}}">{{msg.email}}</a>]
+								<a href="javascript:;" class="dash-main-feed-reply-close"></a>
+							</div>
+							<div class="dash-main-feed-reply-input">
+								<img src="/static/images/bg.jpg" class="medium-avatar" style="margin-top:5px;"/>
+								<a href="javascript:;" msgid="{{msg.id}}" class="dash-main-feed-reply-submit">确定
+								</a>
+								<textarea placeholder="回复给{{msg.name}}" class="dash-main-feed-reply-text"></textarea>
 							</div>
 						</div>
-						<div class="dash-main-feed-content">
-							如果你谈个恋爱谈的天天难过流泪，你就要停下来扪心自问：你到底是找了个对象，还是找了个洋葱？
-						</div>
-						<div class="dash-main-feed-postmeta">
-							<span>2015-12-05 14:11:12</span>
-						</div>
 					</div>
 				</div>
-
+				{%endfor%}
 			</div>
 			{%endblock%}
 		</div>
@@ -92,9 +87,9 @@
 			{%block dashRightNav%}
 			<div class="dash-main-right-nav">
 				<ul>
-					<li id="dash-main-right-nav-post"><a href="">文章<span>412</span></a></li>
-					<li id="dash-main-right-nav-draft"><a href="">草稿<span>5</span></a></li>
-					<li id="dash-main-right-nav-category"><a href="">分类<span>7</span></a></li>
+					<li id="dash-main-right-nav-post"><a href="/Admin/Post/List.html">文章<span>{{totalPostNum}}</span></a></li>
+					<li id="dash-main-right-nav-draft"><a href="">草稿<span>{{draftNum}}</span></a></li>
+					<li id="dash-main-right-nav-category"><a href="/Admin/Category.html">分类<span>{{totalCategoryNum}}</span></a></li>
 					<li id="dash-main-right-nav-chart"><a href="">图表<span></span></a></li>
 					<li id="dash-main-right-nav-visitor"><a href="">访客<span>12</span></a></li>
 				</ul>
@@ -109,36 +104,155 @@
 			<div class="dash-main-right-archive">
 				
 				<div class="dash-main-right-archive-left">
-					{%for k,file in files%}
-					{%if k%2 >0  %}
+					{%for file in files%}
 					<div class="dash-main-right-archive-list">
 						<img src="{{file.url}}">
 					</div>
-					{%endif%}
-					{%endfor%}
-				</div>
-				<div class="dash-main-right-archive-right">
-					{%for k,file in files%}
-					{%if k%2 == 0 %}
-					<div class="dash-main-right-archive-list">
-						<img src="{{file.url}}">
-					</div>
-					{%endif%}
 					{%endfor%}
 				</div>
 			</div>
 		</div>
 	</div>
+	<div id="show-img-div" style="display: none">
+		<div class="image-show-div">
+			<img src="/static/images/even.jpg">
+		</div>
+		<a href="javascript:;" class="click-to-close-pop-div"></a>
+	</div>
 </body>
 {%block dashScript%}
 <script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/static/js/mousewheel.min.js"></script>
 <script type="text/javascript">
+	var imageList = [];
+	var currentViewImage;
+
+
 	$(document).keypress(function(evt){
 		if(evt.keyCode == 339 )
 		{
 			location.href="/go.out";
 		}
 	});
+	$(".dash-main-feed-ac-icon-reply").click(function(){
+		$(this).parent().parent().parent().find(".dash-main-feed-reply").fadeIn();
+	});
+	$(".dash-main-feed-reply-close").click(function(){
+		$(this).parent().parent().fadeOut();
+	});
+
+	$(".dash-main-feed-ac-icon-del").click(function(){
+		var msgId = $(this).attr("msgid");
+		var _this = $(this);
+		if( !confirm("您确定要删除这条消息吗？") )
+		{
+			return;
+		}
+		$.post("/Admin/Message/Del",{msgid:msgId},function(resp){
+			if(resp.code == 200 )
+			{
+				_this.parent().parent().parent().parent().remove();
+			} else{
+				alert(resp.errmsg);
+			}
+		},"json");
+	});
+
+	var postReply = false;
+	$(".dash-main-feed-reply-submit").click(function(){
+		if( postReply )
+		{
+			return;
+		}
+		$(this).text("...");
+		var textDiv = $(this).parent().find(".dash-main-feed-reply-text");
+		var text = textDiv.val();
+		if( text.length < 1 )
+		{
+			alert("请先输入内容！");
+			textDiv.focus();
+			return;
+		}
+		var _this = $(this);
+		var msgBag = {};
+		msgBag.mid = $(this).attr("msgid");
+		msgBag.content = text;
+		postReply = true;
+		$.post("/Admin/Message/Reply",msgBag,function(resp){
+			if(resp.code == 200 )
+			{
+				textDiv.val('');
+				_this.parent().parent().fadeOut();
+			} else{
+				alert(resp.errmsg);
+			}
+			_this.text("确定");
+			postReply = false;
+		},"json");
+	});
+
+	
+	$(".dash-main-right-archive-left").on("click",".dash-main-right-archive-list",function(){
+		$("#show-img-div").show();
+		var siblings = $(".dash-main-right-archive-list");
+		for(var i=0;i<siblings.length;i++ )
+		{
+			imageList.push(siblings.eq(i).find("img").attr("src"));
+		}
+		var prevAll = $(this).prevAll();
+		currentViewImage = prevAll.length;
+
+		var imgDiv = $("<img />");
+		imgDiv.attr("src",imageList[currentViewImage]);		
+		$(".image-show-div").html(imgDiv);
+
+	});
+	$("#show-img-div").click(function(evt){
+		if( evt.target.id == 'show-img-div' )
+		{
+			$(this).hide();
+		}
+	});
+	$("#show-img-div").mousewheel(function(evt,deltax,deltay){
+		if( deltax > 0 )
+		{
+			if( currentViewImage <= 0 )
+			{
+				$(".image-show-div").html("没有更多图片了！").css({
+					"font-size":"5em",
+					"text-align":"center",
+					"line-height":"800px",
+					"color":"#FFF"
+				});
+			} else{
+				currentViewImage--;
+				var imgDiv = $("<img />");
+				imgDiv.attr("src",imageList[currentViewImage]);		
+				$(".image-show-div").html(imgDiv);
+
+			}
+		} else{
+			if( currentViewImage >= imageList.length-1 )
+			{
+				$(".image-show-div").html("没有更多图片了！").css({
+					"font-size":"5em",
+					"text-align":"center",
+					"line-height":"800px",
+					"color":"#FFF"
+				});
+			}else{
+				currentViewImage++;
+				var imgDiv = $("<img />");
+				imgDiv.attr("src",imageList[currentViewImage]);			
+				$(".image-show-div").html(imgDiv);
+			}
+		}
+	});
+
+	$(".click-to-close-pop-div").click(function(){
+		$(this).parent().hide();
+	});
+
 </script>
 {%endblock%}
 </html>

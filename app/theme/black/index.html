@@ -4,10 +4,10 @@
 	<title>{{Site.site_name}}</title>
 	<meta charset="utf8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Open+Sans:300,400,600&subset=latin,latin-ext">
+	<link rel="stylesheet" type="text/css" href="/static/css/font.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/black/index.css">
-	<link rel="shortcut icon" href="/static/images/me.png" type="image/x-icon" />
+	<link rel="shortcut icon" href="{{Site.site_favicon|default("/static/images/favicon.png")}}" type="image/x-icon" />
 </head> 
 <body>
 	<div class="index-left">
@@ -17,7 +17,7 @@
 		<div class="index-main-box">
 			<div class="main-box-top">
 				<div class="main-box-top-box">
-					<img src="/static/images/hisi.jpeg" class="main-box-top-img-icon"/>
+					<img src="{{Site.site_logoimg}}" class="main-box-top-img-icon"/>
 				</div>
 				<div class="main-box-top-box">
 					<div class="main-box-top-box-title">
@@ -30,7 +30,7 @@
 				<div class="main-box-post">
 					<ul>
 						{%for post in posts %}
-						<li><a href="/Blog/{{post.url}}">{{post.title}}</a><span>{{post.postTime}}</span></li>
+						<li><a href="/Blog/{{post.url}}.html">{{post.title}}</a><span>{{post.postTime}}</span></li>
 						{%endfor%}
 					</ul>
 				</div>

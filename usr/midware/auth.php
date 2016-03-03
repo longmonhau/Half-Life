@@ -19,7 +19,9 @@ class auth extends AbstractMidWare
 	{
 		tSession::clear();
 		$req = Factory::make("request");
-		setCookie("hl_http_referer", Route::get_currentUri(),time()+3600,"/");
+		if( HTTP_METHOD == "GET" ){
+			setCookie("hl_http_referer", Route::get_currentUri(),time()+3600,"/");
+		}
 		if(isset($_SERVER["HTTP_X_REQUESTED_WITH"])
 		&& strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) == "xmlhttprequest")
     	{

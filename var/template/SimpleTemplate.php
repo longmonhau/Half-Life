@@ -2,6 +2,7 @@
 
 use lOngmon\Hau\core\component\Config;
 use lOngmon\Hau\core\Factory;
+use lOngmon\Hau\core\component\Log;
 
 class SimpleTemplate
 {
@@ -23,5 +24,25 @@ class SimpleTemplate
 	public function display( $html )
 	{
 		return $this->engine->display($html);
+	}
+
+	public function makeHtml( $html, $fileName )
+	{
+		$staticHtmlDir = Config::get("STATIC-HTML-DIR");
+		if( !is_dir( $staticHtmlDir ) )
+		{
+			$parentDir = dirname($staticHtmlDir);
+			if( !is_writable( $parentDir ) )
+			{
+				Log::Error( $parentDir."目录不可写！");
+				return;
+			}
+			mkdir($staticHtmlDir);
+			chmod($staticHtmlDir, "0777");
+		} else if( !is_writable($staticHtmlDir) )
+		{
+			Log::error("$staticHtmlDir 目录不可写", 500);
+		}
+		file_put_contents($staticHtmlDir.'/'.$fileName.".html", $html);
 	}
 }

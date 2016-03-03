@@ -4,9 +4,10 @@
 	<title>Sign in</title>
 	<meta charset="utf8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Open+Sans:300,400,600&subset=latin,latin-ext">
+	<link rel="stylesheet" type="text/css" href="/static/css/font.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/black/index.css">
+	<link rel="shortcut icon" href="{{site.site_favicon|default("/static/images/favicon.png")}}" type="image/x-icon" />
 </head>
 <body>
 	<div class="index-header"></div>
@@ -27,7 +28,7 @@
 				<a href="javascript:;" id="sign-box-div-sign-ok">sign in</a>
 			</div>
 		<div class="sign-box-bottom">
-			<div class="sign-box-bottom-copyright">&copy;2016 Powered by <a href="">Half-Life</a></div>
+			<div class="sign-box-bottom-copyright">{{site.site_copyright}} Powered by <a href="">Half-Life</a></div>
 		</div>
 	</div>
 </body>

@@ -89,7 +89,6 @@ create table if not exists category(
 	categoryId char(30) not null,
 	postNum int  not null default 0,
 	postList varchar(500),
-	desp char(180) not null,
 	updated_at timestamp,
 	created_at char(20) not null default '0000-00-00 00:00:00',
 	primary key(`id`),

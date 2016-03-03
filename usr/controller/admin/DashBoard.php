@@ -4,35 +4,47 @@ use lOngmon\Hau\core\Control;
 use lOngmon\Hau\core\Model;
 use lOngmon\Hau\core\component\DateTime;
 use lOngmon\Hau\usr\bundle\tSession;
+use lOngmon\Hau\usr\traits\SiteInfo;
+use lOngmon\Hau\core\component\Config;
 
 class DashBoard extends Control
 {
+	use SiteInfo;
 	public function index()
 	{
-		$PostModel 		= 	Model::make("Post");
-		$CategoryModel 	= 	Model::make("Category");
-		$CommentModel 	= 	Model::make("Comment");
-		$MessageModel = Model::make("Message");
+		$PostModel 			= 	Model::make("Post");
+		$CategoryModel 		= 	Model::make("Category");
+		$CommentModel 		= 	Model::make("Comment");
+		$MessageModel 		= 	Model::make("Message");
 
-		$postNum = $PostModel->count();
-		$CategoryNum = $CategoryModel->count();
-		$CommentNum = $CommentModel->count();
-		$newMessageCount = $MessageModel->where("isread","n")->where("resp",0)->count();
-		$Feed = $this->getFeeds();
+		$postNum 			= 	$PostModel->where("public", 1)->count();
+		$draftNum 			= 	$PostModel->where("public",0)->count();
+		$CategoryNum 		= 	$CategoryModel->count();
+		$CommentNum 		= 	$CommentModel->count();
+		$newMessage 		= 	$MessageModel->where("isread","n")->where("resp",0)->orderBy("created_at","DESC")->get();
 
-		$this->assign("totalCategoryNum", $CategoryNum );
-		$this->assign("totalPostNum", $postNum );
-		$this->assign("totalCommentNum", $CommentNum );
-		$this->assign("draftList", $this->getDraft() );
-		$this->assign("feeds", $Feed['feeds']);
-		$this->assign("feedCount", $Feed['FeedCount']);
+		$this->assign("totalCategoryNum", 	$CategoryNum );
+		$this->assign("totalPostNum", 		$postNum );
+		$this->assign("Site", 				$this->getSiteInfo());
+		$this->assign("draftNum", 			$draftNum);
+		$this->assign("newMsgCount",		count($newMessage) );
+		$this->assign("files", 				$this->getRecentImages());
+		$this->assign("messages", 			iterator_to_array($newMessage) );
 
-		$this->assign("user", tSession::getLoginedUserInfo());
-		if( $newMessageCount>0 )
-		{
-				$this->assign("messageCount", $newMessageCount);
-		}
 		$this->display( "adminIndex.html" );
+	}
+
+	private function getRecentImages()
+	{
+		$FileModel 	= Model::make("file");
+		$files 		= $FileModel->getFiles(0,6);
+		$ret_files 	= [];
+
+		foreach ($files as $file) 
+		{
+			$ret_files[]['url'] = str_replace(ROOT_PATH,"",Config::get("SAVE-UPLOAD-DIR")."/".$file->filename);
+		}
+		return $ret_files;
 	}
 
 	private function getDraft()
