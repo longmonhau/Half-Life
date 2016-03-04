@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-	<title>{{post.title}} | {{Site.site_name}}</title>
+	<title>{{post.title}} | {{site.site_name}}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="/static/css/font.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/black/index.css">
-	<link rel="shortcut icon" href="{{Site.site_favicon|default("/static/images/favicon.png")}}" type="image/x-icon" />
+	<link rel="shortcut icon" href="{{site.site_favicon|default("/static/images/favicon.png")}}" type="image/x-icon" />
 </head>
 <body>
 	<div class="index-header"></div>
@@ -14,14 +14,14 @@
 		<div class="index-main-view-box">
 			<div class="main-box-top">
 				<div class="main-box-top-box">
-					<img src="{{Site.site_logoimg|default("/static/images/male.png")}}" class="main-box-top-img-icon"/>
+					<img src="{{site.site_logoimg|default("/static/images/male.png")}}" class="main-box-top-img-icon"/>
 				</div>
 				<div class="main-box-top-box">
 					<div class="main-box-top-box-title">
-						{{Site.site_name}}
+						{{site.site_name}}
 					</div>
 					<div class="main-box-top-box-desc">
-						{{Site.site_desc}}
+						{{site.site_desc}}
 					</div>
 				</div>
 			</div>
@@ -41,7 +41,7 @@
 							<li id="mbpca-ul-li-author"><a href="javascript:;">By {{post.author}}</a></li>
 							<li id="mbpca-ul-li-date">{{post.postTime}}</li>
 							<li id="mbpca-ul-li-comment"><a href="#disqus_thread">0条评论</a></li>
-							<li id="mbpca-ul-li-share"><a href="http://{{Site.site_domain}}/{{post.url}}.html">Permalink</a></li>
+							<li id="mbpca-ul-li-share"><a href="http://{{site.site_domain}}/{{post.url}}.html">Permalink</a></li>
 							<li id="mbpca-ul-li-gohome"><a href="/">按下 CTRL+HOME</a></li>
 						</ul>
 					</div>
@@ -54,7 +54,7 @@
 								知识共享协议
 							</div>
 							<div class="mbpcc-copyright-desc">
-								{{Site.site_ccdesc}}
+								{{site.site_ccdesc}}
 							</div>
 						</div>
 					</div>
@@ -86,7 +86,7 @@ s.setAttribute('data-timestamp', +new Date());
 			</div>
 		</div>
 		<div style="display: none;">
-			{{Site.site_analytices}}
+			{{site.site_analytices}}
 		</div>
 	</div>
 	<script id="dsq-count-scr" src="//longmonhau.disqus.com/count.js" async></script>

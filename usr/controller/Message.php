@@ -11,7 +11,7 @@ class Message extends Control
     use SiteInfo;
 	public function index()
 	{
-        $this->assign("Site", $this->getSiteInfo());
+        $this->assign("site", $this->getSiteInfo());
 		return $this->display("message.html");
 	}
 

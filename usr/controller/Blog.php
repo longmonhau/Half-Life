@@ -40,7 +40,7 @@ class Blog extends Control
 		$Post->aCategory = $aCategory;
 		$Post->author = $user->sname;
 		$this->assign("post", $Post);
-		$this->assign("Site",$this->getSiteInfo());
+		$this->assign("site",$this->getSiteInfo());
 		
 		$this->toHtml("blogView.html", $url);
 		//$this->display("blogView.html");

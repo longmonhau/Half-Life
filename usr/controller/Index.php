@@ -15,7 +15,7 @@ class Index extends Control
 		parent::__construct();
 		$this->assign("category", SlideBar::getCategoryAll());
 		$this->assign("tags", SlideBar::getTags());
-		$this->assign("Site",$this->getSiteInfo());
+		$this->assign("site",$this->getSiteInfo());
 	}
 
 	public function index()

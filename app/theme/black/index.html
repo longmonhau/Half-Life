@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-	<title>{{Site.site_name}}</title>
+	<title>{{site.site_name}}</title>
 	<meta charset="utf8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="/static/css/font.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/black/index.css">
-	<link rel="shortcut icon" href="{{Site.site_favicon|default("/static/images/favicon.png")}}" type="image/x-icon" />
+	<link rel="shortcut icon" href="{{site.site_favicon|default("/static/images/favicon.png")}}" type="image/x-icon" />
 </head> 
 <body>
 	<div class="index-left">
@@ -17,14 +17,14 @@
 		<div class="index-main-box">
 			<div class="main-box-top">
 				<div class="main-box-top-box">
-					<img src="{{Site.site_logoimg|default("/static/images/male.png")}}" class="main-box-top-img-icon"/>
+					<img src="{{site.site_logoimg|default("/static/images/male.png")}}" class="main-box-top-img-icon"/>
 				</div>
 				<div class="main-box-top-box">
 					<div class="main-box-top-box-title">
-						{{Site.site_name|default("Half-Life")}}
+						{{site.site_name|default("Half-Life")}}
 					</div>
 					<div class="main-box-top-box-desc">
-						{{Site.site_desc}}
+						{{site.site_desc}}
 					</div>
 				</div>
 				<div class="main-box-post">
@@ -43,7 +43,7 @@
 	<!--Index Footer box-->
 	<div class="index-footer">
 		<div class="index-footer-copyright">
-			{{Site.site_copyright}} Powered by <a href="https://github.com/longmonhau/Half-Life.git" target="_blank">Half-Life</a> 
+			{{site.site_copyright}} Powered by <a href="https://github.com/longmonhau/Half-Life.git" target="_blank">Half-Life</a> 
 		</div>
 	</div>
 	<div class="index-left-door"></div>
