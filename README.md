@@ -9,15 +9,17 @@
 - 基于`LAMP`或`LNMP`，可选`Redis`作缓存,建议安装在unix系列主机
 - WEB服务器必须支持URL重写
 ```
-#Apache .htaccess 例子
+#Apache .htaccess 例子 其他请自行Google
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ /index.php/$1 [L]
 ```
 
-### Safe tips
-- You should change the sign route setting when your product enviroment for safe reason
+### Install
+1.编辑install.php，修改相应的选项
+2.运行install.php，如果一切正常会输出相关信息
+
 
 ### 鸣谢
 - [nikic/fast-route](https://github.com/nikic/FastRoute) 	一个快速路由器

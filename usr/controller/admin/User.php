@@ -14,7 +14,7 @@ class User extends Control
 	public function sign()
 	{
         $sess = Factory::make("session");
-        $request_come_from = $this->cookie->hl_http_referer;
+        $request_come_from = isset($this->cookie->hl_http_referer)?$this->cookie->hl_http_referer:'';
         if( $request_come_from != '' 
         && stripos($request_come_from, "entrance")  === false
         && stripos($request_come_from, "logout")    === false
