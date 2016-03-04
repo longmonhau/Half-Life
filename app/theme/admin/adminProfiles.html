@@ -132,14 +132,13 @@
 			url:"/admin/profile/submit",
 			data:pro,
 			type:"post",
-			dataType:"html",
+			dataType:"json",
 			error:function(error,errStr)
 			{
 				alert(errStr);
 			},
 			success:function(resp)
 			{
-				console.log(resp);
 				if(resp.code == 200 )
 				{
 					$("#dash-set-submit-ok-tip").html(resp.errmsg);
