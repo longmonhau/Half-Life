@@ -15,7 +15,7 @@ class File extends Control
 		$res = $upload->go();
 		if( $res['success'] == 1 )
 		{
-			$fileModel = Model::make("File");
+			$fileModel = Model::make("file");
 			$file['created_at'] = date("Y-m-d H:i:s");
 			$fileModel->insert($file);
 		}
