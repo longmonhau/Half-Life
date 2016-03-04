@@ -3,11 +3,11 @@
 return [
 	"URL-SUFFIX" 		=> 	[".html",".htm",".xhtml"],
 	
-	"LOG-PATH"    		=> 	APP_PATH.'/log/'.date("Y-m-d"),
+	"LOG-PATH"    		=> 	APP_PATH.'/log/'.date("Y-m-d"),//请确保目录可写
 
-	"SAVE-UPLOAD-DIR" 	=> 	STATIC_PATH.'/uploads',
+	"SAVE-UPLOAD-DIR" 	=> 	STATIC_PATH.'/uploads',//请确保目录可写
 
-	"STATIC-HTML-DIR"	=>	ROOT_PATH.'/Blog',
+	"STATIC-HTML-DIR"	=>	ROOT_PATH.'/Blog',//请确保目录可读写，并在WEB目录下
 
 	"ALLOW-UPLOAD-TYPE" => 	["image/png",'image/gif',"image/jpeg","image/jpg","image/bmp"],
 
@@ -37,9 +37,9 @@ return [
 	//================== Email config ===============
 	"MAIL-SERVER-CONFIG" =>[
 		"HOST" 	=> 'smtp.mxhichina.com',
-		"USERNAME" 	=> "root@userextra.com",
-		"PASSWORD" 	=> "Kiss963.",
+		"USERNAME" 	=> "root@longmonhau.com",
+		"PASSWORD" 	=> "123456",
 		"PORT"		=> 25,
-		"FROM"		=> "root@userextra.com"
+		"FROM"		=> "root@longmonhau.com"
 	]
 ];
