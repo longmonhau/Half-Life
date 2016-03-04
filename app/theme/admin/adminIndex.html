@@ -20,7 +20,7 @@
 					<span id="dash-header-top-nav-msg-num">
 					</span>
 				</a>
-				<a href="/Admin/works.html">作品</a>
+				<a href="/Admin/showWorks.html">作品</a>
 				<a href="/Admin/dashBoard.html">首页</a>
 			</div>
 			<div class="clear">&nbsp;</div>
@@ -29,6 +29,7 @@
 	<div class="dash-main">
 
 		<div class="dash-main-left">
+			{%block dashMainTop%}
 			<div class="dash-main-top">
 				<div class="dash-main-top-avatar">
 					<a href=""><img src="{{user.avatar}}" class="dash-main-avatar"></a>
@@ -40,6 +41,7 @@
 					<a href="/Admin/Post/EditVideo.html" id="dash-main-icon-video"></a>
 				</div>
 			</div>
+			{%endblock%}
 			{%block dashMain%}
 			<div class="dash-main-feed row">
 				{%for msg in messages%}

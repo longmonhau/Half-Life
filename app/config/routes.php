@@ -87,5 +87,7 @@ return [
 
 	"adminAttachement" => ["GET", "/admin/Attachments",["admin\Attachment","index",["auth"]]],
 
-	"/Admin/File/Del" => ["POST","/admin/file/del",["admin\File","deleteFiles",["auth"]]]
+	"/Admin/File/Del" => ["POST","/admin/file/del",["admin\File","deleteFiles",["auth"]]],
+
+	"showWorks" => ["GET","/Admin/showWorks",["admin\Works","index",["auth"]]]
 ];
