@@ -1,6 +1,6 @@
 vendor/
 app/Log/
-app/theme/compiled/
+app/theme/compiled~/
 composer.lock
 *DS_Store
 app/config/database.php
