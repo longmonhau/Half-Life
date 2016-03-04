@@ -4,7 +4,6 @@ use lOngmon\Hau\core\Control;
 use lOngmon\Hau\core\Model;
 use lOngmon\Hau\core\Factory;
 use lOngmon\Hau\usr\bundle\tSession;
-use lOngmon\Hau\usr\bundle\SlideBar;
 use lOngmon\Hau\usr\traits\SiteInfo;
 
 class PostList extends Control
@@ -29,82 +28,77 @@ class PostList extends Control
 	 */
 	public function index()
 	{
-		$page = 1;
-		$pageNum = 10;
+		$pageNum = 5;
 
 		$where = [];
 
-		$postTotal = $this->PostModel->count();
-
-		if( $P = $this->post("page") )
+		if( !$page = intval($this->get("page")) )
 		{
-			if( $P > ceil($postTotal/$pageNum) )
-			{
-				$page = ceil($postTotal/$pageNum);
-			} else if( $P <= 0 )
-			{
-				$page = 1;
-			} else{
-				$page = $P;
-			}
-		}
-
-		if( $cate = $this->post("cate") )
-		{
-			$where['category'] = $cate;
-		}
-
-		$Category = $this->CateModel->get();
-		if( !empty( $where ) )
-		{
-			$this->PostModel = $this->PostModel->where($where);
+			$page = 1;
 		}
 
 		$skip = ($page-1)*$pageNum;
-		$select = ["id","title","url","public"];
+		$select = ["id","ptype","title","url","public","html","created_at"];
 		$PostList = $this->PostModel->select( $select )->skip($skip)->limit($pageNum)->orderby("created_at","DESC")->get();
-
-
-		if(isset($_SERVER["HTTP_X_REQUESTED_WITH"])
-    	   && strtolower($_SERVER["HTTP_X_REQUESTED_WITH"])=="xmlhttprequest")
+		$postlists = [];
+		$imgReg = '/<img\s+src=[\'"].*[\'"]\s*>/i';
+		foreach ($PostList as $post) 
+		{
+			if(preg_match($imgReg,$post->html, $mat)){$post->first_img = $mat[0];}
+			$post->summary = mb_substr( strip_tags($post->html), 0, 200, "utf-8");
+			$post->ptype = ucfirst($post->ptype);
+			$postlists[] = $post;
+		}
+		if( $this->AjaxRequest )
     	{
-    		return $this->renderJson(['code'=>200,"postList"=>$PostList]);
+    		return $this->renderJson(['code'=>200,"postList"=>$postlists]);
     	} else {
-			$this->assign("Category", $Category);
-			$pageTotal = ceil($postTotal/$pageNum);
-			if( $pageTotal > 1 )
-			{
-				$pageNav = range(1, $pageTotal);
-				$this->assign("pageNav", $pageNav);
-			}
-			$this->assign("tags", SlideBar::getTags());
-			$this->assign("postList", $PostList);
-
-			$this->assign("user", tSession::getLoginedUserInfo());
+    		$Category = $this->CateModel->get();
+			$this->assign("categories", 	$Category);
+			$this->assign("postList", 		$postlists);
+			$this->assign("site", 			$this->getSiteInfo());
+			$this->assign("user", 			tSession::getLoginedUserInfo());
 			$this->display("adminPostList.html");
 		}
 	}
 
 	public function getPostByCategoryOnAjax()
 	{
-		if(isset($_SERVER["HTTP_X_REQUESTED_WITH"])
-    	   && strtolower($_SERVER["HTTP_X_REQUESTED_WITH"])=="xmlhttprequest")
+		if( $this->AjaxRequest )
     	{
-    		$categoryId = $this->post("categoryId");
-    		$postListStr = $this->CateModel->select("postList","postNum")->where("categoryId",$categoryId)->first();
+    		if( !$categoryId = strip_tags($this->get("categoryId")) )
+    		{
+    			return $this->renderJson([400,"Invalid parameter input: categoryId"]);
+    		}
+    		$postListStr = $this->CateModel->select("postList","postNum")->where("id",$categoryId)->first();
     		$postList_array = explode(",", $postListStr->postList );
-
-    		$pageNum = 10;
+    		$pageNum = 5;
     		$PageNo = 1;
-    		if( $page = $this->post("page") )
+    		if( $page = intval($this->get("page")) )
     		{
     			$PageNo = $page;
     		}
     		$skip = ($PageNo-1)*$pageNum;
+    		$select = ["id","ptype","title","url","public","html","created_at"];
+    		$posts = $this->PostModel
+    				->skip($skip)
+    				->limit($pageNum)
+    				->select($select)
+    				->orderby("created_at","DESC")
+    				->whereIn("id", $postList_array)
+    				->get();
 
-    		$posts = $this->PostModel->skip($skip)->limit($pageNum)->orderby("created_at","DESC")->whereIn("id", $postList_array)->get();
+    		$postlists = [];
+    		$imgReg = '/<img\s+src=[\'"].*[\'"]\s*>/i';
+			foreach ($posts as $post) 
+			{
+				if(preg_match($imgReg,$post->html, $mat)){$post->first_img = $mat[0];}
+				$post->summary = mb_substr( strip_tags($post->html), 0, 200, "utf-8");
+				$post->ptype = ucfirst($post->ptype);
+				$postlists[] = $post;
+			}
 
-    		return $this->renderJson(['code'=>200,'postList'=>iterator_to_array($posts)]);
+    		return $this->renderJson(['code'=>200,'postList'=>$postlists]);
 
     	}else{
     		return $this->renderString("Access denied!");

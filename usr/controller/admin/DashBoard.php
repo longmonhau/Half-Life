@@ -16,12 +16,14 @@ class DashBoard extends Control
 		$CategoryModel 		= 	Model::make("Category");
 		$CommentModel 		= 	Model::make("Comment");
 		$MessageModel 		= 	Model::make("Message");
+		$AttachmentModel    = 	Model::make("file");
 
 		$postNum 			= 	$PostModel->where("public", 1)->count();
 		$draftNum 			= 	$PostModel->where("public",0)->count();
 		$CategoryNum 		= 	$CategoryModel->count();
 		$CommentNum 		= 	$CommentModel->count();
-		$newMessage 		= 	$MessageModel->where("isread","n")->where("resp",0)->orderBy("created_at","DESC")->get();
+		$newMessage 		= 	$MessageModel->where("resp",0)->orderBy("created_at","DESC")->get();
+		$attachment			= 	$AttachmentModel->count();
 
 		$this->assign("totalCategoryNum", 	$CategoryNum );
 		$this->assign("totalPostNum", 		$postNum );
@@ -30,6 +32,7 @@ class DashBoard extends Control
 		$this->assign("newMsgCount",		count($newMessage) );
 		$this->assign("files", 				$this->getRecentImages());
 		$this->assign("messages", 			iterator_to_array($newMessage) );
+		$this->assign("AttachmentCount",	$attachment);
 
 		$this->display( "adminIndex.html" );
 	}

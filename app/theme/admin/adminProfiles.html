@@ -38,7 +38,7 @@
 					</a>
 					<input type="hidden" name="avatar" class="dash-set-div-input-text" value="{{user.avatar|default("/static/images/male.png")}}" id="dash-upload-div-avatar-input" />
 					<div class="dash-set-backup-database">
-					<a href="javascript:;">使用Gravatar头像</a>
+					<a href="javascript:;" id="set-user-use-gravatar">使用Gravatar头像</a>
 					</div>
 				</div>
 				<div class="dash-set-div-input-list">
@@ -87,6 +87,10 @@
 <script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="/static/js/dropzone.js"></script>
 <script type="text/javascript">
+	/**
+	 * Gravatar 头像
+	 */
+	var gravatar = 'http://www.gravatar.com/avatar/{{user.email|md5}}';
 	//******************* 上传插件 *************
 	//******************* logo 上传 ***********
 	Dropzone.options.myAwesomeDropzone = {
@@ -123,7 +127,6 @@
 			var name = inputs.eq(i).attr("name");
 			pro[name] = inputs.eq(i).val();
 		}
-		console.log(pro);
 		posting = true;
 		$.ajax({
 			url:"/admin/profile/submit",
@@ -136,7 +139,6 @@
 			},
 			success:function(resp)
 			{
-				console.log(resp);
 				if(resp.code == 200 )
 				{
 					$("#dash-set-submit-ok-tip").html(resp.errmsg);
@@ -155,6 +157,12 @@
 				posting = false;
 			}
 		});
+	});
+
+	//***************** 使用Gravatar头像 *****************
+	$("#set-user-use-gravatar").click(function(){
+		$(".dash-set-div-input-avatar-img").attr("src",gravatar);
+		$("#dash-upload-div-avatar-input").val(gravatar);
 	});
 </script>
 </html>

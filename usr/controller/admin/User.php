@@ -6,9 +6,11 @@ use lOngmon\Hau\core\Factory;
 use lOngmon\Hau\core\http\Route;
 use lOngmon\Hau\core\bundle\tPassword;
 use lOngmon\Hau\usr\bundle\tSession;
+use lOngmon\Hau\usr\traits\SiteInfo;
 
 class User extends Control
 {
+    use SiteInfo;
 	public function sign()
 	{
         $sess = Factory::make("session");
@@ -21,6 +23,7 @@ class User extends Control
             $this->assign("httpReferer", $request_come_from);
         }
     
+        $this->assign("site", $this->getSiteInfo());
 		$this->display("sign.html");
 	}
 

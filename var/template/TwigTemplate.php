@@ -51,7 +51,11 @@ class TwigTemplate implements TemplateInterface
 
 	private function summary()
 	{
-		$filter = new \Twig_SimpleFilter("summary", function( $content, $sp ){
+		$filter = new \Twig_SimpleFilter("summary", function( $content, $sp='' ){
+			if( $sp == '' )
+			{
+				return mb_substr($content, 0, 200, "UTF-8");
+			}
 			$end = stripos( $content, $sp );
 			if( $end )
 			{

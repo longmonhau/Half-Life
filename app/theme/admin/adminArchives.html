@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>{%block pageTitle%}附件{%endblock%}</title>
+	<meta charset="utf8"/>
+	<link rel="shortcut icon" href="{{site.site_favicon|default("/static/images/favicon.png")}}" type="image/x-icon" />
+	<link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/font.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/admin/main.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/dropzone.css">
+</head>
+<body>
+	<div class="dash-header">
+		<div class="dash-header-top">
+			<div class="dash-header-top-logo"><a href="">Half-Life</a></div>
+			<div class="dash-header-top-nav">
+				<a href="/Admin/Profiles.html" id="dash-header-top-nav-me">我</a>
+				<a href="/Admin/Settings.html">设置</a>
+				<a href="/Admin/Messages.html" id="dash-header-top-nav-msg">
+					<span>私信</span>{%if newMsgCount>0 %}
+					<span id="dash-header-top-nav-msg-num">
+					</span>{%endif%}
+				</a>
+				<a href="/Admin/showWorks.html">作品</a>
+				<a href="/Admin/dashBoard.html">首页</a>
+			</div>
+			<div class="clear">&nbsp;</div>
+		</div>
+	</div>
+	<div class="dash-main">
+		<div class="archive-div">
+			<div class="archive-div-header">附件
+				<a href="javascript:;" id="upload-attachment-button">上传</a>
+			</div>
+			<div class="archive-div-list">
+				{%for file in files%}
+				<div class="archive-div-list-div">
+					<img src="{{file.url}}" />
+					<a href="javascript:;" class="archive-div-list-tick-img"></a>
+					<input type="checkbox" class="archive-div-list-tick-input" style="display: none;" value="{{file.id}}"/>
+				</div>
+				{%endfor%}
+			</div>
+			<div class="archive-div-list-bottom">
+				<a href="javascript:;" id="archive-div-list-bottom-del">删除</a>
+				{%if morefile %}
+				<a href="javascript:;" id="archive-div-list-bottom-next">下一页</a>
+				{%endif%}
+				<a href="javascript:;" id="archive-div-list-bottom-prev" style="display: none;">上一页</a>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+
+	<div id="pop-bg">
+		<div class="dropzone-file-div set-upload-img-div">
+			<form action="/admin/Upload/File/file" class="dropzone" id="my-awesome-dropzone">
+				<div class="fallback">
+			    	<input name="file" type="file"/>
+			  	</div>
+			</form>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/static/js/dropzone.js"></script>
+<script type="text/javascript">
+	function thisPage(){
+		var page = 1;
+		Object.defineProperty(this,"page",{
+			get:function(){
+				return page;
+			},
+			set:function(val){
+				page = val;
+				getImages(page);
+			}
+		});
+	};
+	
+	var p 			= 	new thisPage();
+	//var page 		= 	1;
+	var totalPage 	= 	parseInt('{{totalPage}}');
+	var getting 	= 	false;
+
+	//********************* 下一页 ************************
+	$("#archive-div-list-bottom-next").click(function(){
+		if ( p.page >= totalPage || getting ) return;
+		if( p.page+1 > 1 ){$("#archive-div-list-bottom-prev").show()};
+		getting = true;
+		p.page++;
+	});
+
+	//************************* 上一页 ***********************
+	$("#archive-div-list-bottom-prev").click(function(){
+		if( p.page<=1 || getting ) return;
+		getting = true;
+		p.page--;
+	});
+
+	//******************* 获取图片列表函数 **********************
+	function getImages( page )
+	{
+		if( page <= 0 || page>totalPage){return;}
+
+		$.get("/Admin/Attachments",{page:page},function(resp){
+			if( resp.code == 200 )
+			{
+				var files = resp.files;
+				var html = '';
+				for(var i in files )
+				{
+					var img = files[i];
+					html += '<div class="archive-div-list-div"><img src="'+img.url+'" />'
+						+'<a href="javascript:;" class="archive-div-list-tick-img"></a>'
+						+'<input type="checkbox" class="archive-div-list-tick-input" style="display:none;" value="'+img.id+'"/></div>';
+				}
+				$(".archive-div-list").html(html);
+			}else if(resp.code == 503 )
+			{
+				alert(resp.errmsg);
+				location.href=resp.go_url;
+				return;
+			}else{
+				alert(resp.errmsg);
+			}
+			getting = false;
+		},"json");
+	}
+
+	//****************** 图片上传插件 ***********************
+	Dropzone.options.myAwesomeDropzone = {
+		maxFilesize:10,
+	  	init: function() {
+		    this.on("success", function(resObj,res) {
+		    	$("#pop-bg").hide();
+		    	if( !res.success )
+		    	{
+		    		alert(res.message);
+		    		return;
+		    	}
+		    	page = 1;
+		    	getImages(page);
+		    });
+		}
+	};
+
+	//***************** 打开遮罩层 ****************
+	$("#upload-attachment-button").click(function(){
+		$("#pop-bg").show();
+	});
+
+	//***************** 关闭遮罩层 ****************
+	$("#pop-bg").click(function(evt){
+		if(evt.target.id == 'pop-bg')
+		{
+			$(this).hide();
+		}
+	});
+
+	//****************** 选择图片 *****************
+	$(".archive-div-list").on("click",".archive-div-list-div",function(){
+		if( $(this).find(".archive-div-list-tick-input").prop("checked") )
+		{
+			$(this).find(".archive-div-list-tick-img").hide();
+			$(this).find(".archive-div-list-tick-input").prop("checked", false);
+		} else
+		{
+			$(this).find(".archive-div-list-tick-input").prop("checked", true);
+			$(this).find(".archive-div-list-tick-img").css("display","block");
+		}
+	});
+
+	//******************** 删除图片 ***************
+	$("#archive-div-list-bottom-del").click(function(){
+		var selectedImg = $(".archive-div-list-tick-input:checked");
+		if( selectedImg.length == 0 )
+		{
+			alert("您还没有选择任何图片！");
+			return;
+		}
+		if( !confirm("您确定要删除这些图片，这可能导致某些文章中的图片不可用！") )
+		{
+			return;
+		}
+		var selectedLength = selectedImg.length;
+		var fileIds = '';
+		for(var i=0;i<selectedLength;i++ )
+		{
+			fileIds += ","+selectedImg.eq(i).val();
+		}
+		fileIds = fileIds.substr(1);
+		$.post("/Admin/File/Del",{fileIds:fileIds},function(resp){
+			if( resp.code = 200 )
+			{
+				p.page = 1;
+			}
+		},"json");
+	});
+</script>
+</html>

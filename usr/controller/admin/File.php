@@ -51,4 +51,31 @@ class File extends Control
 			return $this->renderString("Access denied");
 		}
 	}
+
+	public function deleteFiles()
+	{
+		if( $this->AjaxRequest )
+		{
+			if( !$fileIds = $this->post("fileIds") )
+			{
+				return $this->renderJson(400,"Missing requried parameter: fileIds");
+			}
+			$fileArray = explode( ",", $fileIds );
+			$FileModel = Model::make("file");
+			foreach ($fileArray as $fileId) 
+			{
+				$file 			= 	$FileModel->find($fileId);
+				$fileWithPath 	= 	Config::get('SAVE-UPLOAD-DIR').'/'.$file->filename;
+				if( is_file($fileWithPath) )
+				{
+					unlink($fileWithPath);
+				}
+				$file->delete();
+			}
+			return $this->renderJson(200,"ok");
+		} else
+		{
+			return $this->renderString("Access denied");
+		}
+	}
 }

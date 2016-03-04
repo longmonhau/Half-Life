@@ -38,6 +38,11 @@ class Profile extends Control
 			if( $avatar = strip_tags( $this->post( 'avatar') ) )
 			{
 				$userObj->avatar = $user->avatar = $avatar;
+				$SiteInfoModel = Model::make("SiteInfo");
+				$site = $SiteInfoModel->getMeta("site_favicon");
+				//var_dump( $site );
+				$site->val = $avatar;
+				$site->save();
 			}
 			if( $oldpasswd = $this->post('oldpassword') )
 			{

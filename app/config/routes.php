@@ -41,7 +41,7 @@ return [
 
 	"adminPostSubmit" => ["POST","/Post/submit",["admin\Post","submit",["auth"]]],
 
-	"getCategoryPost" => ["POST","/getCategoryPost",["admin\Post","getPostByCategoryOnAjax"]],
+	"getCategoryPost" => ["GET","/getCategoryPost",["admin\PostList","getPostByCategoryOnAjax"]],
 
 	"Contactme" => ["GET","/contact.me",["Message","index"]],
 
@@ -83,5 +83,9 @@ return [
 
 	"md2html" => ["POST","/markdown2html/printHtml",["admin\Markdown2html","printHtml",]],
 
-	"admin/file/uploadimglist" => ["GET","/admin/file/uploadimglist",["admin\File","listUploads",["auth"]]]
+	"admin/file/uploadimglist" => ["GET","/admin/file/uploadimglist",["admin\File","listUploads",["auth"]]],
+
+	"adminAttachement" => ["GET", "/admin/Attachments",["admin\Attachment","index",["auth"]]],
+
+	"/Admin/File/Del" => ["POST","/admin/file/del",["admin\File","deleteFiles",["auth"]]]
 ];

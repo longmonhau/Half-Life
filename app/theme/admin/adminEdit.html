@@ -85,6 +85,23 @@
 <script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="/static/js/dropzone.js"></script>
 <script type="text/javascript">
+	(function($, undefined) {
+	    $.fn.getCursorPosition = function() {
+	        var el = $(this).get(0);
+	        var pos = 0;
+	        if ('selectionStart' in el) {
+	            pos = el.selectionStart;
+	        } else if ('selection' in document) {
+	            el.focus();
+	            var Sel = document.selection.createRange();
+	            var SelLength = document.selection.createRange().text.length;
+	            Sel.moveStart('character', -el.value.length);
+	            pos = Sel.text.length - SelLength;
+	        }
+	        return pos;
+		}
+	})(jQuery);
+
 	var Postcategory = '{{Post.category}}';
 	if( Postcategory != '' )
 	{
@@ -280,6 +297,20 @@
 				postIng = false;
 			}
 		});
+	});
+
+	$(".dash-main-right-archive-left").on("click",".dash-main-right-archive-list",function(){
+		var imgUrl = $(this).find("img").attr("src");
+		var pos = $(".edit-boxer-textarea").getCursorPosition();
+		var text = $(".edit-boxer-textarea").val();
+		if(pos==0)
+		{
+			$(".edit-boxer-textarea").val("![]("+imgUrl+")\n"+text);
+		} else{
+			var prev = text.substr(0,pos);
+			var end = text.substr(pos);
+			$(".edit-boxer-textarea").val(prev+"![]("+imgUrl+")\n"+end);
+		}
 	});
 
 	function getPostData()

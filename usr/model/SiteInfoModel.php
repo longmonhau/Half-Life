@@ -24,4 +24,9 @@ class SiteInfoModel extends Model
 			}
 		}
 	}
+
+	public function getMeta($meta)
+	{
+		return $this->where("meta", $meta)->first();
+	}
 }

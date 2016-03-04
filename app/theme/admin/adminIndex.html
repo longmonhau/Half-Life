@@ -6,7 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/font.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/admin/main.css">
-	<link rel="shortcut icon" href="/static/images/me.png" type="image/x-icon" />
+	<link rel="shortcut icon" href="{{site.site_favicon|default("/static/images/favicon.png")}}" type="image/x-icon" />
 </head>
 <body>
 	<div class="dash-header">
@@ -91,6 +91,7 @@
 					<li id="dash-main-right-nav-draft"><a href="">草稿<span>{{draftNum}}</span></a></li>
 					<li id="dash-main-right-nav-category"><a href="/Admin/Category.html">分类<span>{{totalCategoryNum}}</span></a></li>
 					<li id="dash-main-right-nav-chart"><a href="">图表<span></span></a></li>
+					<li id="dash-main-right-nav-attachment"><a href="/Admin/Attachments.html">附件<span>{{AttachmentCount}}</span></a></li>
 					<li id="dash-main-right-nav-visitor"><a href="">访客<span>12</span></a></li>
 				</ul>
 			</div>

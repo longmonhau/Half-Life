@@ -16,13 +16,14 @@ class Upload
 
 	public static function newInstance( $name )
 	{
-		$self = new self();
-		$self->upload_dir = Config::get("SAVE-UPLOAD-DIR");
-		$self->allow_type = Config::get('ALLOW-UPLOAD-TYPE');
-		$self->max_size = Config::get("MAX-UPLOAD-SIZE");
+		$self 				= 	new self();
+		$self->upload_dir 	= 	Config::get("SAVE-UPLOAD-DIR");
+		$self->allow_type 	= 	Config::get('ALLOW-UPLOAD-TYPE');
+		$self->max_size 	= 	Config::get("MAX-UPLOAD-SIZE");
 
-		$self->storage = new \Upload\Storage\FileSystem($self->upload_dir);
-		$self->file = new \Upload\File($name, $self->storage);
+		$self->storage 		= 	new \Upload\Storage\FileSystem($self->upload_dir);
+		$self->file 		= 	new \Upload\File($name, $self->storage);
+
 		$newFileName = \uniqid();
 		$self->file->setName($newFileName);
 		$self->file->addValidations(

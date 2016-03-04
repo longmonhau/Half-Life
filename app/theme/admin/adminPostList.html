@@ -18,7 +18,6 @@
 				<a href="/Admin/Messages.html" id="dash-header-top-nav-msg">
 					<span>私信</span>
 					<span id="dash-header-top-nav-msg-num">
-					{%if newMsgCount>99 %}99+{%else%}{%if newMsgCount>0%}{{newMsgCount}}{%endif%}{%endif%}
 					</span>
 				</a>
 				<a href="/Admin/dashBoard.html">首页</a>
@@ -33,83 +32,174 @@
 					全部
 				</div>
 				<div class="post-list-top-search">
-					<a href="javascript:;">PHP</a>
-					<a href="javascript:;">怡</a>
-					<a href="javascript:;">故事</a>
+					<a href="/Admin/Post/EditText.html">新文章</a>
+					<a href="javascript:;">草稿</a>
+					<a href="javascript:;">全部</a>
 				</div>
 			</div>
 			<div class="post-list-div">
+				{%for post in postList%}
 				<div class="post-list-div-li">
 					<div class="post-list-div-li-author">
-						<img src="/static/images/bg.jpg"/>
+						<img src="{{user.avatar}}"/>
 					</div>
 					<div class="post-list-div-li-content">
 						<div class="post-list-div-li-content-title">
-							<a href="" class="post-list-div-li-content-url-a">现在有多少人喜欢这种清新生活风格</a>
-							<a href="" class="post-list-div-li-content-del"></a>
+							<a href="/Blog/{{post.url}}.html" class="post-list-div-li-content-url-a">{{post.title}}</a>
+							<a href="javascript:;" pid="{{post.id}}" class="post-list-div-li-content-del"></a>
+							<a href="/Admin/Post/Edit{{post.ptype}}.html?pid={{post.id}}" class="post-list-div-li-content-edit"></a>
 						</div>
 						<div class="post-list-div-li-content-content">
-							我相信每个人都有过一次闹到鱼死网破才肯罢休的争吵经历，最后都会扬言从此之后你走你的阳关道，我过我的独木桥。多年以后回想起来又有几分后悔。往事随风，能记得的，依然是你最温柔的声音和那些匆匆流逝的美好时光。
+							{%if post.first_img %}
+							<div class="pldlcc-img-div">
+								{{post.first_img}}
+							</div>
+							{%endif%}
+							{{post.summary}}
 						</div>
 						<div class="post-list-div-li-content-bottom">
-							2016-02-12 15:14:11
+							{{post.created_at}}
 						</div>
 					</div>
 				</div>
-
-				<div class="post-list-div-li">
-					<div class="post-list-div-li-author">
-						<img src="/static/images/bg.jpg"/>
-					</div>
-					<div class="post-list-div-li-content">
-						<div class="post-list-div-li-content-title">
-							<a href="" class="post-list-div-li-content-url-a">现在有多少人喜欢这种清新生活风格</a>
-							<a href="" class="post-list-div-li-content-del"></a>
-						</div>
-						<div class="post-list-div-li-content-content">
-							我相信每个人都有过一次闹到鱼死网破才肯罢休的争吵经历，最后都会扬言从此之后你走你的阳关道，我过我的独木桥。多年以后回想起来又有几分后悔。往事随风，能记得的，依然是你最温柔的声音和那些匆匆流逝的美好时光。
-						</div>
-						<div class="post-list-div-li-content-bottom">
-							2016-02-12 15:14:11
-						</div>
-					</div>
-				</div>
-
-				<div class="post-list-div-li">
-					<div class="post-list-div-li-author">
-						<img src="/static/images/bg.jpg"/>
-					</div>
-					<div class="post-list-div-li-content">
-						<div class="post-list-div-li-content-title">
-							<a href="" class="post-list-div-li-content-url-a">现在有多少人喜欢这种清新生活风格</a>
-							<a href="" class="post-list-div-li-content-del"></a>
-						</div>
-						<div class="post-list-div-li-content-content">
-							我相信每个人都有过一次闹到鱼死网破才肯罢休的争吵经历，最后都会扬言从此之后你走你的阳关道，我过我的独木桥。多年以后回想起来又有几分后悔。往事随风，能记得的，依然是你最温柔的声音和那些匆匆流逝的美好时光。
-						</div>
-						<div class="post-list-div-li-content-bottom">
-							2016-02-12 15:14:11
-						</div>
-					</div>
-				</div>
-
-			</div>
+				{%endfor%}
+			</div><div class="dash-postlist-loading-tip"></div>
 		</div>
 		<div class="dash-main-right">
 			<div class="dash-main-right-top">
-				<a href="/"><div class="dash-main-right-top-title">lognmon Hau{{Site.site_name}}</div>
-				<div class="dash-main-right-top-domain">{{Site.site_domain}}www.longmonhau.com</div></a>
+				<a href="/"><div class="dash-main-right-top-title">{{site.site_name}}</div>
+				<div class="dash-main-right-top-domain">{{site.site_domain}}</div></a>
 			</div>
 			<div class="dash-main-right-nav post-list-category-div">
 				<ul>
-					<li><a href="">PHP语言</a></li>
-					<li><a href="">Golang</a></li>
-					<li><a href="">架构</a></li>
-					<li><a href="">数据库</a></li>
-					<li><a href="">访客</a></li>
+				{%for cate in categories%}
+					<li><a href="javascript:;" title="{{cate.title}}" cateid="{{cate.id}}">{{cate.title}}<span>{{cate.postNum}}</span></a></li>
+				{%endfor%}
 				</ul>
 			</div>
 		</div>
 	</div>
 </body>
+<script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+	function PAGE(){
+		var page=0;
+		var categoryId=-1;
+		var morepost=true;
+		Object.defineProperty(this,"page",{
+			get:function(){
+				return page;
+			},
+			set:function(val){
+				page = val;
+				if(morepost){
+					loadPostByAjax(page, this.categoryId);
+				}
+			}
+		});
+	}
+
+	var connd = new PAGE();
+	connd.categoryId = -1;
+	connd.page = 1;
+	connd.morepost = true;
+	$(".post-list-category-div ul li a").click(function(){
+		connd.categoryId = parseInt($(this).attr("cateid"));
+		connd.page=1;
+		connd.morepost = true;
+		$(".post-list-div").html('');
+		$(".post-list-top-title").text($(this).attr("title"));
+	});
+
+	$(window).scroll(function(){
+		if( $(document).scrollTop() + $(window).height() >= $(document).height() )
+		{
+			if( !connd.morepost ){return;}
+			connd.page++;
+		}
+	});
+
+	function loadPostByAjax(page, categoryId)
+	{
+		if(page==1&&categoryId==-1){return;}
+		var data = {
+			page:page,
+			categoryId:categoryId
+		};
+		var url = "/getCategoryPost";
+		if(categoryId==-1){
+			url = '/Admin/Post/List';
+		}
+		$(".dash-postlist-loading-tip").html("Loading...");
+		$.get( url, data, function(resp){
+			if( resp.code == 200 )
+			{
+				var postlist = resp.postList;
+				var postHtml = '';
+				if(postlist.length == 0)
+				{
+					if( page == 1 )
+					{
+						$(".dash-postlist-loading-tip").html('还没有文章~');
+					} else if(page >1){
+						$(".dash-postlist-loading-tip").html('没有更多文章了~');
+					}
+					connd.morepost = false;
+				}
+				for(var i in postlist )
+				{
+					var post = postlist[i];
+					postHtml 	+= '<div class="post-list-div-li">'
+								+'<div class="post-list-div-li-author">'
+								+'<img src="{{user.avatar}}"/>'
+								+'</div>'
+								+'<div class="post-list-div-li-content">'
+								+'<div class="post-list-div-li-content-title">'
+								+'<a href="/Blog/'+post.url+'.html" class="post-list-div-li-content-url-a">'+post.title+'</a>'
+								+'<a href="javascript:;" pid="'+post.id+'" class="post-list-div-li-content-del"></a>'
+								+'<a href="/Admin/Post/Edit'+post.ptype+'.html?pid='+post.id+'" class="post-list-div-li-content-edit"></a>'
+								+'</div>'
+								+'<div class="post-list-div-li-content-content">';
+					if(typeof(post.first_img)!='undefined'){
+							postHtml+='<div class="pldlcc-img-div">'+post.first_img+'</div>';
+					}
+					postHtml 	+= post.summary
+								+'</div>'
+								+'<div class="post-list-div-li-content-bottom">'
+								+post.created_at
+								+'</div>'
+								+'</div>'
+								+'</div>'
+				}
+				$(".post-list-div").append(postHtml);
+			} else if(resp.code == 503 ){
+				alert(resp.errmsg);
+				location.href=resp.go_url;
+			} else{
+				alert(resp.errmsg);
+			}
+		},"json");
+	}
+
+
+	$(".post-list-div").on("click",".post-list-div-li-content-del",function(){
+		var pid = $(this).attr("pid");
+		var _this = $(this);
+		$.ajax({
+			url:"/Admin/Post/Del",
+			data:{"postId":pid},
+			type:"post",
+			dataType:"json",
+			error:function(error,errstr){
+				alert(errstr);
+			},
+			success:function( resp ){
+				if( resp.code == 200 )
+				{
+					_this.parent().parent().parent().remove();
+				}
+			}
+		});
+	});
+</script>
 </html>

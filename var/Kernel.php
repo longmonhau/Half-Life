@@ -45,9 +45,9 @@ class Kernel
 
 		Factory::make( "session" )->start();
 
-		$self = new static();
-		$self->route = Route::newInstance();
-		$self->request = Request::newInstance();
+		$self 			= 	new static();
+		$self->route 	= 	Route::newInstance();
+		$self->request 	= 	Request::newInstance();
 
 		return $self;
 	}
@@ -55,12 +55,11 @@ class Kernel
 	public function run()
 	{
 		$pathInfo 	= 	$this->request->getPathInfo();
-		$httpMethod = 	$this->request->server->get('REQUEST_METHOD');
-		define("HTTP_METHOD", $httpMethod);
+		$httpMethod = 	$this->request->server->get('REQUEST_METHOD');	
 		$pathInfo 	= 	str_replace(Config::get("URL-SUFFIX"), '', $pathInfo);
 		$pathInfo 	= 	rtrim($pathInfo,"/");
 		$route_ret 	= 	$this->route->dispatch( $pathInfo, $httpMethod );
-
+		define("HTTP_METHOD", $httpMethod);
 		return $this->execute( $route_ret );
 	}
 

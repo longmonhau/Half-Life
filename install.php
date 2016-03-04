@@ -66,6 +66,7 @@ $create_table['posts'] = <<<CREATE
 create table  if not exists posts(
 	id int not null auto_increment,
 	top tinyint not null default 0,
+	ptype enum("text","photo","music","video") default "text",
 	public tinyint not null default 1,
 	title varchar(200) not null,
 	category char(20) not null,

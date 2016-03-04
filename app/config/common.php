@@ -11,7 +11,7 @@ return [
 
 	"ALLOW-UPLOAD-TYPE" => 	["image/png",'image/gif',"image/jpeg","image/jpg","image/bmp"],
 
-	"MAX-UPLOAD-SIZE" 	=> 	'5M',
+	"MAX-UPLOAD-SIZE" 	=> 	'10M',
 
 	//========== template setting ===========
 	"TEMPLATE-ENGINE" 		=> "twig",

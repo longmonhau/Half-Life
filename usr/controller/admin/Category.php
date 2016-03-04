@@ -4,9 +4,13 @@ use lOngmon\Hau\core\Control;
 use lOngmon\Hau\core\Factory;
 use lOngmon\Hau\core\Model;
 use lOngmon\Hau\usr\bundle\tSession;
+use lOngmon\Hau\usr\traits\SiteInfo;
+use lOngmon\Hau\core\component\Config;
 
 class Category extends Control
 {
+    use SiteInfo;
+
 	private $request = null;
 
 	private $CateModel = null;
@@ -18,11 +22,44 @@ class Category extends Control
 	}
 	public function index()
 	{
+        $PostModel          =   Model::make("Post");
+        $CategoryModel      =   Model::make("Category");
+        $CommentModel       =   Model::make("Comment");
+        $MessageModel       =   Model::make("Message");
+        $AttachmentModel    =   Model::make("file");
+
+        $postNum            =   $PostModel->where("public", 1)->count();
+        $draftNum           =   $PostModel->where("public",0)->count();
+        $CategoryNum        =   $CategoryModel->count();
+        $CommentNum         =   $CommentModel->count();
+        $newMessage         =   $MessageModel->where("resp",0)->orderBy("created_at","DESC")->get();
+        $attachment         =   $AttachmentModel->count();
+
+        $this->assign("totalCategoryNum",   $CategoryNum );
+        $this->assign("totalPostNum",       $postNum );
+        $this->assign("draftNum",           $draftNum);
+        $this->assign("newMsgCount",        count($newMessage) );
+        $this->assign("files",              $this->getRecentImages());
+        $this->assign("AttachmentCount",    $attachment);
+
 		$categories = $this->CateModel->get();
 		$this->assign("categories", $categories);
         $this->assign("user", tSession::getLoginedUserInfo());
+        $this->assign("site",$this->getSiteInfo());
 		$this->display("adminCategory.html");
 	}
+    private function getRecentImages()
+    {
+        $FileModel  = Model::make("file");
+        $files      = $FileModel->getFiles(0,6);
+        $ret_files  = [];
+
+        foreach ($files as $file) 
+        {
+            $ret_files[]['url'] = str_replace(ROOT_PATH,"",Config::get("SAVE-UPLOAD-DIR")."/".$file->filename);
+        }
+        return $ret_files;
+    }
 
 	public function edit()
 	{

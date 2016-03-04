@@ -273,13 +273,13 @@ textarea,input{
 .main-box-post-header-title{
 	width: 100%;
 	font-size: 3em;
+	line-height: 1.1em;
 	float: left;
 	font-weight: 300;
 	color: #444;
 }
 .main-box-post-content-box{
 	width: 100%;
-	margin-top: 1em;
 	float: left;
 }
 .main-box-post-content-content{
