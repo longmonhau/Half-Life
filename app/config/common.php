@@ -22,15 +22,15 @@ return [
 
 	"TEMPLATE-THEME" 		=> "black",
 
-	"TEMPLATE-CACHE" 		=> false,
+	"TEMPLATE-CACHE" 		=> false, //是否缓存模板
 
-	"TEMPLATE-DEBUG" 		=> false,
+	"TEMPLATE-DEBUG" 		=> false, //是否打开调试
 
 	"TEMPLATE-CHARSET" 		=> "utf-8",
 
-	"TEMPLATE-AUTOESCAPE" 	=> false,
+	"TEMPLATE-AUTOESCAPE" 	=> false, //是否打开自动处理XSS
 
-	"TEMPLATE-OPTIMIZATION" => -1,
+	"TEMPLATE-OPTIMIZATION" => -1, //模板优化级别
 
 	"TEMPLATE_SUFFIX" 		=> ".html",
 

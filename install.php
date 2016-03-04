@@ -1,5 +1,5 @@
 <?php
-
+//*********************** 以下是编辑区 ***********************
 date_default_timezone_set("Asia/Shanghai");
 /**
  * 
@@ -19,6 +19,7 @@ $mysql = array(
 
 /**
  * 站点设置
+ * 这些配置可以登陆网站后台编辑
  * @var array
  */
 $site = array(
@@ -35,9 +36,12 @@ $admin = array(
 	'name'			=> 'admin',//管理员账号
 	'sname'			=> 'admin',//管理员昵称，也是网站前台显示的名称
 	'email'			=> '1307995200@qq.com',//邮箱
-	'passwd'		=> 'DWI@D99##DJ*$*DJKK(9'//登陆密码
+	'passwd'		=> 'DWI@D99##DJ'//登陆密码
 );
 
+//*************************** 编辑区到处为止 ************************
+
+//*********************** 编辑以下区域可能导致错误，请慎重 *****************
 
 $dsn = $mysql['driver'].':host='.$mysql['host'].';dbname='.$mysql['database'].';';
 
@@ -221,6 +225,11 @@ if( !is_dir("static/uploads") )
 	mkdir("static/uploads");
 	chmod("static/uploads", 0777);
 }
+if( !is_dir("./Blog") )
+{
+	mkdir("./BLog");
+	chmod("./Blog", 0777);
+}
 
 file_put_contents("app/config/database.php", $database);
 
@@ -235,5 +244,7 @@ echo "请牢记您的管理员账号！\n";
 echo "欢迎使用Half-Life博客系统！\n";
 
 echo "安装完成后你可能需要修改app/config/common.php配置文件以适应您的环境！\n";
+
+echo "为了网站安全，安装完成后请删除本脚本\n";
 
 echo "联系作者：www.longmonhau.com 1307995200@qq.com\n\n";
