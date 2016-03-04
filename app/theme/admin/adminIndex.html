@@ -31,7 +31,7 @@
 		<div class="dash-main-left">
 			<div class="dash-main-top">
 				<div class="dash-main-top-avatar">
-					<a href=""><img src="/static/images/mm_.jpeg" class="dash-main-avatar"></a>
+					<a href=""><img src="{{user.avatar}}" class="dash-main-avatar"></a>
 				</div>
 				<div class="dash-main-top-icons">
 					<a href="/Admin/Post/EditText.html" id="dash-main-icon-text"></a>
@@ -45,7 +45,7 @@
 				{%for msg in messages%}
 				<div class="dash-main-feed-div">
 					<div class="dash-main-feed-avatar">
-						<img src="/static/images/even.jpg" class="dash-main-feed-avatar-img">
+						<img src="http://www.gravatar.com/avatar/{{msg.gravatar}}" class="dash-main-feed-avatar-img">
 					</div>
 					<div class="dash-main-feed-box">
 						<div class="dash-main-feed-postname">
@@ -81,8 +81,8 @@
 		</div>
 		<div class="dash-main-right">
 			<div class="dash-main-right-top">
-				<a href="/"><div class="dash-main-right-top-title">{{Site.site_name}}</div>
-				<div class="dash-main-right-top-domain">{{Site.site_domain}}</div></a>
+				<a href="/"><div class="dash-main-right-top-title">{{site.site_name}}</div>
+				<div class="dash-main-right-top-domain">{{site.site_domain}}</div></a>
 			</div>
 			{%block dashRightNav%}
 			<div class="dash-main-right-nav">

@@ -45,6 +45,7 @@ class Message extends Control
 		} else {
 			$this->assign("user", tSession::getLoginedUserInfo());
 			$this->assign("messageList", $return_msg);
+			$this->assign("site", $this->siteInfo);
 			return $this->display("adminMessages.html");
 		}
 

@@ -47,7 +47,7 @@ class Post extends Control
 		$Category = $this->CateModel->get();
 		$this->assign("categorys", $Category);
 		$this->assign("files", $file_return);
-		$this->assign("Site", $siteInfo);
+		$this->assign("site", $siteInfo);
 		$this->display("adminEdit.html");
 	}
 

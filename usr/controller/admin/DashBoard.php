@@ -27,12 +27,13 @@ class DashBoard extends Control
 
 		$this->assign("totalCategoryNum", 	$CategoryNum );
 		$this->assign("totalPostNum", 		$postNum );
-		$this->assign("Site", 				$this->getSiteInfo());
+		$this->assign("site", 				$this->getSiteInfo());
 		$this->assign("draftNum", 			$draftNum);
 		$this->assign("newMsgCount",		count($newMessage) );
 		$this->assign("files", 				$this->getRecentImages());
 		$this->assign("messages", 			iterator_to_array($newMessage) );
 		$this->assign("AttachmentCount",	$attachment);
+		$this->assign("user", tSession::getLoginedUserInfo());
 
 		$this->display( "adminIndex.html" );
 	}
