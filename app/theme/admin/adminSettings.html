@@ -90,14 +90,14 @@
 	</div>
 	<div class="upload-img-div" id="upload-img-div">
 		<div class="dropzone-file-div set-upload-img-div">
-			<div class="dropzone" id="my-awesome-dropzone">
+			<form action="/admin/Upload/File/file" class="dropzone" id="my-awesome-dropzone">
 				<div class="fallback">
 			    	<input name="file" type="file"/>
-			  </div>
-			</div>
+			  	</div>
+			</form>
 		</div>
 	</div>
-	<div id="upload-favicon-div">
+	<!--<div id="upload-favicon-div">
 		<div class="dropzone-file-div set-upload-img-div">
 			<div class="dropzone" id="favicon-dropzone">
 				<div class="fallback">
@@ -105,36 +105,34 @@
 			  </div>
 			</div>
 		</div>
-	</div>
+	</div>-->
 </body>
 <script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="/static/js/dropzone.js"></script>
 <script type="text/javascript">
 	//******************* 上传插件 *************
 	//******************* logo 上传 ***********
-	var myDropzone = new Dropzone("#my-awesome-dropzone", { 
-		url: "/admin/Upload/File/file",
+	Dropzone.options.myAwesomeDropzone = { 
 	  	init: function() {
-		    this.on("success", function(resp) { 
-		    	var res = $.parseJSON(resp.xhr.response);
+		    this.on("success", function(resp, res) { 
 				$(".dash-set-div-input-avatar-img").attr("src",res.url);
 				$("#dash-set-div-logo-val").val(res.url);
 				$("#upload-img-div").hide();
 		    });
 		  }
-	});
+	};
 	//****************** Favicon上传 **********
+	/******************* useless now *********
 	var faviconDropzone = new Dropzone("#favicon-dropzone", { 
 		url: "/admin/Upload/File/file",
 	  	init: function() {
-		    this.on("success", function(resp) { 
-		    	var res = $.parseJSON(resp.xhr.response);
+		    this.on("success", function(resp, res) { 
 				$("#set-favicon-src").attr("src",res.url);
 				$("#site-set-favicon").val(res.url);
 				$("#upload-favicon-div").hide();
 		    });
 		  }
-	});
+	});*/
 
 	//************* 打开遮罩层 ****************
 	$(".dash-st-div-input-upload").click(function(){
@@ -171,7 +169,6 @@
 			var name = inputs.eq(j).attr("name");
 			data[name] = inputs.eq(j).val();
 		}
-		console.log(data);
 		posting = true;
 		$.ajax({
 			url:"/admin/Setting/submit",

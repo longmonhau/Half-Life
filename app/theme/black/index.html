@@ -17,7 +17,7 @@
 		<div class="index-main-box">
 			<div class="main-box-top">
 				<div class="main-box-top-box">
-					<img src="{{Site.site_logoimg}}" class="main-box-top-img-icon"/>
+					<img src="{{Site.site_logoimg|default("/static/images/male.png")}}" class="main-box-top-img-icon"/>
 				</div>
 				<div class="main-box-top-box">
 					<div class="main-box-top-box-title">
@@ -43,7 +43,7 @@
 	<!--Index Footer box-->
 	<div class="index-footer">
 		<div class="index-footer-copyright">
-			&copy;2015 Powered by <a href="https://github.com/longmonhau/Half-Life.git" target="_blank">Half-Life</a> 
+			{{Site.site_copyright}} Powered by <a href="https://github.com/longmonhau/Half-Life.git" target="_blank">Half-Life</a> 
 		</div>
 	</div>
 	<div class="index-left-door"></div>

@@ -27,6 +27,12 @@ class SiteInfoModel extends Model
 
 	public function getMeta($meta)
 	{
-		return $this->where("meta", $meta)->first();
+		if( $Meta = $this->where("meta", $meta)->first() )
+		{
+			return $Meta;
+		} else{
+			$this->meta = $meta;
+			return $this;
+		}
 	}
 }

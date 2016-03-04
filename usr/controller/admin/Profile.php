@@ -39,10 +39,20 @@ class Profile extends Control
 			{
 				$userObj->avatar = $user->avatar = $avatar;
 				$SiteInfoModel = Model::make("SiteInfo");
-				$site = $SiteInfoModel->getMeta("site_favicon");
-				//var_dump( $site );
+				$site = $SiteInfoModel->getMeta("site_faviconss");
+				//在模型处做了适配，所以这里不用判断$site的类型
 				$site->val = $avatar;
 				$site->save();
+				/*if( !$site ){
+					$favicon = [];
+					$favicon['meta'] 	= "site_favicon";
+					$favicon['val']		= $avatar;
+					$SiteInfoModel->insert( $favicon );
+				} else{
+					$site->val = $avatar;
+					$site->save();
+				}*/
+				
 			}
 			if( $oldpasswd = $this->post('oldpassword') )
 			{

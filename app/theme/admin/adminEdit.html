@@ -150,8 +150,7 @@
 
 	Dropzone.options.myAwesomeDropzone = {
 	  init: function() {
-	    this.on("success", function(resp) { 
-	    	var res = $.parseJSON(resp.xhr.response);
+	    this.on("success", function(resp, res) { 
 	    	var imgHtml = '<div class="dash-main-right-archive-list">'
 						+'<img src="'+res.url+'"></div>';
 			$(".dash-main-right-archive-left").prepend(imgHtml);

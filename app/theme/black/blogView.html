@@ -14,6 +14,9 @@
 		<div class="index-main-view-box">
 			<div class="main-box-top">
 				<div class="main-box-top-box">
+					<img src="{{Site.site_logoimg|default("/static/images/male.png")}}" class="main-box-top-img-icon"/>
+				</div>
+				<div class="main-box-top-box">
 					<div class="main-box-top-box-title">
 						{{Site.site_name}}
 					</div>
@@ -51,7 +54,7 @@
 								知识共享协议
 							</div>
 							<div class="mbpcc-copyright-desc">
-								本作品采用知识共享署名-非商业性使用 4.0 国际许可协议进行许可。 转载文章请注明原文出处。任何意见或建议请联系我：longmon.hau@gmail.com
+								{{Site.site_ccdesc}}
 							</div>
 						</div>
 					</div>
@@ -81,6 +84,9 @@ s.setAttribute('data-timestamp', +new Date());
 					</div>
 				</div>
 			</div>
+		</div>
+		<div style="display: none;">
+			{{Site.site_analytices}}
 		</div>
 	</div>
 	<script id="dsq-count-scr" src="//longmonhau.disqus.com/count.js" async></script>

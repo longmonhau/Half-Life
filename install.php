@@ -193,7 +193,7 @@ foreach ($create_table as $table => $sql) {
 $pdo->query( "SET NAMES UTF8" );
 $now = date("Y-m-d H:i:s");
 $insert['users'] = 'insert ignore into users(`name`,`sname`,`email`,`avatar`,`role`,`passwd`,`created_at`, `updated_at`, `last_login_at`, `last_login_ip`) values("'.$admin['name'].'","'.$admin['sname'].'","'.$admin['email'].'","http://www.gravatar.com/avatar/'.md5($admin['email']).'",1, "'.password_hash($admin['passwd'], PASSWORD_DEFAULT).'", now(),now(),now(),'.ip2long("127.0.0.1").');';
-$insert['category'] = 'insert ignore into category(`title`,`categoryId`,`postNum`,`desp`,`created_at`,`updated_at`) values("默认分类","default",0,"default category",now(),now())';
+$insert['category'] = 'insert ignore into category(`title`,`categoryId`,`postNum`,`created_at`,`updated_at`) values("默认分类","default",0,now(),now())';
 $insert['siteInfo1'] = 'insert ignore into siteInfo(`meta`,`val`,`created_at`) values("site_name","'.$site['site_name'].'",now())';
 $insert['siteInfo2'] = 'insert ignore into siteInfo(`meta`,`val`,`created_at`) values("site_domain","'.$site['site_domain'].'",now())';
 $insert['siteInfo3'] = 'insert ignore into siteInfo(`meta`,`val`,`created_at`) values("site_desc","'.$site['site_desc'].'",now())';
