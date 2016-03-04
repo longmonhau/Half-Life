@@ -1,9 +1,31 @@
-{%extends "adminIndex.html"%}
-
-{%block pageTitle%}作品{%endblock%}
-
-{%block dashMainTop%}{%endblock%}
-
-{%block dashMain%}{%endblock%}
-
-{%block dashScript%}{%endblock%}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>{%block pageTitle%}我的资料{%endblock%}</title>
+	<meta charset="utf8"/>
+	<link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/font.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/admin/main.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/dropzone.css">
+	<link rel="shortcut icon" href="{{site.site_favicon|default("/static/images/favicon.png")}}" type="image/x-icon" />
+</head>
+<body>
+	<div class="dash-header">
+		<div class="dash-header-top">
+			<div class="dash-header-top-logo"><a href="">Half-Life</a></div>
+			<div class="dash-header-top-nav">
+				<a href="/Admin/Profiles.html" id="dash-header-top-nav-me">我</a>
+				<a href="/Admin/Settings.html">设置</a>
+				<a href="/Admin/Messages.html" id="dash-header-top-nav-msg">
+					<span>私信</span>
+					{%if newMsgCount>0 %}<span id="dash-header-top-nav-msg-num">
+					</span>{%endif%}
+				</a>
+				<a href="/Admin/showWorks.html">作品</a>
+				<a href="/Admin/dashBoard.html">首页</a>
+			</div>
+			<div class="clear">&nbsp;</div>
+		</div>
+	</div>
+</body>
+</html>
