@@ -17,8 +17,8 @@ RewriteRule ^(.*)$ /index.php/$1 [L]
 ```
 
 ### Install
-1.编辑install.php，修改相应的选项
-2.运行install.php，如果一切正常会输出相关信息
+1. 编辑install.php，修改相应的选项
+2. 运行install.php，如果一切正常会输出相关信息
 
 
 ### 鸣谢
