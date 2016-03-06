@@ -8,6 +8,7 @@
 - PDO PHP extension 及相应的数据库扩展
 - 基于`LAMP`或`LNMP`，可选`Redis`作缓存,建议安装在unix系列主机
 - WEB服务器必须支持URL重写
+- Composer 管理依赖
 ```
 #Apache .htaccess 例子 其他请自行Google
 RewriteEngine on

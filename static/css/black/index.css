@@ -335,8 +335,10 @@ textarea,input{
 #mbpcc-text{
 	width: 100%;
 	float: left;
-	color: #666;
+	color: #333;
 	overflow: hidden;
+	font-size: 16px;
+	padding-bottom: 1em;
 }
 blockquote{
 	background: #EFEFEF url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAABbklEQVQ4T+1SPUsDQRCdtznSSUQkhGAhilgJFjZ2qVLd7l0QFBTs7OI/kGiSX6BiE2xsBBGSy+UQrBJErESwFGsVBH+BcUc2H3IXTezFqXaGN2/emx1QKDKZjJVIJNaJaENrvSSEtV+v10phzODbtlfmgHYeoKzWPIM+QCk1zyzOAVoINRV939sbQgil3B0iKhCR1cd0CA0ZkbgmokmTa03PAC6Aj1Pf95s/ESrlHhJRvovXOhYTTSLcwtgcGxu/Cykrp1LJcqVSeR9mVUp3FaCz3vAHIqwFQe3e5HAcZ5MZJ73msu97xsKogJTqERCzWuvXeNxarFarL1+WHce5ZEbW2Eynk9OjlJkm284tC8E3HTVAvl6vHYWnQ0r5BsQmmHHcaNS2flFHUrrbAB107bangiB4ihAq5WozjBlXAEc+QAhqeZ7XCjc4Tq7AzEVTY+YSAB4kjBQGFH47G6Vcc0a7w5yYW/onjGznD+7wE7u0qSp3Zbf8AAAAAElFTkSuQmCC) 10px 10px no-repeat;
@@ -346,17 +348,39 @@ blockquote{
 	box-shadow: 0px 0px 2px #CDCDCD;
 }
 #mbpcc-text p{
-	color: #666;
+	color: #222;
 	line-height: 25px;
-	font-size: 15px;
 }
+
 #mbpcc-text code{
+	border-radius: 4px;
+	padding: 2px 8px;
+	background: #EFEFEF;
 	font-family: "Open Sans";
+}
+#mbpcc-text pre code{
+	width: 610px;
+	float: left;
+	padding:20px;
+	background: #232323;
+	color: #EFEFEF;
+}
+#mbpcc-text ul{
+	margin:0px;
+	padding:0px;
+}
+#mbpcc-text li{
+	height: 16px;
+	padding: 0px;
+}
+#mbpcc-text a{
+	color: #24A8FC;
+	font-size: 16px;
 }
 
 .mbpcc-copyright{
 	width: 100%;
-	margin-top: 1em;
+	margin-top: 1.5em;
 	float: left;
 }
 .mbpcc-copyright-head{

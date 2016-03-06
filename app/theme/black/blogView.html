@@ -6,6 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="/static/css/font.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/black/index.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/monokai.css">
 	<link rel="shortcut icon" href="{{site.site_favicon|default("/static/images/favicon.png")}}" type="image/x-icon" />
 </head>
 <body>
@@ -88,13 +89,15 @@ s.setAttribute('data-timestamp', +new Date());
 	</div>
 	<script id="dsq-count-scr" src="//longmonhau.disqus.com/count.js" async></script>
 	<script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="/static/js/highlight.pack.js"></script>
 	<script type="text/javascript">
 		$(document).keypress(function(evt){
-		if(evt.keyCode == 63273 )
-		{
-			location.href="/";
-		}
-	});
+			if(evt.keyCode == 63273 )
+			{
+				location.href="/";
+			}
+		});
+		hljs.initHighlightingOnLoad();
 	</script>
 </body>
 </html>
