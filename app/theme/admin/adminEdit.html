@@ -77,7 +77,7 @@
 {%endblock%}
 {%block dashRightAc%}
 <div class="edit-post-time-div">
-	<input type="text" value="{{Post.created_at|default|date('F d, Y')}}" id="edit-post-time-input" />
+	<input type="text" value="{{Post.created_at|default|date('Y-m-d H:i:s')}}" id="edit-post-time-input" />
 </div>
 {%endblock%}
 

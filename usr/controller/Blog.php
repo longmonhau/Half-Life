@@ -7,6 +7,7 @@ use lOngmon\Hau\core\Factory;
 use lOngmon\Hau\usr\traits\AdminInfo;
 use lOngmon\Hau\usr\traits\SiteInfo;
 use lOngmon\Hau\usr\bundle\tSession;
+use lOngmon\Hau\core\component\Config;
 
 class Blog extends Control
 {
@@ -19,7 +20,7 @@ class Blog extends Control
 		$UserModel 		= 	Model::make("User");
 		$user 			= 	$UserModel->getAdmin();
 
-		$Post 			= 	$PostModel->where("url", $url)->first();
+		$Post 			= 	$PostModel->where("url", Config::get("POST-STATIC-PATH").$url)->first();
 		$time 			= 	strtotime($Post->created_at);
 		$Post->postTime = 	date("F d, Y", $time);
 
