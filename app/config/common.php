@@ -15,6 +15,8 @@ return [
 
 	"POST-STATIC-PATH"	=> "a/",
 
+	"POST-STATIC_ENABLE" => TRUE,
+
 	//========== template setting ===========
 	"TEMPLATE-ENGINE" 		=> "twig",
 
@@ -24,7 +26,7 @@ return [
 
 	"TEMPLATE-THEME" 		=> "black",
 
-	"TEMPLATE-CACHE" 		=> false, //是否缓存模板
+	"TEMPLATE-CACHE" 		=> true, //是否缓存模板
 
 	"TEMPLATE-DEBUG" 		=> false, //是否打开调试
 

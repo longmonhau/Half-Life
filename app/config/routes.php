@@ -3,11 +3,7 @@
 return [
 	"index" => ["GET","/", ["Index","index"]],
 
-	"blogView"=>['GET',"/Blog/{slug}",["Blog","view"]],
-
-	"blogComment"=>["POST","/a/Comment",["Blog","comment"]],
-
-	"postCommenct"=>["POST","/Blog/postCommenct",["Blog","commentPost",['CommentTimeLimit']]],
+	"blogView"=>['GET',"/a/{slug}",["Blog","view"]],
 
 	"categoryList"=>['GET',"/Category/{category}", ["Index","categoryPost"]],
 

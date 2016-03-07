@@ -22,7 +22,7 @@ class TwigTemplate implements TemplateInterface
 
 		$option = [];
 		if ( Config::get("TEMPLATE-CACHE") ) {
-			$option['cache'] = Config::get( 'TEMPLATE-CACHE_DIR' );
+			$option['cache'] = Config::get( 'TEMPLATE-CACHE-DIR' );
 		}
 		$option['debug'] = Config::get('TEMPLATE-DEBUG');
 		$option['charset'] = Config::get('TEMPLATE-CHARSET');
