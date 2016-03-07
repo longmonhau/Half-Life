@@ -34,14 +34,14 @@ class SimpleTemplate
 			$parentDir = dirname($staticHtmlDir);
 			if( !is_writable( $parentDir ) )
 			{
-				Log::Error( $parentDir."目录不可写！");
+				Log::addWarning( $parentDir."目录不可写！");
 				return;
 			}
 			mkdir($staticHtmlDir);
 			chmod($staticHtmlDir, "0777");
 		} else if( !is_writable($staticHtmlDir) )
 		{
-			Log::error("$staticHtmlDir 目录不可写", 500);
+			Log::addWarning("$staticHtmlDir 目录不可写");
 		}
 		file_put_contents($staticHtmlDir.'/'.$fileName.".html", $html);
 	}

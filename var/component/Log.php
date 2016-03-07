@@ -26,7 +26,7 @@ class Log
 		$log = self::newInstance();
 		if( method_exists( $log, $func ) )
 		{
-			return call_user_func_array([$log, $func], $param) ;
+			return call_user_func_array([$log, $func], [$param]) ;
 		} else
 		{
 			$log->addWarning("Calling undefined method: ". $log."::".$func);

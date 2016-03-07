@@ -5,7 +5,7 @@ return [
 
 	"blogView"=>['GET',"/Blog/{slug}",["Blog","view"]],
 
-	"blogComment"=>["POST","/Blog/Comment",["Blog","comment"]],
+	"blogComment"=>["POST","/a/Comment",["Blog","comment"]],
 
 	"postCommenct"=>["POST","/Blog/postCommenct",["Blog","commentPost",['CommentTimeLimit']]],
 

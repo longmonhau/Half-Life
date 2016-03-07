@@ -65,7 +65,7 @@ class Post extends Control
 			$post['title'] = "无题";
 		}
 
-		$post['url'] = date("YmdHis");
+		$post['url'] = "a/".md5(date("YmdHis"));
 
 		if( !$post['created_at'] = $this->post("created_at") )
 		{

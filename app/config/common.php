@@ -7,11 +7,13 @@ return [
 
 	"SAVE-UPLOAD-DIR" 	=> 	STATIC_PATH.'/uploads',//请确保目录可写
 
-	"STATIC-HTML-DIR"	=>	ROOT_PATH.'/Blog',//请确保目录可读写，并在WEB目录下
+	"STATIC-HTML-DIR"	=>	ROOT_PATH.'/a',//请确保目录可读写，并在WEB目录下
 
 	"ALLOW-UPLOAD-TYPE" => 	["image/png",'image/gif',"image/jpeg","image/jpg","image/bmp"],
 
 	"MAX-UPLOAD-SIZE" 	=> 	'10M',
+
+	"POST-STATIC-PATH"	=> "a/",
 
 	//========== template setting ===========
 	"TEMPLATE-ENGINE" 		=> "twig",
