@@ -26,7 +26,7 @@ return [
 
 	"TEMPLATE-THEME" 		=> "black",
 
-	"TEMPLATE-CACHE" 		=> true, //是否缓存模板
+	"TEMPLATE-CACHE" 		=> false, //是否缓存模板
 
 	"TEMPLATE-DEBUG" 		=> false, //是否打开调试
 

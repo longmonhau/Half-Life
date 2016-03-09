@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-	<title>{{post.title}} | {{site.site_name}}</title>
+	<title> | longmon Hau的博客</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="/static/css/font.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/black/index.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/monokai.css">
-	<link rel="shortcut icon" href="{{site.site_favicon|default("/static/images/favicon.png")}}" type="image/x-icon" />
+	<link rel="shortcut icon" href="/static/uploads/56d9cf613d13c.png" type="image/x-icon" />
 </head>
 <body>
 	<div class="index-header"></div>
@@ -15,47 +15,45 @@
 		<div class="index-main-view-box">
 			<div class="main-box-top">
 				<div class="main-box-top-box">
-					<img src="{{site.site_logoimg|default("/static/images/male.png")}}" class="main-box-top-img-icon"/>
+					<img src="/static/uploads/56d9ce806f7c5.png" class="main-box-top-img-icon"/>
 				</div>
 				<div class="main-box-top-box">
 					<div class="main-box-top-box-title">
-						{{site.site_name}}
+						longmon Hau的博客
 					</div>
 					<div class="main-box-top-box-desc">
-						{{site.site_desc}}
+						每个优秀的人，都有一段沉默的时光。那一段时光，是付出了很多努力，忍受孤独和寂寞，不抱怨不诉苦，日后说起时，连自己都能被感动的日子
 					</div>
 				</div>
 			</div>
 			<div class="view-box-post">
 				<div class="main-box-post-header">
 					<div class="main-box-post-header-category">
-						{%for cate in post.aCategory%}
-						<a target="_blank" href="/Category/{{cate.categoryId}}.html">{{cate.title}}</a>
-						{%endfor%}
-					</div>
+												<a target="_blank" href="/Category/.html"></a>
+											</div>
 
-					<div class="main-box-post-header-title">{{post.title}}</div>
+					<div class="main-box-post-header-title"></div>
 				</div>
 				<div class="main-box-post-content-box">
 					<div class="main-box-post-content-author">
 						<ul class="mbpca-ul">
-							<li id="mbpca-ul-li-author"><a href="javascript:;">By {{post.author}}</a></li>
-							<li id="mbpca-ul-li-date">{{post.postTime}}</li>
+							<li id="mbpca-ul-li-author"><a href="javascript:;">By  花老英雄</a></li>
+							<li id="mbpca-ul-li-date">January 01, 1970</li>
 							<li id="mbpca-ul-li-comment"><a href="#disqus_thread">0条评论</a></li>
-							<li id="mbpca-ul-li-share"><a href="http://{{site.site_domain}}/{{post.url}}.html">Permalink</a></li>
+							<li id="mbpca-ul-li-share"><a href="http://longmonhau.com/.html">Permalink</a></li>
 							<li id="mbpca-ul-li-gohome"><a href="/">按下 CTRL+HOME</a></li>
 						</ul>
 					</div>
 					<div class="main-box-post-content-content">
 						<div id="mbpcc-text">
-						{{post.html}}
+						
 						</div>
 						<div class="mbpcc-copyright">
 							<!--<div class="mbpcc-copyright-head">
 								知识共享协议
 							</div>
 							<div class="mbpcc-copyright-desc">
-								{{site.site_ccdesc}}
+								本作品采用知识共享<a href="">署名-非商业性使用 4.0 国际许可协议</a>进行许可。 转载文章请注明原文出处。任何意见或建议请联系我：longmon.hau@gmail.com
 							</div>-->
 						</div>
 					</div>
@@ -85,9 +83,6 @@ s.setAttribute('data-timestamp', +new Date());
 					</div>
 				</div>
 			</div>
-		</div>
-		<div style="display:none;">
-			{{site.site_analytices}}
 		</div>
 	</div>
 	<script id="dsq-count-scr" src="//longmonhau.disqus.com/count.js" async></script>

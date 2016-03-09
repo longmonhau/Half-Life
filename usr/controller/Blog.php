@@ -42,9 +42,11 @@ class Blog extends Control
 		$Post->author = $user->sname;
 		$this->assign("post", $Post);
 		$this->assign("site",$this->getSiteInfo());
-		
-		$this->toHtml("blogView.html", $url);
-		//$this->display("blogView.html");
+		if( Config::get("POST-STATIC_ENABLE") )
+		{
+			return $this->toHtml("blogView.html", $url);
+		}
+		return $this->display("blogView.html");
 	}
 
 	public function comment()
